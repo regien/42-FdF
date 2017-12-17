@@ -1,0 +1,1 @@
+gcc main.c minilibx_macos_elcapitan/libmlx.a -framework OpenGL -framework AppKit -o test
