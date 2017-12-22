@@ -4,7 +4,7 @@
 int			my_key_funct(int keycode, void *param)
 {
 	printf("key event %d\n", keycode);
-	mlx_pixe_put(mlx, win, 300, 300, 0xFF00FF);
+//	mlx_pixel_put(mlx, win, 300, 300, 0xFF00FF);
 	return (0);
 }
 
