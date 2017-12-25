@@ -30,6 +30,7 @@
 #ifndef MLX_H
 
 #define	MLX_H
+#include	<bsd/string.h>
 
 
 void	*mlx_init();

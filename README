@@ -1,0 +1,3 @@
+compile la libreria para linux cambiando un strlcpy por un strcpy
+en mlx_xpm.c linea hasta el final, cambiarlo si es necesario, hacer
+fdf si es que no te da ninguna clase de error 

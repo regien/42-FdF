@@ -13,6 +13,7 @@
 
 extern int	(*(mlx_int_param_event[]))();
 
+int	mlx_int_set_win_event_mask(t_xvar *xvar);
 
 int		mlx_loop(t_xvar *xvar)
 {

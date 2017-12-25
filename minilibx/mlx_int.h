@@ -18,6 +18,12 @@
 #include	<stdlib.h>
 #include	<stdio.h>
 #include	<string.h>
+
+/*
+** <bsd/string.h> ubuntu only
+*/
+
+#include	<bsd/string.h>
 #include        <unistd.h>
 #include        <fcntl.h>
 #include        <sys/mman.h>
