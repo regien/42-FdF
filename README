@@ -1,3 +1,9 @@
 compile la libreria para linux cambiando un strlcpy por un strcpy
 en mlx_xpm.c linea hasta el final, cambiarlo si es necesario, hacer
 fdf si es que no te da ninguna clase de error 
+
+flags to compile with mac:
+	gcc main.c minilibx_macos_elcapitan/libmlx.a -framework OpenGL -framework AppKit -o test
+
+flags to compile with linux:
+	gcc main.c minilibx/libmlx_Linux.a -L/usr/include/../lib -lXext -lX11 -lm -o fdf_test
