@@ -6,12 +6,11 @@
 /*   By: regien <gmalpart@student.42.us.org>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/31 19:13:40 by regien            #+#    #+#             */
-/*   Updated: 2018/01/01 17:10:15 by regien           ###   ########.fr       */
+/*   Updated: 2018/01/04 08:29:23 by regien           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
-#include "minilibx_macos_elcapitan/mlx.h"
 #include <stdio.h>
 
 /*
