@@ -6,7 +6,7 @@
 /*   By: regien <gmalpart@student.42.us.org>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/31 19:13:40 by regien            #+#    #+#             */
-/*   Updated: 2018/01/07 12:59:16 by regien           ###   ########.fr       */
+/*   Updated: 2018/01/07 13:12:19 by regien           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,8 +60,14 @@ int			parseate_esta(char *str)
 	{
 		if (str[i] == '.')
 			dots++;
-		if (str[i] == ' ' || str[i] == '\n' || str[i] == '\t' || dots == 2)
+		if (str[i] == ' ' || str[i] == '\n' || str[i] == '\t' || dots >= 2)
 			return (0);
+	}
+//	printf("strstr = |%s|\n", ft_strstr(str, ".fdf"));
+	if ((ft_strequ((ft_strstr(str, ".fdf")), ".fdf")) == 1)
+	{
+		printf("valido");
+		return (1);
 	}
 }
 
