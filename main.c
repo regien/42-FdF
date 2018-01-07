@@ -6,7 +6,7 @@
 /*   By: regien <gmalpart@student.42.us.org>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/31 19:13:40 by regien            #+#    #+#             */
-/*   Updated: 2018/01/04 08:29:23 by regien           ###   ########.fr       */
+/*   Updated: 2018/01/06 17:05:02 by regien           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int			my_key_funct(int keycode, void *param)
 	return (0);
 }
 
-void			straight_line(int length, int x, int y, void mlx, void win)
+void			straight_line(int length, int x, int y, void *mlx, void *win)
 {
 	int		i;
 
@@ -35,6 +35,26 @@ void			straight_line(int length, int x, int y, void mlx, void win)
 		mlx_pixel_put(mlx, win, x, y, 0x00FFFFFF);
 		x++;
 	}
+}
+
+void			straight_line_y(int length, int x, int y, void *mlx, void *win)
+{
+	int		i;
+
+	i = -1;
+	while (length > i++)
+	{
+		mlx_pixel_put(mlx, win, x, y, 0x00FFFFFF);
+		y++;
+	}
+}
+
+int			parseate_esta(char *str)
+{
+	int		i;
+
+	i = 0;
+	while ()
 }
 
 int			main()
@@ -59,6 +79,8 @@ int			main()
 		y++;
 	}
 	mlx_key_hook(win, my_key_funct, mlx);
+	straight_line(200, 0,0, mlx, win);
+	straight_line_y(200, 200, 0, mlx, win);
 //	mlx_pixel_put(mlx, win, 200, 200, 0x00FFFFFF);
 	mlx_loop(mlx);
 }
