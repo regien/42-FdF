@@ -6,7 +6,7 @@
 /*   By: regien <gmalpart@student.42.us.org>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/31 19:13:40 by regien            #+#    #+#             */
-/*   Updated: 2018/01/06 17:05:02 by regien           ###   ########.fr       */
+/*   Updated: 2018/01/07 12:59:16 by regien           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,19 +52,36 @@ void			straight_line_y(int length, int x, int y, void *mlx, void *win)
 int			parseate_esta(char *str)
 {
 	int		i;
+	int		dots;
 
-	i = 0;
-	while ()
+	dots = 0;
+	i = -1;
+	while (str[++i])
+	{
+		if (str[i] == '.')
+			dots++;
+		if (str[i] == ' ' || str[i] == '\n' || str[i] == '\t' || dots == 2)
+			return (0);
+	}
 }
 
-int			main()
+int			main(int argc, char **argv)
 {
 	void	*mlx;
 	void	*win;
 	int		x;
 	int		y;
 
-
+	if (argc != 2)
+	{
+		fillit_print_usage(argv[0]);
+		return (0);
+	}
+	if (parseate_esta(argv[1]) == 0)
+	{
+		ft_putstr("invalid file or map\n");
+		return (0);
+	}
 	mlx = mlx_init();
 	win = mlx_new_window(mlx, 800, 800, "testing my shit");
 	y = 50;

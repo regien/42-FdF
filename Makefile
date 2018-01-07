@@ -6,7 +6,7 @@
 #    By: regien <gmalpart@student.42.us.org>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/12/25 00:45:02 by regien            #+#    #+#              #
-#    Updated: 2017/12/31 18:02:03 by regien           ###   ########.fr        #
+#    Updated: 2018/01/07 12:49:28 by regien           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,7 +23,8 @@ CC = gcc
 # When compiling. you need to add your .a lib
 # the libraries should be at the end always
 # order is important in Linux
-CFILES = main.c \
+CFILES = errors_h.c \
+	main.c \
 	$(LIB)libft.a \
 	$(MLX)libmlx_Linux.a
 
