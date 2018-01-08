@@ -6,7 +6,7 @@
 /*   By: regien <gmalpart@student.42.us.org>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/31 19:13:40 by regien            #+#    #+#             */
-/*   Updated: 2018/01/07 13:12:19 by regien           ###   ########.fr       */
+/*   Updated: 2018/01/07 13:14:40 by regien           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,9 @@ void			straight_line_y(int length, int x, int y, void *mlx, void *win)
 	}
 }
 
+
+// for now only works with parsing the name, now we are opening the file
+// and build a valid matrix and start creating the structure
 int			parseate_esta(char *str)
 {
 	int		i;
@@ -64,11 +67,9 @@ int			parseate_esta(char *str)
 			return (0);
 	}
 //	printf("strstr = |%s|\n", ft_strstr(str, ".fdf"));
-	if ((ft_strequ((ft_strstr(str, ".fdf")), ".fdf")) == 1)
-	{
-		printf("valido");
-		return (1);
-	}
+	if ((ft_strequ((ft_strstr(str, ".fdf")), ".fdf")) == 0)
+		return (0);
+	return (1);
 }
 
 int			main(int argc, char **argv)

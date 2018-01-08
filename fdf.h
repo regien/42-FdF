@@ -6,7 +6,7 @@
 /*   By: regien <gmalpart@student.42.us.org>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/31 19:13:42 by regien            #+#    #+#             */
-/*   Updated: 2018/01/03 18:07:41 by regien           ###   ########.fr       */
+/*   Updated: 2018/01/07 13:30:53 by regien           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,14 @@
 # include "libft/includes/libft.h"
 # include "minilibx/mlx.h"
 # include "minilibx/mlx_int.h"
+
+typedef struct		s_node
+{
+	int		x;
+	int		y;
+	int		color;
+}			t_node;
+
 
 typedef struct		s_env
 {
