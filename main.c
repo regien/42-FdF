@@ -6,7 +6,7 @@
 /*   By: regien <gmalpart@student.42.us.org>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/31 19:13:40 by regien            #+#    #+#             */
-/*   Updated: 2018/01/10 03:28:03 by gmalpart         ###   ########.fr       */
+/*   Updated: 2018/01/10 05:38:36 by gmalpart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,43 @@ t_list		*bitch_me_a_list(t_list **list, char **pendejada)
 	if ()
 }
 */
-int			parser_file(argv[1])
+
+// take care of is_valid_hex
+int			parser_line(char *str)
+{
+	int i;
+
+	i = -1;
+	while (line[++i])
+	{
+		if (line[i] == ' ')
+			if (line[i + 1] == ' ' || line[i + 1] == '\0')
+				return (0);
+		if ()
+	}
+}
+
+int			parser_file(char *str, **list)
+{
+	int		fd;
+	char	*line;
+	int		i;
+	int		matrix;
+
+	matrix = 0;
+	i = -1;
+	fd = open(str, O_RDONLY);
+	while((get_next_line(fd, &line)) > 0)
+	{
+		if (parser_line(line) == 1)
+		{
+			// funcion para agregar a lista y setear matrix number
+		}
+		else
+			return (0);
+	}
+	
+}
 
 
 // los mensajes dentro de la proteccion no son necesarios, puedes sacarlos
@@ -84,15 +120,17 @@ int			main(int argc, char **argv)
 	void	*win;
 	int		x;
 	int		y;
+	int		*list;
 
+	list = NULL;
 	if (argc != 2)
 	{
 		fillit_print_usage(argv[0]);
 		return (0);
 	}
-	if (parser_argv(argv[1]) == 0 && parser_file(argv[1], &list))
+	if (parser_argv(argv[1]) == 0 && parser_file(argv[1], &list) == 0)
 	{
-		ft_putstr("invalid file or map\n");
+		general_exit(ESCAPE, "invalid file or map\n");
 		return (0);
 	}
 	mlx = mlx_init();
