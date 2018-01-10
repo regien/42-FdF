@@ -6,7 +6,7 @@
 /*   By: regien <gmalpart@student.42.us.org>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/03 18:05:33 by regien            #+#    #+#             */
-/*   Updated: 2018/01/07 12:53:02 by regien           ###   ########.fr       */
+/*   Updated: 2018/01/09 23:39:45 by gmalpart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +28,9 @@ void		fillit_print_usage(char *arg)
 ** General Exit.
 */
 
-void		fillit_print_error(int error_code)
+void		general_exit(int error_code, char *mensaje)
 {
-		if (error_code < 0)
-					ft_putstr("error\n");
-			exit(error_code);
+	if (error_code < 0)
+		ft_putstr(mensaje);
+	exit(error_code);
 }

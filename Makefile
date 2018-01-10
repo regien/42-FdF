@@ -6,7 +6,7 @@
 #    By: regien <gmalpart@student.42.us.org>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/12/25 00:45:02 by regien            #+#    #+#              #
-#    Updated: 2018/01/07 12:49:28 by regien           ###   ########.fr        #
+#    Updated: 2018/01/09 22:50:42 by gmalpart         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,46 +14,70 @@ MAKE = make -C
 NAME = fdf_test
 LIB = libft/
 MLX = minilibx/
+OSXMLX = minilibx_macos_elcapitan/
 CFlAGS = -Wall -Wextra -Werror
-
-#linux flags - position of the includes mayvary
-LFLAGS = -L/usr/include/../lib -lXext -lX11 -lm
 CC = gcc
+
+# linux flags - position of the includes mayvary
+# library position may vary per distribution
+LFLAGS = -L/usr/include/../lib -lXext -lX11 -lm
+# OSX flags- frameworks
+MFLAGS = -framework OpenGL -framework AppKit
 
 # When compiling. you need to add your .a lib
 # the libraries should be at the end always
 # order is important in Linux
-CFILES = errors_h.c \
-	main.c \
-	$(LIB)libft.a \
-	$(MLX)libmlx_Linux.a
+CFILES =	errors_h.c \
+			drawing.c \
+			main.c 
 
-#These options are here in case the lib needs to be recompiled.
-#LIBM, LIBC, LIBF will run rules re, clean and fclean inside the libft folder
+LILIB =		$(LIB)libft.a \
+			$(MLX)libmlx_Linux.a
+
+OSXLIB =	$(LIB)libft.a \
+			$(OSXMLX)libmlx.a
+
+# These options are here in case the lib needs to be recompiled.
+# LIBM, LIBC, LIBF will run rules re, clean and fclean inside the libft folder
 LIBM = $(MAKE) $(LIB) re
 LIBC = $(MAKE) $(LIB) clean
 LIBF = $(MAKE) $(LIB) fclean
 
-#These options are here in case the minilibx needs to be recompiled.
-#LIBM, LIBC, LIBF will run rules re, clean and fclean inside the libft folder
+# These options are here in case the minilibx needs to be recompiled.
+# LIBM, LIBC, LIBF will run rules re, clean and fclean inside the libft folder
 MLXM = $(MAKE) $(MLX) re
 MLXC = $(MAKE) $(MLX) clean
+
+# These options are here in case the minilibx needs to be recompiled.
+# LIBM, LIBC, LIBF will run rules re, clean and fclean inside the libft folder
+OSXMLXM = $(MAKE) $(OSXMLX) re
+OSXMLXC = $(MAKE) $(OSXMLX) clean
 
 OBJECTS = $(CFILES:.c=.o)
 
 all: $(NAME)
 
-#not compiling with flags yet becuase of linux errors
-#linux erros != mac errors
+# It will compile by default for Osx(el_capitan) with his specific minilibx
 $(NAME):
 	@$(LIBM)
+	@$(OSXMLXM)
+	@$(CC) $(CFILES) $(OSXLIB) $(MFLAGS) -o $(NAME)
+
+# not compiling with flags yet becuase of linux errors
+# linux erros != mac errors
+linux:
+	@$(LIBM)
 	@$(MLXM)
-	@$(CC) $(CFILES) $(LFLAGS) -o $(NAME)
+	@$(CC) $(CFILES) $(LILIB) $(LFLAGS) -o $(NAME)
 #gcc main.c minilibx/libmlx_Linux.a -L/usr/include/../lib -lXext -lX11 -lm
 
-# this is for compiling fast without spamming your terminal
+# this is for compiling fast without spamming your terminal / lINUX
+compli:
+	@$(CC) $(CFILES) $(LILIB) $(LFLAGS) -o $(NAME)
+
+# fast compile for macosx version / MACOSX
 comp:
-	@$(CC) $(CFILES) $(LFLAGS) -o $(NAME)
+	$(CC) $(CFILES) $(OSXLIB) -Iminilibx_macos_elcapitan $(MFLAGS) -o $(NAME)
 
 clean:
 	@$(LIBC)

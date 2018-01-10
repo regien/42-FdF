@@ -6,7 +6,7 @@
 /*   By: regien <gmalpart@student.42.us.org>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/31 19:13:40 by regien            #+#    #+#             */
-/*   Updated: 2018/01/07 13:14:40 by regien           ###   ########.fr       */
+/*   Updated: 2018/01/10 03:28:03 by gmalpart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,42 +17,32 @@
 	vas  a usar estructuras como negro
 */
 
+// cambiar escapes de fillit
+// MENSAJES PERSONALIZADOS - CODIGO DE ERROR
+// 
+int			my_key_function(int keycode, void *param, void *mlx, void *win)
+{
+	printf("key event %d\n", keycode);
+	if (keycode == 53)
+		general_exit(ESCAPE, "gracias por usar esta pendejada\n");
+	return (0);
+}
 
+
+/*
 int			my_key_funct(int keycode, void *param)
 {
 	printf("key event %d\n", keycode);
 //	mlx_pixel_put(mlx, win, 300, 300, 0xFF00FF);
 	return (0);
 }
-
-void			straight_line(int length, int x, int y, void *mlx, void *win)
-{
-	int		i;
-
-	i = -1;
-	while (length > i++)
-	{
-		mlx_pixel_put(mlx, win, x, y, 0x00FFFFFF);
-		x++;
-	}
-}
-
-void			straight_line_y(int length, int x, int y, void *mlx, void *win)
-{
-	int		i;
-
-	i = -1;
-	while (length > i++)
-	{
-		mlx_pixel_put(mlx, win, x, y, 0x00FFFFFF);
-		y++;
-	}
-}
+*/
 
 
 // for now only works with parsing the name, now we are opening the file
 // and build a valid matrix and start creating the structure
-int			parseate_esta(char *str)
+// FIRST PART PARSER 
+int			parser_argv(char *str)
 {
 	int		i;
 	int		dots;
@@ -61,17 +51,33 @@ int			parseate_esta(char *str)
 	i = -1;
 	while (str[++i])
 	{
+		if (ft_strlen(str) == 4)
+			return (0);
 		if (str[i] == '.')
 			dots++;
 		if (str[i] == ' ' || str[i] == '\n' || str[i] == '\t' || dots >= 2)
 			return (0);
 	}
-//	printf("strstr = |%s|\n", ft_strstr(str, ".fdf"));
 	if ((ft_strequ((ft_strstr(str, ".fdf")), ".fdf")) == 0)
 		return (0);
 	return (1);
 }
 
+
+/*
+t_list		*bitch_me_a_list(t_list **list, char **pendejada)
+{
+	t_list	*iter;
+	t_node	*iterdata;
+
+	if ()
+}
+*/
+int			parser_file(argv[1])
+
+
+// los mensajes dentro de la proteccion no son necesarios, puedes sacarlos
+// con "general_exit"
 int			main(int argc, char **argv)
 {
 	void	*mlx;
@@ -84,7 +90,7 @@ int			main(int argc, char **argv)
 		fillit_print_usage(argv[0]);
 		return (0);
 	}
-	if (parseate_esta(argv[1]) == 0)
+	if (parser_argv(argv[1]) == 0 && parser_file(argv[1], &list))
 	{
 		ft_putstr("invalid file or map\n");
 		return (0);
@@ -102,9 +108,10 @@ int			main(int argc, char **argv)
 		}
 		y++;
 	}
-	mlx_key_hook(win, my_key_funct, mlx);
+	mlx_key_hook(win, my_key_function, mlx);
 	straight_line(200, 0,0, mlx, win);
 	straight_line_y(200, 200, 0, mlx, win);
+	bitch_line(300, 500, 600, 700, mlx, win);
 //	mlx_pixel_put(mlx, win, 200, 200, 0x00FFFFFF);
 	mlx_loop(mlx);
 }
