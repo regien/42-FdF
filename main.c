@@ -6,7 +6,7 @@
 /*   By: regien <gmalpart@student.42.us.org>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/31 19:13:40 by regien            #+#    #+#             */
-/*   Updated: 2018/01/10 05:38:36 by gmalpart         ###   ########.fr       */
+/*   Updated: 2018/01/10 22:58:00 by gmalpart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,44 @@ t_list		*bitch_me_a_list(t_list **list, char **pendejada)
 }
 */
 
-// take care of is_valid_hex
+///		HELPER LINKED LIST FUNCTION
+
+
+// NOT OPTIMAZED
+t_list		*create_node(char *str)
+{
+	t_new		*new;
+	
+	if(!(new = ft_memalloc(sizeof(t_hola))))
+		return (0);
+	new->dato = dato;
+	new->heap = ft_memalloc(sizeof(char) * ft_strlen(str) + 1);
+	ft_strcpy(new->heap, str);
+	return (ft_lstnew(new, sizeof(t_hola)));
+}
+
+
+// NOT OPTIMAZED
+void		add_list(t_list **lista, int dato, char *str)
+{
+	if (*lista)
+		ft_lstadd(lista, create_node(dato, str));
+	else
+		*lista = create_node(dato, str);
+}
+
+
+char		**splitter(char *str, **list)
+{
+	char	**temp;
+
+	temp = ft_strsplit(str, ' ');
+	
+
+}
+
+
+// take care of is_valid_hex || NOT HERE, IN THE SPLIT 
 int			parser_line(char *str)
 {
 	int i;
@@ -82,11 +119,15 @@ int			parser_line(char *str)
 	i = -1;
 	while (line[++i])
 	{
+		if (i == 0 && line[i] == ' ')
+			return (0);
+		if (line[i] == '\t')
+			return (0);
 		if (line[i] == ' ')
 			if (line[i + 1] == ' ' || line[i + 1] == '\0')
 				return (0);
-		if ()
 	}
+	return (1);
 }
 
 int			parser_file(char *str, **list)
@@ -101,14 +142,15 @@ int			parser_file(char *str, **list)
 	fd = open(str, O_RDONLY);
 	while((get_next_line(fd, &line)) > 0)
 	{
-		if (parser_line(line) == 1)
+		if (parser_line(line) == 1 && spliter() == 1)
 		{
+			
 			// funcion para agregar a lista y setear matrix number
 		}
 		else
 			return (0);
 	}
-	
+
 }
 
 
