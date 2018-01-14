@@ -6,7 +6,7 @@
 #    By: gmalpart <gmalpart@estudent.42.us.org      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/09/25 16:22:47 by gmalpart          #+#    #+#              #
-#    Updated: 2017/12/29 00:10:56 by regien           ###   ########.fr        #
+#    Updated: 2018/01/13 18:47:28 by gmalpart         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -81,6 +81,7 @@ FILES = ft_putchar.c \
 	ft_iswspace.c \
 	ft_min.c \
 	ft_max.c \
+	ft_lst_addback.c \
 	get_next_line.c
 
 OBJECTS = $(FILES:.c=.o)
@@ -91,7 +92,7 @@ $(NAME):
 	@$(CC) $(FLAGS) -Iincludes -c $(FILES)
 	@ar rc $(NAME) $(OBJECTS)
 	@ranlib libft.a
-	echo "{Library OK}"
+	@echo "{Library OK}"
 
 clean:
 	@/bin/rm -f $(OBJECTS)

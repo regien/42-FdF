@@ -6,7 +6,7 @@
 #    By: regien <gmalpart@student.42.us.org>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/12/25 00:45:02 by regien            #+#    #+#              #
-#    Updated: 2018/01/09 22:50:42 by gmalpart         ###   ########.fr        #
+#    Updated: 2018/01/10 23:13:43 by gmalpart         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ MAKE = make -C
 NAME = fdf_test
 LIB = libft/
 MLX = minilibx/
-OSXMLX = minilibx_macos_elcapitan/
+OSXMLX = minilibx_macos_sierra/
 CFlAGS = -Wall -Wextra -Werror
 CC = gcc
 
@@ -57,7 +57,7 @@ OBJECTS = $(CFILES:.c=.o)
 
 all: $(NAME)
 
-# It will compile by default for Osx(el_capitan) with his specific minilibx
+# It will compile by default for Osx(sierra) with his specific minilibx
 $(NAME):
 	@$(LIBM)
 	@$(OSXMLXM)
@@ -77,7 +77,7 @@ compli:
 
 # fast compile for macosx version / MACOSX
 comp:
-	$(CC) $(CFILES) $(OSXLIB) -Iminilibx_macos_elcapitan $(MFLAGS) -o $(NAME)
+	$(CC) $(CFILES) $(OSXLIB) -Iminilibx_macos_sierra $(MFLAGS) -o $(NAME)
 
 clean:
 	@$(LIBC)
