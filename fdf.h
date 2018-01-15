@@ -33,6 +33,13 @@ typedef struct		s_env
 	void		*mlx;
 }			t_env;
 
+typedef struct		s_matrx
+{
+	int		row;
+	int		column;
+}			t_matrx;
+
+
 /*
 **	EVENTS FUNCTIONS
 */
@@ -55,6 +62,7 @@ void		destroy_exit(int error_code, char *mensaje, void *mlx, void *win);
 void			straight_line(int length, int x, int y, void *mlx, void *win);
 void			straight_line_y(int length, int x, int y, void *mlx, void *win);
 void			bitch_line(int x0, int y0, int x1, int y1, void *mlx , void *win);
+void			draw_rectang(int x0, int y0, int x1, int y1, t_env *env);
 
 /*
 **	LINKED LIST HELPER

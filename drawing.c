@@ -36,6 +36,23 @@ void			straight_line_y(int length, int x, int y, void *mlx, void *win)
 	}
 }
 
+void			draw_rectang(int x0, int y0, int x1, int y1, t_env *env)
+{
+	int			temp;
+
+	temp = x0;
+	while (y0 < y1)
+	{
+		x0 = temp;
+		while (x0 < x1)
+		{
+			mlx_pixel_put(env->mlx, env->win, x0, y0, 0x00FFFFFF);
+			x0++;
+		}
+		y0++;
+	}
+}
+
 void			bitch_line(int x0, int y0, int x1, int y1, void *mlx , void *win)
 {
 	int			dx;
@@ -43,7 +60,7 @@ void			bitch_line(int x0, int y0, int x1, int y1, void *mlx , void *win)
 	int			p;
 	int			x;
 	int			y;
-	
+
 	dx = x1 - x0;
 	dy = y1 - y0;
 	x = x0;
