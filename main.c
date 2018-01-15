@@ -74,6 +74,7 @@ t_list		*create_node(char *str)
 		return (0);
 	new->x = ft_atoi(str);
 	new->y = 0;
+	new->z = 0;
 	new->color = 0x00FFFFFF;
 	return (ft_lstnew(new, sizeof(t_node)));
 }

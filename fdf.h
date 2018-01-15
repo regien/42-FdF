@@ -23,6 +23,7 @@ typedef struct		s_node
 {
 	int		x;
 	int		y;
+	int		z;
 	int		color;
 }			t_node;
 
