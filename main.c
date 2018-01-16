@@ -23,8 +23,10 @@
 int			my_key_function(int keycode, t_env *envi)
 {
 	printf("key event %d\n", keycode);
-	if (keycode == 53)
+	if (keycode == KEY_ESC)
 		destroy_exit(ESCAPE, "gracias por usar esta pendejada\n", envi->mlx, envi->win);
+	if (keycode == KEY_C)
+		mlx_clear_window(envi->mlx, envi->win);
 	return (0);
 }
 
@@ -210,11 +212,25 @@ int				main(int argc, char **argv)
 	envi->win = mlx_new_window(envi->mlx, 800, 800, "testing my shit");
 	draw_rectang(50, 50, 150, 150, envi);
 //	mlx_key_hook(win, my_key_function, mlx);
-	mlx_key_hook(envi->win, my_key_function, envi);
+//	mlx_hook(envi->win, 4, 0, my_key_function, envi);
+//	mlx_hook(envi->win, 12, 0, my_key_function, envi);
+
+//	esta pendejada siempre esta activa, vale la pena activarla
+	mlx_do_key_autorepeatoff(envi->mlx);
+	mlx_hook(envi->win, 4, 0, my_key_function, envi);
+	mlx_hook(envi->win, 2, 0, my_key_function, envi);
+//	mlx_hook(envi->win, 1, 0, my_key_function, envi);
+//	mlx_hook(envi->win, 10, 0, my_key_function, envi);
+//	mlx_key_hook(envi->win, my_key_function, envi);
 	straight_line(200, 0,0, envi->mlx, envi->win);
 	straight_line_y(200, 200, 0, envi->mlx, envi->win);
-	bitch_line(300, 500, 600, 700, envi->mlx, envi->win);
+	b_line(300, 500, 600, 700, envi);
 //	mlx_clear_window(mlx, win);
 //	mlx_pixel_put(mlx, win, 200, 200, 0x00FFFFFF);
+//	draw_circle(300, 300, 150, envi);
+	draw_circle_fill(300, 300, 50, envi);
+//	multi loop hook, perfect for stuff like wolf3d and some super weird stuff
+//	that you can do in this project.
+//	mlx_loop_hook(envi->mlx, my_key_function, envi);
 	mlx_loop(envi->mlx);
 }

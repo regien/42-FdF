@@ -12,9 +12,9 @@
 
 #include "fdf.h"
 
-void			straight_line(int length, int x, int y, void *mlx, void *win)
+void straight_line(int length, int x, int y, void *mlx, void *win)
 {
-	int		i;
+	int i;
 
 	i = -1;
 	while (length > i++)
@@ -24,9 +24,9 @@ void			straight_line(int length, int x, int y, void *mlx, void *win)
 	}
 }
 
-void			straight_line_y(int length, int x, int y, void *mlx, void *win)
+void straight_line_y(int length, int x, int y, void *mlx, void *win)
 {
-	int		i;
+	int i;
 
 	i = -1;
 	while (length > i++)
@@ -36,9 +36,9 @@ void			straight_line_y(int length, int x, int y, void *mlx, void *win)
 	}
 }
 
-void			draw_rectang(int x0, int y0, int x1, int y1, t_env *env)
+void draw_rectang(int x0, int y0, int x1, int y1, t_env *env)
 {
-	int			temp;
+	int temp;
 
 	temp = x0;
 	while (y0 < y1)
@@ -53,13 +53,57 @@ void			draw_rectang(int x0, int y0, int x1, int y1, t_env *env)
 	}
 }
 
-void			bitch_line(int x0, int y0, int x1, int y1, void *mlx , void *win)
+void draw_circle(int x, int y, int radius, t_env *env)
 {
-	int			dx;
-	int			dy;
-	int			p;
-	int			x;
-	int			y;
+	static double pi;
+	double i;
+	double angle;
+	double x1;
+	double y1;
+
+	pi = 3.1415926535;
+	i = 0;
+	while (i < 360)
+	{
+		angle = (double)i;
+		x1 = radius * cos(angle * pi / 180);
+		y1 = radius * sin(angle * pi / 180);
+		mlx_pixel_put(env->mlx, env->win, x + x1, y + y1, 0x00FFFFFF);
+		i = i + 0.1;
+	}
+}
+
+void draw_circle_fill(int x, int y, int radius, t_env *env)
+{
+	static double pi;
+	double i;
+	double angle;
+	double x1;
+	double y1;
+
+	pi = 3.1415926535;
+	while (radius > 0)
+	{
+		i = 0;
+		while (i < 360)
+		{
+			angle = (double)i;
+			x1 = radius * cos(angle * pi / 180);
+			y1 = radius * sin(angle * pi / 180);
+			mlx_pixel_put(env->mlx, env->win, x + x1, y + y1, 0x00FFFFFF);
+			i = i + 0.1;
+		}
+		radius--;
+	}
+}
+
+void b_line(int x0, int y0, int x1, int y1, t_env *envi)
+{
+	int dx;
+	int dy;
+	int p;
+	int x;
+	int y;
 
 	dx = x1 - x0;
 	dy = y1 - y0;
@@ -70,13 +114,13 @@ void			bitch_line(int x0, int y0, int x1, int y1, void *mlx , void *win)
 	{
 		if (p >= 0)
 		{
-			mlx_pixel_put(mlx, win, x, y, 0x00FFFFFF);
+			mlx_pixel_put(envi->mlx, envi->win, x, y, 0x00FFFFFF);
 			y++;
 			p = p + 2 * dy - 2 * dx;
 		}
 		else
 		{
-			mlx_pixel_put(mlx, win, x, y, 0x00FFFFFF);
+			mlx_pixel_put(envi->mlx, envi->win, x, y, 0x00FFFFFF);
 			p = p + 2 * dy;
 		}
 		x++;

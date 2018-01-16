@@ -13,10 +13,13 @@
 #ifndef FDF_H
 # define FDF_H
 # define ESCAPE -1
+# define KEY_C 8
+# define KEY_ESC 53
 # include "libft/includes/libft.h"
 //# include "minilibx/mlx.h"
 //# include "minilibx/mlx_int.h"
 # include "minilibx_macos_sierra/mlx.h"
+# include <math.h>
 //# include "minilibx_macos_elcapitan/mlx_int.h"
 
 typedef struct		s_node
@@ -58,12 +61,16 @@ void		destroy_exit(int error_code, char *mensaje, void *mlx, void *win);
 
 /*
  **	FUNCTIONS EXCLUSIVE
+ ** This is basically me playing around with the minilibx library and see
+ ** what can i do.
 */
 
 void			straight_line(int length, int x, int y, void *mlx, void *win);
 void			straight_line_y(int length, int x, int y, void *mlx, void *win);
-void			bitch_line(int x0, int y0, int x1, int y1, void *mlx , void *win);
+void			b_line(int x0, int y0, int x1, int y1, t_env *envi);
 void			draw_rectang(int x0, int y0, int x1, int y1, t_env *env);
+void			draw_circle(int x, int y, int radius, t_env *env);
+void			draw_circle_fill(int x, int y, int radius, t_env *env);
 
 /*
 **	LINKED LIST HELPER
