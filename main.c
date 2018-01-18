@@ -210,7 +210,8 @@ int				main(int argc, char **argv)
 	envi = ft_memalloc(sizeof(t_env));
 	envi->mlx = mlx_init();
 	envi->win = mlx_new_window(envi->mlx, 800, 800, "testing my shit");
-	draw_rectang(50, 50, 150, 150, envi);
+//	draw_rectang(50, 50, 150, 150, envi);
+
 //	mlx_key_hook(win, my_key_function, mlx);
 //	mlx_hook(envi->win, 4, 0, my_key_function, envi);
 //	mlx_hook(envi->win, 12, 0, my_key_function, envi);
@@ -222,15 +223,22 @@ int				main(int argc, char **argv)
 //	mlx_hook(envi->win, 1, 0, my_key_function, envi);
 //	mlx_hook(envi->win, 10, 0, my_key_function, envi);
 //	mlx_key_hook(envi->win, my_key_function, envi);
-	straight_line(200, 0,0, envi->mlx, envi->win);
-	straight_line_y(200, 200, 0, envi->mlx, envi->win);
-	b_line(300, 500, 600, 700, envi);
+
+//	straight_line(200, 0,0, envi->mlx, envi->win);
+//	straight_line_y(200, 200, 0, envi->mlx, envi->win);
+//	b_line(300, 500, 600, 700, envi);
+
 //	mlx_clear_window(mlx, win);
 //	mlx_pixel_put(mlx, win, 200, 200, 0x00FFFFFF);
 //	draw_circle(300, 300, 150, envi);
-	draw_circle_fill(300, 300, 50, envi);
+
+//	draw_circle_fill(300, 300, 50, envi);
+
 //	multi loop hook, perfect for stuff like wolf3d and some super weird stuff
 //	that you can do in this project.
 //	mlx_loop_hook(envi->mlx, my_key_function, envi);
+	printf("pendejada\n");
+	b_line_3d(300, 300, 0, 500, 500, 0, envi);
+	b_line(500, 500, 600, 300, envi);
 	mlx_loop(envi->mlx);
 }

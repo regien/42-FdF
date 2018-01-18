@@ -12,7 +12,7 @@
 
 #include "fdf.h"
 
-void straight_line(int length, int x, int y, void *mlx, void *win)
+void	straight_line(int length, int x, int y, void *mlx, void *win)
 {
 	int i;
 
@@ -24,7 +24,7 @@ void straight_line(int length, int x, int y, void *mlx, void *win)
 	}
 }
 
-void straight_line_y(int length, int x, int y, void *mlx, void *win)
+void	straight_line_y(int length, int x, int y, void *mlx, void *win)
 {
 	int i;
 
@@ -36,7 +36,7 @@ void straight_line_y(int length, int x, int y, void *mlx, void *win)
 	}
 }
 
-void draw_rectang(int x0, int y0, int x1, int y1, t_env *env)
+void	draw_rectang(int x0, int y0, int x1, int y1, t_env *env)
 {
 	int temp;
 
@@ -53,7 +53,7 @@ void draw_rectang(int x0, int y0, int x1, int y1, t_env *env)
 	}
 }
 
-void draw_circle(int x, int y, int radius, t_env *env)
+void	draw_circle(int x, int y, int radius, t_env *env)
 {
 	static double pi;
 	double i;
@@ -73,7 +73,8 @@ void draw_circle(int x, int y, int radius, t_env *env)
 	}
 }
 
-void draw_circle_fill(int x, int y, int radius, t_env *env)
+// el angulo(i) no tiene que ser en decimales
+void	draw_circle_fill(int x, int y, int radius, t_env *env)
 {
 	static double pi;
 	double i;
@@ -89,7 +90,9 @@ void draw_circle_fill(int x, int y, int radius, t_env *env)
 		{
 			angle = (double)i;
 			x1 = radius * cos(angle * pi / 180);
+//			printf("x1 = %f\n", x1);
 			y1 = radius * sin(angle * pi / 180);
+//			printf("y1 = %f\n", y1);
 			mlx_pixel_put(env->mlx, env->win, x + x1, y + y1, 0x00FFFFFF);
 			i = i + 0.1;
 		}
@@ -97,7 +100,7 @@ void draw_circle_fill(int x, int y, int radius, t_env *env)
 	}
 }
 
-void b_line(int x0, int y0, int x1, int y1, t_env *envi)
+void	b_line(int x0, int y0, int x1, int y1, t_env *envi)
 {
 	int dx;
 	int dy;
@@ -125,4 +128,29 @@ void b_line(int x0, int y0, int x1, int y1, t_env *envi)
 		}
 		x++;
 	}
+}
+
+/*
+#define f(x) 
+*/
+void	b_line_3d(int x0, int y0, int z0, int x1, int y1, int z1, t_env *envi)
+{
+//	int x0;
+	double	angle;
+	double	ux;
+	double	uy;
+	double	pi;
+	double	distancex;
+	double	distancey;
+
+	distancex = x1 - x0;
+	distancey = y1 - y0;
+	pi = 3.1415926535;
+	angle = 45;
+	ux = distancex * cos(angle * pi / 180);
+	printf("cos = %f && ux = %f\n", cos(angle * pi / 180), ux);
+	uy = distancey * sin(angle * pi / 180);
+	printf("sin = %f && ux = %f\n", sin(angle * pi / 180), uy);
+	b_line(350, 350, 141, 141, envi);
+	b_line(x0, y0, (int)ux, (int)uy, envi);
 }
