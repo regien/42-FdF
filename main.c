@@ -187,6 +187,8 @@ int				main(int argc, char **argv)
 {
 	void		*mlx;
 	void		*win;
+	void		*img;
+
 	t_list		*list;
 	t_env		*envi;
 	static t_matrx	*matrix;
@@ -238,7 +240,22 @@ int				main(int argc, char **argv)
 //	that you can do in this project.
 //	mlx_loop_hook(envi->mlx, my_key_function, envi);
 	printf("pendejada\n");
+
 	b_line_3d(300, 300, 0, 500, 500, 0, envi);
-	b_line(500, 500, 600, 300, envi);
+// dunno why this doesnt work but with the img it doesnt
+//	b_line(500, 500, 600, 300, envi);
+	
+	img = mlx_new_image(envi->mlx, 400, 400);
+//	printf("data address = %s", mlx_get_data_addr(img, 14, 14, 1));
+//	int		*bits;
+//	int		*s_line;
+	int		d, k;
+	d = 0;
+	k = 0;
+	img = mlx_xpm_file_to_image(envi->mlx, "example1.xpm", &d, &k);
+	mlx_put_image_to_window(envi->mlx, envi->win, img, 0, 0);
+//	b_line(400, 400, 600, 600, envi);
+//	b_line(150/1 + 400, 150/1 + 400, 150/20 + 600, 150/20 + 600, envi);
+	
 	mlx_loop(envi->mlx);
 }
