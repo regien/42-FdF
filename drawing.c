@@ -130,9 +130,44 @@ void	b_line(int x0, int y0, int x1, int y1, t_env *envi)
 	}
 }
 
+// not fully functional
+void	draw_line(int x0, int y0, int x1, int y1, t_env *envi)
+{
+	double	dx;
+	double	dy;
+	double	sx;
+	double	sy;
+	double	err;
+	double	e2;
+
+	dx = abs(x1 - x0);
+	dy = abs(y1 - y0);
+	sx = (x0 < x1) ? 1 : -1;
+	sy = (y0 < y1) ? 1 : -1;
+	err = dx - dy;
+	while (!(NULL))
+	{
+		mlx_pixel_put(envi->mlx, envi->win, x0, y0, 0x00FFFFFF);
+		if ((x0 == x1) && (y0 == y1))
+			break ;
+		e2  = 2 * err;
+		if (e2 > -(dy))
+		{
+			err = err - dy;
+			x0 = x0 + sx;
+		}
+		if (e2 < dx)
+		{
+			err = err + dy;
+			y0 = y0 + sy;
+		}
+	}
+}
+
 /*
 #define f(x) 
 */
+//doesnt work
 void	b_line_3d(int x0, int y0, int z0, int x1, int y1, int z1, t_env *envi)
 {
 //	int x0;
@@ -153,4 +188,75 @@ void	b_line_3d(int x0, int y0, int z0, int x1, int y1, int z1, t_env *envi)
 	printf("sin = %f && ux = %f\n", sin(angle * pi / 180), uy);
 	b_line(350, 350, 141, 141, envi);
 	b_line(x0, y0, (int)ux, (int)uy, envi);
+}
+
+
+void	bre_line(int x0, int y0, int x1, int y1, t_env *envi)
+{
+	int	mid_new;
+	int	error;
+	int x;
+	int y;
+	int	i;
+
+	x = x0;
+	y = y0;
+	i = 0;
+	mid_new = 2 * (y1 - y0);
+	error = mid_new - (x1 - x0);
+	while (x <= x1)
+	{
+		mlx_pixel_put(envi->mlx, envi->win, x, y, 0x00FFFFFF);
+		error = error + mid_new;
+		if (error >= 0)
+		{
+			y++;
+			error = error - (2 * (x1 - x0));
+		}
+		x++;
+	}
+}
+
+// PENDEJADAS
+
+void	ho_line(int x0, int y0, int x1, int y1, t_env *envi)
+{
+	int i;
+	int length;
+	int x;
+
+	x = MIN(x0, x1);
+	length = MAX(x1, x0) - MIN(x1, x0);
+	i = -1;
+	while (length > ++i)
+	{
+		mlx_pixel_put(envi->mlx, envi->win, x, y0, 0x00FFFFFF);
+		x++;
+	}
+}
+
+void	ve_line(int x0, int y0, int x1, int y1, t_env *envi)
+{
+	int i;
+	int length;
+	int y;
+
+	y = MIN(y0, y1);
+	length = MAX(y1, y0) - MIN(y1, y0);
+	i = -1;
+	while (length > ++i)
+	{
+		mlx_pixel_put(envi->mlx, envi->win, x0, y, 0x00FFFFFF);
+		y++;
+	}
+}
+
+void	u_bresen(int x0, int y0, int x1, int y1, t_env *envi)
+{
+	if (x0 < x1)
+		bre_line(x0, y0, x1, y1, envi);
+	else if (x0 == x1)
+		ve_line(x0, y0, x1, y1, envi);
+	else if (y0 == y1)
+		ho_line(x0, y0, x1, y1, envi);
 }

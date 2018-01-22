@@ -211,7 +211,7 @@ int				main(int argc, char **argv)
 
 	envi = ft_memalloc(sizeof(t_env));
 	envi->mlx = mlx_init();
-	envi->win = mlx_new_window(envi->mlx, 800, 800, "testing my shit");
+	envi->win = mlx_new_window(envi->mlx, WINW, WINH, "testing my shit");
 //	draw_rectang(50, 50, 150, 150, envi);
 
 //	mlx_key_hook(win, my_key_function, mlx);
@@ -253,8 +253,31 @@ int				main(int argc, char **argv)
 	d = 0;
 	k = 0;
 	img = mlx_xpm_file_to_image(envi->mlx, "example1.xpm", &d, &k);
-	mlx_put_image_to_window(envi->mlx, envi->win, img, 0, 0);
-//	b_line(400, 400, 600, 600, envi);
+//	mlx_put_image_to_window(envi->mlx, envi->win, img, 0, 0);
+
+//	bre_line(0, 0, 400, 100, envi);
+	bre_line(0, 0, 50, 10, envi);
+
+	u_bresen(0, 0, 400, 200, envi);
+	u_bresen(400, 0, 400, 500, envi);
+	u_bresen(500, 500, 0, 500, envi);
+	u_bresen(500, 0, 800, 800, envi);
+
+	u_bresen(0, 0, 800, 5, envi);
+	u_bresen(0, 0, 800, 15, envi);
+	u_bresen(0, 0, 800, 25, envi);
+	u_bresen(0, 0, 400, 800, envi);
+	u_bresen(799, 800, 799, 0, envi);
+	u_bresen(0, 600, 800, 605, envi);
+//	u_bresen(770, 800, 780, 0, envi);
+	b_line(700, 800, 780, 0, envi);
+
+/*
+	draw_line(500, 500, 700, 300, envi);
+	draw_line(100, 200, 400, 500, envi);
+	draw_line(400, 400, 400, 500, envi);
+	draw_line(700,300, 500, 100, envi);
+*/
 //	b_line(150/1 + 400, 150/1 + 400, 150/20 + 600, 150/20 + 600, envi);
 	
 	mlx_loop(envi->mlx);

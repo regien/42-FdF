@@ -21,8 +21,11 @@
 # include "minilibx_macos_sierra/mlx.h"
 # include <math.h>
 # include <stdio.h>
-# define min(X, Y)	((X) < (Y) ? (X) : (Y))
-# define max(X, Y)	((X) < (Y) ? (Y) : (X))
+
+# define WINH 800
+# define WINW 800
+# define MIN(X, Y)	((X) < (Y) ? (X) : (Y))
+# define MAX(X, Y)	((X) < (Y) ? (Y) : (X))
 //# include "minilibx_macos_elcapitan/mlx_int.h"
 
 typedef struct		s_node
@@ -75,6 +78,13 @@ void			draw_rectang(int x0, int y0, int x1, int y1, t_env *env);
 void			draw_circle(int x, int y, int radius, t_env *env);
 void			draw_circle_fill(int x, int y, int radius, t_env *env);
 void	b_line_3d(int x0, int y0, int z0, int x1, int y1, int z1, t_env *envi);
+void	draw_line(int x0, int y0, int x1, int y1, t_env *envi);
+void	bre_line(int x0, int y0, int x1, int y1, t_env *envi);
+
+
+void	ho_line(int x0, int y0, int x1, int y1, t_env *envi);
+void	ve_line(int x0, int y0, int x1, int y1, t_env *envi);
+void	u_bresen(int x0, int y0, int x1, int y1, t_env *envi);
 
 /*
 **	LINKED LIST HELPER
