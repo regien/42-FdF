@@ -6,7 +6,7 @@
 /*   By: regien <gmalpart@student.42.us.org>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/31 19:13:40 by regien            #+#    #+#             */
-/*   Updated: 2018/01/12 12:24:52 by gmalpart         ###   ########.fr       */
+/*   Updated: 2018/02/02 14:26:48 by gmalpart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 // cambiar escapes de fillit
 // MENSAJES PERSONALIZADOS - CODIGO DE ERROR
 //
-int			my_key_function(int keycode, t_env *envi)
+int			my_key_function(int keycode, t_total *envi)
 {
 	printf("key event %d\n", keycode);
 	if (keycode == KEY_ESC)
@@ -189,11 +189,14 @@ int				main(int argc, char **argv)
 	void		*win;
 	void		*img;
 
-	t_list		*list;
-	t_env		*envi;
-	static t_matrx	*matrix;
+//	t_list		*list;
+//	t_env		*envi;
+//	static t_matrx	*matrix;
+	t_total		*envi;
 
 // parser
+
+/*
 	if (argc != 2)
 	{
 		fillit_print_usage(argv[0]);
@@ -208,15 +211,13 @@ int				main(int argc, char **argv)
 		general_exit(ESCAPE, "invalid file or map\n");
 		return (0);
 	}
-
-	envi = ft_memalloc(sizeof(t_env));
+*/
+	envi = ft_memalloc(sizeof(t_total));
 	envi->mlx = mlx_init();
 	envi->win = mlx_new_window(envi->mlx, WINW, WINH, "testing my shit");
-//	draw_rectang(50, 50, 150, 150, envi);
-
-//	mlx_key_hook(win, my_key_function, mlx);
-//	mlx_hook(envi->win, 4, 0, my_key_function, envi);
-//	mlx_hook(envi->win, 12, 0, my_key_function, envi);
+	envi->img = mlx_new_image(envi->mlx, WINW, WINH);
+	envi->pix = (int*)mlx_get_data_addr(envi->img, &(envi->bits), \
+	&(envi->s_line), &(envi->endian));
 
 //	esta pendejada siempre esta activa, vale la pena activarla
 	mlx_do_key_autorepeatoff(envi->mlx);
@@ -256,21 +257,21 @@ int				main(int argc, char **argv)
 //	mlx_put_image_to_window(envi->mlx, envi->win, img, 0, 0);
 
 //	bre_line(0, 0, 400, 100, envi);
-	bre_line(0, 0, 50, 10, envi);
+//	bre_line(0, 0, 50, 10, envi);
 
-	u_bresen(0, 0, 400, 200, envi);
-	u_bresen(400, 0, 400, 500, envi);
-	u_bresen(500, 500, 0, 500, envi);
-	u_bresen(500, 0, 800, 800, envi);
-
-	u_bresen(0, 0, 800, 5, envi);
-	u_bresen(0, 0, 800, 15, envi);
-	u_bresen(0, 0, 800, 25, envi);
-	u_bresen(0, 0, 400, 800, envi);
-	u_bresen(799, 800, 799, 0, envi);
-	u_bresen(0, 600, 800, 605, envi);
+//	u_bresen(0, 600, 800, 605, envi);
 //	u_bresen(770, 800, 780, 0, envi);
-	b_line(700, 800, 780, 0, envi);
+//	u_bresen(700, 800, 780, 0, envi);
+//	u_bresen(780, 800, 700, 0, envi);
+	draw_line_ult(150, 200, 600, 0, envi);
+	draw_line_ult(150, 200, 300, 0, envi);
+	draw_line_ult(150, 200, 200, 0, envi);
+	draw_line_ult(150, 200, 100, 0, envi);
+	draw_line_ult(150, 200, 150, 190, envi);
+	draw_line_ult(0, 700, 300, 0, envi);
+	draw_line_ult(0, 700, 300, 0, envi);
+	draw_line_ult(0, 400, 500, 400, envi);
+	draw_line_ult(0, 400, 500, 400, envi);
 
 /*
 	draw_line(500, 500, 700, 300, envi);
@@ -282,3 +283,7 @@ int				main(int argc, char **argv)
 	
 	mlx_loop(envi->mlx);
 }
+
+// JUST REFERENCE MICHAEL CODE
+
+

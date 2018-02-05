@@ -28,6 +28,50 @@
 # define MAX(X, Y)	((X) < (Y) ? (Y) : (X))
 //# include "minilibx_macos_elcapitan/mlx_int.h"
 
+// KINDA NEW START
+// VA DENTRO DE UNA ESTRUCURA MAS GRANDE
+typedef struct		s_bresen
+{
+	int width;
+	int	height;
+	int	dx1;
+	int dy1;
+	int dx2;
+	int dy2;
+	int longest;
+	int shortest;
+	int	numerator;
+	int	i;
+}				t_bresen;
+
+typedef struct		s_coord
+{
+	int				x;
+	int				y;
+	int				z;
+	int				color;
+}					t_coord;
+
+
+typedef struct		s_total
+{
+	void		*mlx;
+	void		*win;
+	t_bresen	*seting;
+	// img control
+	void		*img;
+	int			*pix;
+	int			bits;
+	int			s_line;
+	int			endian;
+	void		*general;
+}					t_total;
+
+
+
+// PENDEJADA ANTIGUA |||
+
+
 typedef struct		s_node
 {
 	int		x;
@@ -54,7 +98,7 @@ typedef struct		s_matrx
 **	EVENTS FUNCTIONS
 */
 
-int			my_key_function(int keycode, t_env *envi);
+int			my_key_function(int keycode, t_total *envi);
 
 /*
 **	ERRORS HANDLINGS MESSAGES
@@ -85,6 +129,7 @@ void	bre_line(int x0, int y0, int x1, int y1, t_env *envi);
 void	ho_line(int x0, int y0, int x1, int y1, t_env *envi);
 void	ve_line(int x0, int y0, int x1, int y1, t_env *envi);
 void	u_bresen(int x0, int y0, int x1, int y1, t_env *envi);
+void	draw_line_ult(int x0, int y0, int x1, int y1, t_total *envi);
 
 /*
 **	LINKED LIST HELPER
