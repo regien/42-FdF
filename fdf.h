@@ -22,8 +22,8 @@
 # include <math.h>
 # include <stdio.h>
 
-# define WINH 800
 # define WINW 800
+# define WINH 800
 # define MIN(X, Y)	((X) < (Y) ? (X) : (Y))
 # define MAX(X, Y)	((X) < (Y) ? (Y) : (X))
 //# include "minilibx_macos_elcapitan/mlx_int.h"
@@ -32,8 +32,8 @@
 // VA DENTRO DE UNA ESTRUCURA MAS GRANDE
 typedef struct		s_bresen
 {
-	int width;
-	int	height;
+	int w;
+	int	h;
 	int	dx1;
 	int dy1;
 	int dx2;
@@ -57,7 +57,7 @@ typedef struct		s_total
 {
 	void		*mlx;
 	void		*win;
-	t_bresen	*seting;
+	t_bresen	*setting;
 	// img control
 	void		*img;
 	int			*pix;
@@ -129,7 +129,13 @@ void	bre_line(int x0, int y0, int x1, int y1, t_env *envi);
 void	ho_line(int x0, int y0, int x1, int y1, t_env *envi);
 void	ve_line(int x0, int y0, int x1, int y1, t_env *envi);
 void	u_bresen(int x0, int y0, int x1, int y1, t_env *envi);
+
+// EXCLUSIVE VERSION 2.0
+
+void	setbresen(int x0, int y0, int x1, int y1, t_bresen *set);
 void	draw_line_ult(int x0, int y0, int x1, int y1, t_total *envi);
+void	draw_point(int x, int y, int color, t_total *env);
+int		**set_matrix(int scale);
 
 /*
 **	LINKED LIST HELPER

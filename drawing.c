@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "fdf.h"
+#include <stdio.h>
 
 void	straight_line(int length, int x, int y, void *mlx, void *win)
 {
@@ -262,6 +263,22 @@ void	u_bresen(int x0, int y0, int x1, int y1, t_env *envi)
 }
 
 
+
+
+void	draw_point(int x, int y, int color, t_total *env)
+{
+	int i;
+
+	if (x > WINW || y > WINH)
+		return ;
+	i = (x) + (y * env->s_line / 4);
+//	env->pix[x + (y * env->s_line / 4)] = color;
+	env->pix[i] = color;
+	env->pix[i++] = color;
+	env->pix[i++] = color;
+}
+
+/*
 void	draw_line_ult(int x0, int y0, int x1, int y1, t_total *envi)
 {
 	int		w;
@@ -313,7 +330,7 @@ void	draw_line_ult(int x0, int y0, int x1, int y1, t_total *envi)
 	numerator = longest >> 1;
 	while (++i <= longest)
 	{
-		mlx_pixel_put(envi->mlx, envi->win, x0, y0, 0xFFFFFF);
+		draw_point(x0, y0, 0x145400, envi);
 		numerator = numerator + shortest;
 		if (!(numerator < longest))
 		{
@@ -328,73 +345,89 @@ void	draw_line_ult(int x0, int y0, int x1, int y1, t_total *envi)
 		}
 	}
 }
+*/
 // cambialo mas tarde
 
-/*
-void	draw_point(t, t_)
+int		**set_matrix(int scale)
 {
-	
+	int	 set;
+
+	return (0);	
 }
 
-
-void	draw_line_ult(int x0, int y0, int x1, int y1, t_env *envi)
+void	setbresen(int x0, int y0, int x1, int y1, t_bresen *set)
 {
-	w = x1 - x0;
-	h = y1 - y0;
-	// setting values
-	dx1 = 0;
-	dy1 = 0;
-	dx2 = 0;
-	dy2 = 0;
-	if (w < 0)
-		dx1 = -1;
-	else if (w > 0)
-		dx1 = 1;
-	if (h < 0)
-		dy1 = -1;
-	else if (h > 0)
-		dy1 = 1;
-	if (w < 0)
-		dx2 = -1;
-	else if (w > 0)
-		dx2 = 1;
-	longest = abs(w);
-	shortest = abs(h);
-	if (!(longest > shortest))
+	set->w = x1 - x0;
+	set->h = y1 - y0;
+	set->dx1 = 0;
+	set->dy1 = 0;
+	set->dx2 = 0;
+	set->dy2 = 0;
+	set->w < 0 ? set->dx1 = -1 : 0;
+	set->w > 0 ? set->dx1 = 1 : 0;
+	set->h < 0 ? set->dy1 = -1 : 0;
+	set->h > 0 ? set->dy1 = 1 : 0;
+	set->w < 0 ? set->dx2 = -1 : 0;
+	set->w > 0 ? set->dx2 = 1 : 0;
+	set->longest = abs(set->w);
+	set->shortest = abs(set->h);
+	if (!(set->longest > set->shortest))
 	{
-		longest = abs(h);
-		shortest = abs(w);
-		if (h < 0)
-			dy2 = -1;
-		else if (h > 0)
-			dy2 = 1;
-		dx2 = 0;
+		set->longest = abs(set->h);
+		set->shortest = abs(set->w);
+		set->h < 0 ? set->dy2 = -1 : 0;
+		set->h > 0 ? set->dy2 = 1 : 0;
+		set->dx2 = 0;
 	}
+}
+
+void	draw_line_ult(int x0, int y0, int x1, int y1, t_total *envi)
+{
+	t_bresen		*set;
 	
-	int		numerator;
-	int		i;
-	
-	i = -1;
-	numerator = longest >> 1;
-	while (++i <= longest)
+	set = envi->setting;
+/*
+	set->w = x1 - x0;
+	set->h = y1 - y0;
+	set->dx1 = 0;
+	set->dy1 = 0;
+	set->dx2 = 0;
+	set->dy2 = 0;
+	set->w < 0 ? set->dx1 = -1 : 0;
+	set->w > 0 ? set->dx1 = 1 : 0;
+	set->h < 0 ? set->dy1 = -1 : 0;
+	set->h > 0 ? set->dy1 = 1 : 0;
+	set->w < 0 ? set->dx2 = -1 : 0;
+	set->w > 0 ? set->dx2 = 1 : 0;
+	set->longest = abs(set->w);
+	set->shortest = abs(set->h);
+	if (!(set->longest > set->shortest))
 	{
-		mlx_pixel_put(envi->mlx, envi->win, x0, y0, 0xFFFFFF);
-		numerator = numerator + shortest;
-		if (!(numerator < longest))
+		set->longest = abs(set->h);
+		set->shortest = abs(set->w);
+		set->h < 0 ? set->dy2 = -1 : 0;
+		set->h > 0 ? set->dy2 = 1 : 0;
+		set->dx2 = 0;
+	}
+	*/
+//
+	setbresen(x0, y0, x1, y1, set);
+	set->i = -1;
+	set->numerator = set->longest >> 1;
+	while (++(set->i) <= set->longest)
+	{
+		draw_point(x0, y0, 0x145400, envi);
+		set->numerator = set->numerator + set->shortest;
+		if (!(set->numerator < set->longest))
 		{
-			numerator = numerator - longest;
-			x0 = x0 + dx1;
-			y0 = y0 + dy1;
+			set->numerator = set->numerator - set->longest;
+			x0 = x0 + set->dx1;
+			y0 = y0 + set->dy1;
 		}
 		else
 		{
-			x0 = x0 + dx2;
-			y0 = y0 + dy2;
+			x0 = x0 + set->dx2;
+			y0 = y0 + set->dy2;
 		}
 	}
 }
-
-
-
-
-*/

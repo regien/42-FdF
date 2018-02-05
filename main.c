@@ -213,6 +213,7 @@ int				main(int argc, char **argv)
 	}
 */
 	envi = ft_memalloc(sizeof(t_total));
+	envi->setting = ft_memalloc(sizeof(t_bresen));
 	envi->mlx = mlx_init();
 	envi->win = mlx_new_window(envi->mlx, WINW, WINH, "testing my shit");
 	envi->img = mlx_new_image(envi->mlx, WINW, WINH);
@@ -242,44 +243,21 @@ int				main(int argc, char **argv)
 //	mlx_loop_hook(envi->mlx, my_key_function, envi);
 	printf("pendejada\n");
 
-	b_line_3d(300, 300, 0, 500, 500, 0, envi);
-// dunno why this doesnt work but with the img it doesnt
-//	b_line(500, 500, 600, 300, envi);
-	
-	img = mlx_new_image(envi->mlx, 400, 400);
-//	printf("data address = %s", mlx_get_data_addr(img, 14, 14, 1));
-//	int		*bits;
-//	int		*s_line;
-	int		d, k;
-	d = 0;
-	k = 0;
-	img = mlx_xpm_file_to_image(envi->mlx, "example1.xpm", &d, &k);
-//	mlx_put_image_to_window(envi->mlx, envi->win, img, 0, 0);
-
-//	bre_line(0, 0, 400, 100, envi);
-//	bre_line(0, 0, 50, 10, envi);
-
-//	u_bresen(0, 600, 800, 605, envi);
-//	u_bresen(770, 800, 780, 0, envi);
-//	u_bresen(700, 800, 780, 0, envi);
-//	u_bresen(780, 800, 700, 0, envi);
+	int x;
+	int color = 0x145400;
+	for(x = 30; x < 130; x++)
+		draw_point(x, 150, color, envi);		
+// GOOD SHIT
 	draw_line_ult(150, 200, 600, 0, envi);
 	draw_line_ult(150, 200, 300, 0, envi);
 	draw_line_ult(150, 200, 200, 0, envi);
 	draw_line_ult(150, 200, 100, 0, envi);
-	draw_line_ult(150, 200, 150, 190, envi);
 	draw_line_ult(0, 700, 300, 0, envi);
 	draw_line_ult(0, 700, 300, 0, envi);
 	draw_line_ult(0, 400, 500, 400, envi);
 	draw_line_ult(0, 400, 500, 400, envi);
 
-/*
-	draw_line(500, 500, 700, 300, envi);
-	draw_line(100, 200, 400, 500, envi);
-	draw_line(400, 400, 400, 500, envi);
-	draw_line(700,300, 500, 100, envi);
-*/
-//	b_line(150/1 + 400, 150/1 + 400, 150/20 + 600, 150/20 + 600, envi);
+	mlx_put_image_to_window(envi->mlx, envi->win, envi->img, 0, 0);
 	
 	mlx_loop(envi->mlx);
 }
