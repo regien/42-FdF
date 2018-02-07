@@ -262,14 +262,14 @@ void	u_bresen(int x0, int y0, int x1, int y1, t_env *envi)
 		ho_line(x0, y0, x1, y1, envi);
 }
 
-
+// VERSION 2.40
 
 
 void	draw_point(int x, int y, int color, t_total *env)
 {
 	int i;
 
-	if (x > WINW || y > WINH)
+	if (x > WINW && y > WINH && x < 0 && y < 0)
 		return ;
 	i = (x) + (y * env->s_line / 4);
 //	env->pix[x + (y * env->s_line / 4)] = color;
@@ -278,81 +278,30 @@ void	draw_point(int x, int y, int color, t_total *env)
 	env->pix[i++] = color;
 }
 
-/*
-void	draw_line_ult(int x0, int y0, int x1, int y1, t_total *envi)
-{
-	int		w;
-	int		h;
-	int		dx1;
-	int		dy1;
-	int		dx2;
-	int		dy2;
-	int		longest;
-	int		shortest;
-
-
-	w = x1 - x0;
-	h = y1 - y0;
-	// setting values
-	dx1 = 0;
-	dy1 = 0;
-	dx2 = 0;
-	dy2 = 0;
-	if (w < 0)
-		dx1 = -1;
-	else if (w > 0)
-		dx1 = 1;
-	if (h < 0)
-		dy1 = -1;
-	else if (h > 0)
-		dy1 = 1;
-	if (w < 0)
-		dx2 = -1;
-	else if (w > 0)
-		dx2 = 1;
-	longest = abs(w);
-	shortest = abs(h);
-	if (!(longest > shortest))
-	{
-		longest = abs(h);
-		shortest = abs(w);
-		if (h < 0)
-			dy2 = -1;
-		else if (h > 0)
-			dy2 = 1;
-		dx2 = 0;
-	}
-	
-	int		numerator;
-	int		i;
-	
-	i = -1;
-	numerator = longest >> 1;
-	while (++i <= longest)
-	{
-		draw_point(x0, y0, 0x145400, envi);
-		numerator = numerator + shortest;
-		if (!(numerator < longest))
-		{
-			numerator = numerator - longest;
-			x0 = x0 + dx1;
-			y0 = y0 + dy1;
-		}
-		else
-		{
-			x0 = x0 + dx2;
-			y0 = y0 + dy2;
-		}
-	}
-}
-*/
-// cambialo mas tarde
+// COMPLEJIDAD 3x3 MATRIX para -- hay otra mas pendeja de 4
+// INCOMPLETO
 
 int		**set_matrix(int scale)
 {
-	int	 set;
-
-	return (0);	
+	int		**set;
+	int		i;
+	int		e;
+	
+	i = -1;
+	set = ft_memalloc(sizeof(int*) * 3);
+	while (++i < 4)
+		set[i] = ft_memalloc(sizeof(int) * 3);
+	i = -1;
+	while (++i < 4)
+	{
+		e = -1;
+		while (++e < 4)
+			set[i][e] = 0;
+	}
+	set[0][0] = scale;
+	set[1][1] = scale;
+	set[2][2] = scale;
+	return (set);	
 }
 
 void	setbresen(int x0, int y0, int x1, int y1, t_bresen *set)
@@ -386,31 +335,6 @@ void	draw_line_ult(int x0, int y0, int x1, int y1, t_total *envi)
 	t_bresen		*set;
 	
 	set = envi->setting;
-/*
-	set->w = x1 - x0;
-	set->h = y1 - y0;
-	set->dx1 = 0;
-	set->dy1 = 0;
-	set->dx2 = 0;
-	set->dy2 = 0;
-	set->w < 0 ? set->dx1 = -1 : 0;
-	set->w > 0 ? set->dx1 = 1 : 0;
-	set->h < 0 ? set->dy1 = -1 : 0;
-	set->h > 0 ? set->dy1 = 1 : 0;
-	set->w < 0 ? set->dx2 = -1 : 0;
-	set->w > 0 ? set->dx2 = 1 : 0;
-	set->longest = abs(set->w);
-	set->shortest = abs(set->h);
-	if (!(set->longest > set->shortest))
-	{
-		set->longest = abs(set->h);
-		set->shortest = abs(set->w);
-		set->h < 0 ? set->dy2 = -1 : 0;
-		set->h > 0 ? set->dy2 = 1 : 0;
-		set->dx2 = 0;
-	}
-	*/
-//
 	setbresen(x0, y0, x1, y1, set);
 	set->i = -1;
 	set->numerator = set->longest >> 1;
@@ -431,3 +355,47 @@ void	draw_line_ult(int x0, int y0, int x1, int y1, t_total *envi)
 		}
 	}
 }
+
+void		set_node(int x, int y, int z, t_coord *set)
+{
+	set->x = x;
+	set->y = y;
+	set->z = z;
+	set->color = 0;
+}
+
+//this doesnt 
+void		xy_rotation(t_coord *set, t_total *envi)
+{
+	envi->theta = 0.50;
+	set->x = (set->x * cos(envi->theta)) + (set->y * sin(envi->theta));
+	set->y = (set->x * -(sin(envi->theta))) + (set->y * cos(envi->theta));
+	set->z = set->z * 1;
+}
+
+void		yz_rotation(t_coord *set, t_total *envi)
+{
+	envi->theta = 0.50;
+	set->y = (set->y * cos(envi->theta)) + (set->z * -(sin(envi->theta)));
+	set->z = (set->y * sin(envi->theta)) + (set->z * cos(envi->theta));
+	set->x = set->x * 1;
+}
+
+// this one work
+void		xz_rotation(t_coord *set, t_total *envi)
+{
+	envi->theta = 0.90;
+	set->x = (set->x * cos(envi->theta)) + (set->z * sin(envi->theta));
+	set->z = (set->x * -(sin(envi->theta))) + (set->z * cos(envi->theta));
+	set->y = set->y * 1;
+}
+
+/*
+void		z_rotation(t_coord *set, t_total *envi)
+{
+	envi->theta = 0.50;
+	set->x = set->x * cos(envi->theta) + set->y * sin(envi->theta);
+	set->y = set->y * -(sin(envi->theta)) + set->x * cos(envi->theta);
+	set->z = set->z * 1;
+}
+*/

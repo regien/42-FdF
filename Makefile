@@ -6,7 +6,7 @@
 #    By: regien <gmalpart@student.42.us.org>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/12/25 00:45:02 by regien            #+#    #+#              #
-#    Updated: 2018/01/10 23:13:43 by gmalpart         ###   ########.fr        #
+#    Updated: 2018/02/05 02:46:43 by gmalpart         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -77,7 +77,7 @@ compli:
 
 # fast compile for macosx version / MACOSX
 comp:
-	$(CC) $(CFILES) $(OSXLIB) -Iminilibx_macos_sierra $(MFLAGS) -o $(NAME)
+	$(CC) -g $(CFILES) $(OSXLIB) -Iminilibx_macos_sierra $(MFLAGS) -o $(NAME)
 
 clean:
 	@$(LIBC)

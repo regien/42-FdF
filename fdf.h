@@ -58,12 +58,14 @@ typedef struct		s_total
 	void		*mlx;
 	void		*win;
 	t_bresen	*setting;
+	t_coord		*coord;
 	// img control
 	void		*img;
 	int			*pix;
 	int			bits;
 	int			s_line;
 	int			endian;
+	float		theta;
 	void		*general;
 }					t_total;
 
@@ -74,9 +76,9 @@ typedef struct		s_total
 
 typedef struct		s_node
 {
-	int		x;
-	int		y;
-	int		z;
+	float		x;
+	float		y;
+	float		z;
 	int		color;
 }			t_node;
 
@@ -136,7 +138,11 @@ void	setbresen(int x0, int y0, int x1, int y1, t_bresen *set);
 void	draw_line_ult(int x0, int y0, int x1, int y1, t_total *envi);
 void	draw_point(int x, int y, int color, t_total *env);
 int		**set_matrix(int scale);
+void		set_node(int x, int y, int z, t_coord *set);
 
+void		xy_rotation(t_coord *set, t_total *envi);
+void		xz_rotation(t_coord *set, t_total *envi);
+void		yz_rotation(t_coord *set, t_total *envi);
 /*
 **	LINKED LIST HELPER
 */

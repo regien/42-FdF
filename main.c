@@ -189,9 +189,6 @@ int				main(int argc, char **argv)
 	void		*win;
 	void		*img;
 
-//	t_list		*list;
-//	t_env		*envi;
-//	static t_matrx	*matrix;
 	t_total		*envi;
 
 // parser
@@ -214,6 +211,7 @@ int				main(int argc, char **argv)
 */
 	envi = ft_memalloc(sizeof(t_total));
 	envi->setting = ft_memalloc(sizeof(t_bresen));
+	envi->coord = ft_memalloc(sizeof(t_coord) * 12);
 	envi->mlx = mlx_init();
 	envi->win = mlx_new_window(envi->mlx, WINW, WINH, "testing my shit");
 	envi->img = mlx_new_image(envi->mlx, WINW, WINH);
@@ -224,38 +222,54 @@ int				main(int argc, char **argv)
 	mlx_do_key_autorepeatoff(envi->mlx);
 	mlx_hook(envi->win, 4, 0, my_key_function, envi);
 	mlx_hook(envi->win, 2, 0, my_key_function, envi);
-//	mlx_hook(envi->win, 1, 0, my_key_function, envi);
-//	mlx_hook(envi->win, 10, 0, my_key_function, envi);
-//	mlx_key_hook(envi->win, my_key_function, envi);
 
-//	straight_line(200, 0,0, envi->mlx, envi->win);
-//	straight_line_y(200, 200, 0, envi->mlx, envi->win);
-//	b_line(300, 500, 600, 700, envi);
+	t_coord	*ptr;
+	int		xori = 400;
+	int		yori = 400;
+	
+	ptr = envi->coord;
+	set_node(xori + 100, yori + 100, 100, &(ptr[0]));
+	set_node(xori - 100, yori - 100, 100, &(ptr[1]));
+	set_node(xori - 100, yori + 100, -100, &(ptr[2]));
+
+	set_node(xori + 100, yori + 100, 100, &(ptr[3]));
+	set_node(xori - 100, yori - 100, 100, &(ptr[4]));
+	set_node(xori + 100, yori - 100, -100, &(ptr[5]));
+
+	set_node(xori - 100, yori + 100, -100, &(ptr[6]));
+	set_node(xori + 100, yori - 100, -100, &(ptr[7]));
+	set_node(xori + 100, yori + 100, 100, &(ptr[8]));
+
+	set_node(xori - 100, yori + 100, -100, &(ptr[9]));
+	set_node(xori + 100, yori - 100, -100, &(ptr[10]));
+	set_node(xori - 100, yori - 100, 100, &(ptr[11]));
+
+//	int	**matrix;
+
+//	matrix = set_matrix(1);
+
+	int e;
+	e = -1;
+	while (++e < 12)
+	{
+		xz_rotation(&(ptr[e]), envi);
+	//	yz_rotation(&(ptr[e]), envi);
+	//	xy_rotation(&(ptr[e]), envi);
+	}
+	for(e = 0; e < 11; e++)
+		draw_line_ult(ptr[e].x, ptr[e].y, ptr[e + 1].x, ptr[e + 1].y , envi);
+//	draw_line_ult(0, 700, 300, 0, envi);
+//	while ()
 
 //	mlx_clear_window(mlx, win);
 //	mlx_pixel_put(mlx, win, 200, 200, 0x00FFFFFF);
-//	draw_circle(300, 300, 150, envi);
-
-//	draw_circle_fill(300, 300, 50, envi);
 
 //	multi loop hook, perfect for stuff like wolf3d and some super weird stuff
 //	that you can do in this project.
 //	mlx_loop_hook(envi->mlx, my_key_function, envi);
 	printf("pendejada\n");
 
-	int x;
-	int color = 0x145400;
-	for(x = 30; x < 130; x++)
-		draw_point(x, 150, color, envi);		
 // GOOD SHIT
-	draw_line_ult(150, 200, 600, 0, envi);
-	draw_line_ult(150, 200, 300, 0, envi);
-	draw_line_ult(150, 200, 200, 0, envi);
-	draw_line_ult(150, 200, 100, 0, envi);
-	draw_line_ult(0, 700, 300, 0, envi);
-	draw_line_ult(0, 700, 300, 0, envi);
-	draw_line_ult(0, 400, 500, 400, envi);
-	draw_line_ult(0, 400, 500, 400, envi);
 
 	mlx_put_image_to_window(envi->mlx, envi->win, envi->img, 0, 0);
 	
@@ -264,4 +278,13 @@ int				main(int argc, char **argv)
 
 // JUST REFERENCE MICHAEL CODE
 
-
+/*
+	draw_line_ult(150, 200, 600, 0, envi);
+	draw_line_ult(150, 200, 300, 0, envi);
+	draw_line_ult(150, 200, 200, 0, envi);
+	draw_line_ult(150, 200, 100, 0, envi);
+	draw_line_ult(0, 700, 300, 0, envi);
+	draw_line_ult(0, 700, 300, 0, envi);
+	draw_line_ult(0, 400, 500, 400, envi);
+	draw_line_ult(0, 400, 500, 400, envi);
+*/
