@@ -167,7 +167,7 @@ void	tr_translate(float matrix[4][4], float tx, float ty, float tz);
 void	setmatrix(float matrix[4][4]);
 //void	tr_rotate(float matrix[4][4], int ax, int ay, int az, t_total *envi);
 void	tr_rotate(float matrix[4][4], t_total *envi);
-void	projection(t_coord *dest);
+void	projection(t_total *envi);
 void	init_global(t_total *envi);
 void	init_align(t_total *envi);
 /*

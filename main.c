@@ -253,15 +253,19 @@ void	init_align(t_total *envi)
 	mat_identity(global);
 	tr_rotate(global, envi);
 	//					scale	width		scale height
-	tr_scale(global, (WINW * 1) / 5, (WINH * 1) / 1, 1);
+	tr_scale(global, (WINW * 1) / 5, (WINH * 5) / 1, 1);
 	tr_translate(global, 1, 1, 1);
 	y = -1;
 	while (++y < 12)
 			vec_multmatrix(&(envi->coord[y]), global, &(envi->dest[y]));
 }
 
-void	projection(t_coord *dest)
+void	projection(t_total *envi)
 {
+
+	t_coord	*dest;
+	
+	dest = envi->dest;
 	if(!dest->z)
 		dest->z = 1;
 //											XORIGIN
@@ -276,7 +280,7 @@ void	init_global(t_total *envi)
 	int		y;
 	
 	mat_identity(global);
-	tr_translate(global, -(50 / 2), -(50 /2), 0);
+	tr_translate(global, -(12 / 2), -(1 /2), 0);
 	tr_scale(global, 1, 1, 0.15);
 	y = -1;
 	while (++y < 12)
