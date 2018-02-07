@@ -269,7 +269,7 @@ void	draw_point(int x, int y, int color, t_total *env)
 {
 	int i;
 
-	if (x > WINW && y > WINH && x < 0 && y < 0)
+	if (x > WINW || y > WINH || x < 0 || y < 0)
 		return ;
 	i = (x) + (y * env->s_line / 4);
 //	env->pix[x + (y * env->s_line / 4)] = color;
@@ -365,6 +365,7 @@ void		set_node(int x, int y, int z, t_coord *set)
 }
 
 //this doesnt 
+/*
 void		xy_rotation(t_coord *set, t_total *envi)
 {
 	envi->theta = 0.50;
@@ -384,18 +385,32 @@ void		yz_rotation(t_coord *set, t_total *envi)
 // this one work
 void		xz_rotation(t_coord *set, t_total *envi)
 {
-	envi->theta = 0.90;
 	set->x = (set->x * cos(envi->theta)) + (set->z * sin(envi->theta));
 	set->z = (set->x * -(sin(envi->theta))) + (set->z * cos(envi->theta));
 	set->y = set->y * 1;
 }
+*/
 
-/*
-void		z_rotation(t_coord *set, t_total *envi)
+void		xy_rotation(t_coord *set, t_total *envi)
 {
-	envi->theta = 0.50;
-	set->x = set->x * cos(envi->theta) + set->y * sin(envi->theta);
-	set->y = set->y * -(sin(envi->theta)) + set->x * cos(envi->theta);
+//	envi->theta = 0.50;
+	set->x = (set->x * cos(envi->theta)) + (set->y * sin(envi->theta));
+	set->y = (set->x * -(sin(envi->theta))) + (set->y * cos(envi->theta));
 	set->z = set->z * 1;
 }
-*/
+
+void		yz_rotation(t_coord *set, t_total *envi)
+{
+//	envi->theta = 0.50;
+	set->y = (set->y * cos(envi->phi)) + (set->z * -(sin(envi->phi)));
+	set->z = (set->y * sin(envi->phi)) + (set->z * cos(envi->phi));
+	set->x = set->x * 1;
+}
+
+// this one work
+void		xz_rotation(t_coord *set, t_total *envi)
+{
+	set->x = (set->x * cos(envi->psi)) + (set->z * sin(envi->psi));
+	set->z = (set->x * -(sin(envi->psi))) + (set->z * cos(envi->psi));
+	set->y = set->y * 1;
+}

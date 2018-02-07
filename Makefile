@@ -6,7 +6,7 @@
 #    By: regien <gmalpart@student.42.us.org>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/12/25 00:45:02 by regien            #+#    #+#              #
-#    Updated: 2018/02/05 02:46:43 by gmalpart         ###   ########.fr        #
+#    Updated: 2018/02/06 18:18:23 by gmalpart         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,7 +29,8 @@ MFLAGS = -framework OpenGL -framework AppKit
 # order is important in Linux
 CFILES =	errors_h.c \
 			drawing.c \
-			main.c 
+			main.c \
+			parser.c
 
 LILIB =		$(LIB)libft.a \
 			$(MLX)libmlx_Linux.a

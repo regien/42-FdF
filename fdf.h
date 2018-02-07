@@ -26,6 +26,9 @@
 # define WINH 800
 # define MIN(X, Y)	((X) < (Y) ? (X) : (Y))
 # define MAX(X, Y)	((X) < (Y) ? (Y) : (X))
+# define SIN(x) envi->sintable[abs((int)x&255)]
+# define COS(x) envi->costable[abs((int)x&255)]
+# define FOCAL 200
 //# include "minilibx_macos_elcapitan/mlx_int.h"
 
 // KINDA NEW START
@@ -59,6 +62,7 @@ typedef struct		s_total
 	void		*win;
 	t_bresen	*setting;
 	t_coord		*coord;
+	t_coord		*dest;
 	// img control
 	void		*img;
 	int			*pix;
@@ -66,7 +70,13 @@ typedef struct		s_total
 	int			s_line;
 	int			endian;
 	float		theta;
+	float		phi;
+	float		psi;
 	void		*general;
+	// kinda 3d world
+	float		sintable[256];
+	float		costable[256];
+	float		matrix1[4][4];
 }					t_total;
 
 
@@ -143,6 +153,23 @@ void		set_node(int x, int y, int z, t_coord *set);
 void		xy_rotation(t_coord *set, t_total *envi);
 void		xz_rotation(t_coord *set, t_total *envi);
 void		yz_rotation(t_coord *set, t_total *envi);
+void			redraw(t_total *envi);
+void	m3d_init(t_total *envi);
+// scale - 1
+void	mat_identity(float mat[4][4]);
+void	mat_multi(float mat1[4][4], float mat2[4][4], float dest[4][4]);
+void	vec_multmatrix(t_coord *coord, float mat[4][4], t_coord *dest);
+void	mat_copy(float source[4][4], float dest[4][4]);
+
+
+void	tr_scale(float matrix[4][4], float sx, float sy, float sz);
+void	tr_translate(float matrix[4][4], float tx, float ty, float tz);
+void	setmatrix(float matrix[4][4]);
+//void	tr_rotate(float matrix[4][4], int ax, int ay, int az, t_total *envi);
+void	tr_rotate(float matrix[4][4], t_total *envi);
+void	projection(t_coord *dest);
+void	init_global(t_total *envi);
+void	init_align(t_total *envi);
 /*
 **	LINKED LIST HELPER
 */
