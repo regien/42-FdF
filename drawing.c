@@ -6,7 +6,7 @@
 /*   By: gmalpart <gmalpart@student.42.us.org>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/09 22:49:11 by gmalpart          #+#    #+#             */
-/*   Updated: 2018/01/09 22:50:01 by gmalpart         ###   ########.fr       */
+/*   Updated: 2018/02/07 05:32:03 by gmalpart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -272,10 +272,12 @@ void	draw_point(int x, int y, int color, t_total *env)
 	if (x > WINW || y > WINH || x < 0 || y < 0)
 		return ;
 	i = (x) + (y * env->s_line / 4);
+	if (i > WINH * WINW)
+		return ;
 //	env->pix[x + (y * env->s_line / 4)] = color;
 	env->pix[i] = color;
-	env->pix[i++] = color;
-	env->pix[i++] = color;
+//	env->pix[i++] = color;
+//	env->pix[i++] = color;
 }
 
 // COMPLEJIDAD 3x3 MATRIX para -- hay otra mas pendeja de 4

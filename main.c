@@ -6,7 +6,7 @@
 /*   By: regien <gmalpart@student.42.us.org>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/31 19:13:40 by regien            #+#    #+#             */
-/*   Updated: 2018/02/02 14:26:48 by gmalpart         ###   ########.fr       */
+/*   Updated: 2018/02/07 05:33:00 by gmalpart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -313,7 +313,7 @@ void			redraw(t_total *envi)
 	}
 	for(e = 0; e < 11; e++)
 		draw_line_ult(envi->dest[e].x, envi->dest[e].y, \
-		envi->coord[e + 1].x, envi->coord[e + 1].y , envi);
+		envi->dest[e + 1].x, envi->dest[e + 1].y , envi);
 
 //	mlx_do_key_autorepeatoff(envi->mlx);
 	mlx_hook(envi->win, 4, 0, my_key_function, envi);
