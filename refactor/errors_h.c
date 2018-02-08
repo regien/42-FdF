@@ -20,9 +20,8 @@
 void		fillit_print_usage(char *arg)
 {
 		ft_putstr("usage ");
-		ft_putstr(arg);
-		ft_putstr(" valid_file.fdf\n");
-		exit(-1);
+			ft_putstr(arg);
+				ft_putstr(" valid_file.fdf\n");
 }
 
 /*

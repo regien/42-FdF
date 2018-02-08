@@ -49,9 +49,9 @@ typedef struct		s_bresen
 
 typedef struct		s_coord
 {
-	int				x;
-	int				y;
-	int				z;
+	float				x;
+	float				y;
+	float				z;
 	int				color;
 }					t_coord;
 
@@ -61,8 +61,11 @@ typedef struct		s_total
 	void		*mlx;
 	void		*win;
 	t_bresen	*setting;
-	t_coord		*coord;
-	t_coord		*dest;
+	t_coord		**coord;
+	t_coord		**dest;
+	// matrix count
+	int			row;
+	int			colum;
 	// img control
 	void		*img;
 	int			*pix;
@@ -72,7 +75,8 @@ typedef struct		s_total
 	float		theta;
 	float		phi;
 	float		psi;
-	void		*general;
+//	void		*general;
+
 	// kinda 3d world
 	float		sintable[256];
 	float		costable[256];
@@ -170,9 +174,18 @@ void	tr_rotate(float matrix[4][4], t_total *envi);
 void	projection(t_coord *dest);
 void	init_global(t_total *envi);
 void	init_align(t_total *envi);
+
+
 /*
-**	LINKED LIST HELPER
+**	REFACTOR
 */
+
+void		parser(char *arg, t_total *envi);
+int			parser_file(char *str, t_total *envi);
+void		storage(char *arg, t_total *envi);
+void		set_coord(t_coord *coord, int z);
+int			mouse_hook(int keycode, t_total *envi);
+void		loophole(t_total *envi);
 
 
 #endif

@@ -39,7 +39,16 @@ int			my_key_function(int keycode, t_total *envi)
 		envi->psi += 00.01;
 	if (keycode == 12)
 		envi->psi -= 00.01;
-	redraw(envi);
+//	redraw(envi);
+	return (0);
+}
+
+int			mouse_hook(int keycode, t_total *envi)
+{
+	printf("key event %d\n", keycode);
+	if (keycode == 1)
+		;
+//		envi->phi -= 00.01;
 	return (0);
 }
 
@@ -67,262 +76,162 @@ int			parser_argv(char *str)
 	return (1);
 }
 
-void	m3d_init(t_total *envi)
+int			count_splt(char **str)
 {
-	int d;
-	
-	d = -1;
-	while(++d < 256)
+		int	i;
+
+		i = 0;
+		while (str[i] != NULL)
+			i++;
+		return (i);
+}
+
+// NO ENDING | suppose to have a list as an argument to storage the linked list
+int		splitter(char *str, t_total *envi)
+{
+	static char	**temp;
+	int					i;
+
+	i = -1;
+	printf("matrix = %i\n", count_splt(ft_strsplit(str, ' ')));
+	temp = ft_strsplit(str, ' ');
+	// tamaño calculado
+	if (envi->colum != 0)
+	{
+		if (envi->colum != count_splt(temp))
+			general_exit(-1, "invalid map\n");
+	}
+	else
+		envi->colum = count_splt(temp);
+	// calcular de que tamano es el doble pointer
+//	while (++i < envi->row)
+//		add_list(list, temp[i]);
+	return (1);
+}
+
+// take care of is_valid_hex || NOT HERE, IN THE SPLIT
+int			parser_line(char *line)
+{
+	int i;
+
+	i = -1;
+	while (line[++i])
+	{
+		if (i == 0 && line[i] == ' ')
+			return (0);
+		if (line[i] == '\t')
+			return (0);
+		if (line[i] == ' ')
+			if (line[i + 1] == ' ' || line[i + 1] == '\0')
+				return (0);
+		if ((line[i] >= 'g' && line[i] <= 'z') || \
+		(line[i] >= 'G' && line[i] <= 'Z'))
+			return (0);
+	}
+	return (1);
+}
+
+
+// this is for parsing colors
+/*
+int			parser_island(char *island)
+{
+	int		i;
+
+	i = -1;
+	while(island[++i])
+	{
+		if (island[i] == ',')
+			if (island[i + 1] == '0')
+				if (island[i + 2] == 'x')
+					
+	}
+}
+*/
+
+int			parser_file(char *str, t_total *envi)
+{
+	int		fd;
+	static char	*line;
+
+	envi->row = 0;
+	envi->colum = 0;
+	if ((fd = open(str, O_RDONLY)) < 0)
+			general_exit(-1, "invalid file\n");
+	// change to if so only reads once / testing only
+	printf("PENDEJADA\n");
+	while ((get_next_line(fd, &line) > 0))
+	{
+		(envi->row)++;
+		printf("matrix->column = %d\n", envi->colum);
+		if (parser_line(line) == 0 || splitter(line, envi) == 0)
 		{
-			envi->sintable[d] = sin(d * M_PI / 128.0);
-			envi->costable[d] = cos(d * M_PI / 128.0);
-		}
-}
-
-void	mat_copy(float source[4][4], float dest[4][4])
-{
-	int i;
-	int j;
-
-	i = -1;
-	while (++i < 4)
-	{
-		j = -1;
-		while(++j < 4)
-			dest[i][j] = source[i][j];
-	}
-}
-
-void	vec_multmatrix(t_coord *coord, float mat[4][4], t_coord *dest)
-{
-	dest->x = coord->x * mat[0][0] + coord->y * mat[1][0] + \
-			coord->z * mat[2][0] + mat[3][0];
-	dest->y = coord->x * mat[0][1] + coord->y * mat[1][1] + \
-			coord->z * mat[2][1] + mat[3][1];
-	dest->z = coord->x * mat[0][2] + coord->y * mat[1][2] + \
-			coord->z * mat[2][2] + mat[3][2];
-}
-
-void	mat_multi(float mat1[4][4], float mat2[4][4], float dest[4][4])
-{
-	int i;
-	int j;
-
-	i = -1;
-	while (++i < 4)
-	{
-		j = -1;
-		while(++j < 4)
-		{
-			dest[i][j] = mat1[i][0] * mat2[0][j] + \
-						mat1[i][1] * mat2[1][j] + \
-						mat1[i][2] * mat2[2][j] + \
-						mat1[i][3] * mat2[3][j]; 
+		//	printf("falla, falla en el parser dentro\n");
+			return (0);
+			// returning just for testing only
+			// funcion para agregar a lista y setear matrix number
 		}
 	}
+	close(fd);
+	return (1);
 }
 
-void	mat_identity(float mat[4][4])
+void		set_coord(t_coord *coord, int z)
 {
-	mat[0][0]=1;
-	mat[0][1]=0;
-	mat[0][2]=0;
-	mat[0][3]=0;
-    mat[1][0]=0;
-	mat[1][1]=1;
-	mat[1][2]=0;
-	mat[1][3]=0;
-	mat[2][0]=0;
-	mat[2][1]=0;
-	mat[2][2]=1;
-	mat[2][3]=0;
-	mat[3][0]=0;
-	mat[3][1]=0;
-	mat[3][2]=0;
-	mat[3][3]=1;
+	coord->x = 0;
+	coord->y = 0;
+	coord->z = (float)z;
+	coord->color = 0xFFFFFF;
 }
 
-void	tr_translate(float matrix[4][4], float tx, float ty, float tz)
+void		storage(char *arg, t_total *envi)
 {
-	float tmat[4][4];
-	float	mat1[4][4];
-
-	tmat[0][0] = 1;
-	tmat[0][1] = 0;
-	tmat[0][2] = 0;
-	tmat[0][3] = 0;
-	tmat[1][0] = 0;
-	tmat[1][1] = 1;
-	tmat[1][2] = 0;
-	tmat[1][3] = 0;
-	tmat[2][0] = 0;
-	tmat[2][1] = 0;
-	tmat[2][2] = 1;
-	tmat[2][3] = 0;
-	tmat[3][0] = tx;
-	tmat[3][1] = ty;
-	tmat[3][2] = tz;
-	tmat[3][3] = 1;
-	mat_multi(matrix, tmat, mat1);
-	mat_copy(mat1, matrix);
-}
-
-void	tr_scale(float matrix[4][4], float sx, float sy, float sz)
-{
-	float smat[4][4];
-	float mat1[4][4];
-
-	smat[0][0] = sx;
-	smat[0][1] = 0;
-	smat[0][2] = 0;
-	smat[0][3] = 0;
-	smat[1][0] = 0;
-	smat[1][1] = sy;
-	smat[1][2] = 0;
-	smat[1][3] = 0;
-	smat[2][0] = 0;
-	smat[2][1] = 0;
-	smat[2][2] = sz;
-	smat[2][3] = 0;
-	smat[3][0] = 0;
-	smat[3][1] = 0;
-	smat[3][2] = 0;
-	smat[3][3] = 1;
-	mat_multi(matrix, smat, mat1);
-	mat_copy(mat1, matrix);
-}
-
-void	setmatrix(float matrix[4][4])
-{
-	int i;
-	int j;
-
-	i = -1;
-	while (++i < 4)
-	{
-		j = -1;
-		while(++j < 4)
-			matrix[i][j] = 0;
-	}
-}
-
-//void	tr_rotate(float matrix[4][4], int ax, int ay, int az, t_total *envi)
-void	tr_rotate(float matrix[4][4], t_total *envi)
-{
-	float xmat[4][4];
-	float ymat[4][4];
-	float zmat[4][4];
-	float mat1[4][4];
-	float mat2[4][4];
-
-	setmatrix(xmat);
-	setmatrix(ymat);
-	setmatrix(zmat);
-	xmat[0][0] = 1;
-	xmat[1][1] = cos(envi->theta);
-	xmat[1][2] = sin(envi->theta);
-	xmat[2][1] = -sin(envi->theta);
-	xmat[2][2] = cos(envi->theta);
-	xmat[3][3] = 1;
-	
-	ymat[0][0] = cos(envi->phi);
-	ymat[0][2] = cos(envi->phi);
-	ymat[1][1] = 1;
-	ymat[2][0] = sin(envi->phi);
-	ymat[2][2] = cos(envi->phi);
-	ymat[3][3] = 1;
-
-	zmat[0][0] = cos(envi->psi);
-	zmat[0][1] = sin(envi->psi);
-	zmat[1][0] = -sin(envi->psi);
-	zmat[1][1] = cos(envi->psi);
-	zmat[2][2] = 1;
-	zmat[3][3] = 1;
-
-	mat_multi(matrix, ymat, mat1);
-	mat_multi(mat1, xmat, mat2);
-	mat_multi(mat2, zmat, matrix);
-}
-
-void	init_align(t_total *envi)
-{
-	float	global[4][4];
-	int		x;
+	int		fd;
+	static char	*line;
+	static char **temp;
+	t_coord	**coord;
 	int		y;
-	
-	mat_identity(global);
-	tr_rotate(global, envi);
-	//					scale	width		scale height
-	tr_scale(global, (WINW * 1) / 5, (WINH * 1) / 1, 1);
-	tr_translate(global, 1, 1, 1);
-	y = -1;
-	while (++y < 12)
-			vec_multmatrix(&(envi->coord[y]), global, &(envi->dest[y]));
-}
-
-void	projection(t_coord *dest)
-{
-	if(!dest->z)
-		dest->z = 1;
-//											XORIGIN
-	dest->x = FOCAL * dest->x / dest->y + 400;
-	dest->y = FOCAL * dest->y / dest->y + 400;
-}
-
-void	init_global(t_total *envi)
-{
-	float	global[4][4];
 	int		x;
-	int		y;
-	
-	mat_identity(global);
-	tr_translate(global, -(50 / 2), -(50 /2), 0);
-	tr_scale(global, 1, 1, 0.15);
+
+	if ((fd = open(arg, O_RDONLY)) < 0)
+			general_exit(-1, "invalid file\n");
+	printf("just checking, row = |%d| column = |%d|\n", envi->row, envi->colum);
 	y = -1;
-	while (++y < 12)
-			vec_multmatrix(&(envi->coord[y]), global, &(envi->dest[y]));
-//	y = -1;
-//	while (++y < 12)
-//			projection(&(envi->dest[y]));
+	coord = envi->coord;
+	coord = ft_memalloc(sizeof(t_coord*) * envi->row);
+	while (++y < envi->row)
+		coord[y] = ft_memalloc(sizeof(t_coord) * envi->colum);
+	y = -1;
+	while (get_next_line(fd, &line) > 0 && ++y)
+	{
+		x = -1;
+		temp = ft_strsplit(line, ' ');
+		while (temp[++x])
+			set_coord(&(coord[y][x]), ft_atoi(temp[x]));
+	}
+	close(fd);
 }
 
-
-//  REDRAW -----------------------------------------
-void			redraw(t_total *envi)
+void		parser(char *arg, t_total *envi)
 {
-	mlx_clear_window(envi->mlx, envi->win);
-	if (envi->img)
-		mlx_destroy_image(envi->mlx, envi->img);
-	envi->img = mlx_new_image(envi->mlx, WINW, WINH);
-	envi->pix = (int*)mlx_get_data_addr(envi->img, &(envi->bits), \
-	&(envi->s_line), &(envi->endian));
-	init_global(envi);
-	init_align(envi);
-//	int	**matrix;
+	t_coord *temp;
 
-//	matrix = set_matrix(1);
+	if (parser_argv(arg) == 0 || parser_file(arg, envi) == 0)
+		general_exit(-1, "invalid file\n");
+	else
+		storage(arg, envi);
+}
 
-	int e;
-	e = -1;
-	while (++e < 12)
-	{
-//		xz_rotation(&(envi->coord[e]), envi);
-//		yz_rotation(&(envi->coord[e]), envi);
-//		xy_rotation(&(envi->coord[e]), envi);
-		
-	}
-	for(e = 0; e < 11; e++)
-		draw_line_ult(envi->dest[e].x, envi->dest[e].y, \
-		envi->dest[e + 1].x, envi->dest[e + 1].y , envi);
-
-//	mlx_do_key_autorepeatoff(envi->mlx);
-	mlx_hook(envi->win, 4, 0, my_key_function, envi);
-	mlx_hook(envi->win, 2, 0, my_key_function, envi);
+void		loophole(t_total *envi)
+{
+	envi->theta = 0;
+	envi->phi = 0;
+	envi->psi = 0;
 	mlx_put_image_to_window(envi->mlx, envi->win, envi->img, 0, 0);
-	printf("pendejada = |%f|\n", envi->theta);
+	mlx_hook(envi->win, 2, 0, my_key_function, envi);
+	mlx_hook(envi->win, 4, 5, mouse_hook, envi);
 	mlx_loop(envi->mlx);
 }
-
 
 int				main(int argc, char **argv)
 {
@@ -332,78 +241,27 @@ int				main(int argc, char **argv)
 
 	t_total		*envi;
 
-// parser
-
-/*
-	if (argc != 2)
-	{
-		fillit_print_usage(argv[0]);
-		return (0);
-	}
-
-	// allocating a matrix;
-//	matrix = ft_memalloc(sizeof(t_matrx));
-
-	if (parser_argv(argv[1]) == 0 || parser_file(argv[1], &list, &matrix) == 0)
-	{
-		general_exit(ESCAPE, "invalid file or map\n");
-		return (0);
-	}
-*/
 	envi = ft_memalloc(sizeof(t_total));
+// parser
+	if (argc != 2)
+		fillit_print_usage(argv[0]);
+	parser(argv[1], envi);
 	envi->setting = ft_memalloc(sizeof(t_bresen));
 	envi->coord = ft_memalloc(sizeof(t_coord) * 12);
 	envi->dest = ft_memalloc(sizeof(t_coord) * 12);
 	envi->mlx = mlx_init();
 	envi->win = mlx_new_window(envi->mlx, WINW, WINH, "testing my shit");
-	envi->theta = 0;
-	envi->phi = 0;
-	envi->psi = 0;
 
-	t_coord	*ptr;
-	int		xori = 400;
-	int		yori = 400;
-	ptr = envi->coord;
-	set_node(xori + 100, yori + 100, 100, &(ptr[0]));
-	set_node(xori - 100, yori - 100, 100, &(ptr[1]));
-	set_node(xori - 100, yori + 100, -100, &(ptr[2]));
+	envi->img = mlx_new_image(envi->mlx, WINW, WINH);
+	envi->pix = (int*)mlx_get_data_addr(envi->img, &(envi->bits), \
+	&(envi->s_line), &(envi->endian));
 
-	set_node(xori + 100, yori + 100, 100, &(ptr[3]));
-	set_node(xori - 100, yori - 100, 100, &(ptr[4]));
-	set_node(xori + 100, yori - 100, -100, &(ptr[5]));
+//	m3d_init(envi);
+//	mat_identity(envi->matrix1);
 
-	set_node(xori - 100, yori + 100, -100, &(ptr[6]));
-	set_node(xori + 100, yori - 100, -100, &(ptr[7]));
-	set_node(xori + 100, yori + 100, 100, &(ptr[8]));
-
-	set_node(xori - 100, yori + 100, -100, &(ptr[9]));
-	set_node(xori + 100, yori - 100, -100, &(ptr[10]));
-	set_node(xori - 100, yori - 100, 100, &(ptr[11]));
-	m3d_init(envi);
-	mat_identity(envi->matrix1);
-
-//	draw_line_ult(0, 700, 300, 0, envi);
-//	while ()
-
-//	mlx_clear_window(mlx, win);
-//	mlx_pixel_put(mlx, win, 200, 200, 0x00FFFFFF);
-
-//	multi loop hook, perfect for stuff like wolf3d and some super weird stuff
-//	that you can do in this project.
-//	mlx_loop_hook(envi->mlx, my_key_function, envi);
 	printf("pendejada\n");
-
-// GOOD SHIT
-	redraw(envi);
+//	mlx_mouse_hook(envi->win, my_key_function, envi);
+	printf("pendejada = |%f|\n", envi->phi);
+//	redraw(envi);
+	loophole(envi);
 }
-
-/*
-	draw_line_ult(150, 200, 600, 0, envi);
-	draw_line_ult(150, 200, 300, 0, envi);
-	draw_line_ult(150, 200, 200, 0, envi);
-	draw_line_ult(150, 200, 100, 0, envi);
-	draw_line_ult(0, 700, 300, 0, envi);
-	draw_line_ult(0, 700, 300, 0, envi);
-	draw_line_ult(0, 400, 500, 400, envi);
-	draw_line_ult(0, 400, 500, 400, envi);
-*/
