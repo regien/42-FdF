@@ -365,7 +365,6 @@ void		set_node(int x, int y, int z, t_coord *set)
 	set->z = z;
 	set->color = 0;
 }
-
 //this doesnt 
 /*
 void		xy_rotation(t_coord *set, t_total *envi)

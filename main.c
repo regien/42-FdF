@@ -103,6 +103,9 @@ int		splitter(char *str, t_total *envi)
 	}
 	else
 		envi->colum = count_splt(temp);
+	i = -1;
+	while (++i < envi->colum)
+		free(temp[i]);
 	// calcular de que tamano es el doble pointer
 //	while (++i < envi->row)
 //		add_list(list, temp[i]);
@@ -171,17 +174,73 @@ int			parser_file(char *str, t_total *envi)
 			// returning just for testing only
 			// funcion para agregar a lista y setear matrix number
 		}
+		free(line);
 	}
 	close(fd);
 	return (1);
 }
-
-void		set_coord(t_coord *coord, int z)
+/*
+t_coord		*set_coord(int z)
 {
+	t_coord	*coord;
+
+	if (!(coord = ft_memalloc(sizeof(t_coord))))
+		exit(-1);
 	coord->x = 0;
 	coord->y = 0;
 	coord->z = (float)z;
 	coord->color = 0xFFFFFF;
+	return (coord);
+}
+
+void		set_shit(t_coord  *coord, int z)
+{
+
+	coord->x = 0;
+	coord->y = 0;
+//	coord->z = (float)z;
+	coord->z = z;
+	printf("z = |%f|", coord->z);
+	coord->color = 0xFFFFFF;
+}
+*/
+
+t_coord		*init_coord(t_total *envi)
+{
+	t_coord	*holder;
+	int i;
+	
+	i = -1;
+	holder = ft_memalloc(sizeof(holder));
+	holder->x = ft_memalloc(sizeof(float) * (envi->row * envi->colum));
+	while (++i < envi->row * envi->colum)
+		holder->x[i] = 0;
+	holder->y = ft_memalloc(sizeof(float) * (envi->row * envi->colum));
+	i = -1;
+	while (++i < envi->row * envi->colum)
+		holder->y[i] = 0;
+	holder->z = ft_memalloc(sizeof(float) * (envi->row * envi->colum));
+	i = -1;
+	while (++i < envi->row * envi->colum)
+		holder->z[i] = 0;
+	holder->color = ft_memalloc(sizeof(int) * (envi->row * envi->colum));
+	i = -1;
+	while (++i < envi->row * envi->colum)
+		holder->color[i] = 0;
+	return (holder);
+}
+
+void		set_coordz(t_total **envi, int i, char *value)
+{
+	t_coord	*temp;
+	t_total *pendejada;
+
+	pendejada = *envi;
+	temp = pendejada->coord;
+	temp->x[i] = 0;
+	temp->y[i] = 0;
+	temp->z[i] = (float)atoi(value);
+	temp->color[i] = 0x012346;
 }
 
 void		storage(char *arg, t_total *envi)
@@ -189,26 +248,33 @@ void		storage(char *arg, t_total *envi)
 	int		fd;
 	static char	*line;
 	static char **temp;
-	t_coord	**coord;
 	int		y;
 	int		x;
 
 	if ((fd = open(arg, O_RDONLY)) < 0)
 			general_exit(-1, "invalid file\n");
 	printf("just checking, row = |%d| column = |%d|\n", envi->row, envi->colum);
-	y = -1;
-	coord = envi->coord;
-	coord = ft_memalloc(sizeof(t_coord*) * envi->row);
-	while (++y < envi->row)
-		coord[y] = ft_memalloc(sizeof(t_coord) * envi->colum);
-	y = -1;
-	while (get_next_line(fd, &line) > 0 && ++y)
+//	y = -1;
+//	coord = (t_coord**)ft_memalloc(sizeof(t_coord*));
+//	envi->coord = (t_coord*)ft_memalloc(sizeof(t_coord) * (envi->row * envi->colum));
+	envi->coord = init_coord(envi);
+//	while (++y < envi->row)
+//		envi->coord[y] = (t_coord*)ft_memalloc(sizeof(t_coord) * envi->colum);
+	x =-1;
+	while (get_next_line(fd, &line) > 0)
 	{
-		x = -1;
+		y = 0;
 		temp = ft_strsplit(line, ' ');
-		while (temp[++x])
-			set_coord(&(coord[y][x]), ft_atoi(temp[x]));
+		while (++x < envi->colum * envi->row && y < envi->colum)
+		{
+			set_coordz(&(envi), x, (temp[y]));
+			y++;
+		}
+		free(line);
+		for (y = 0 ; y < envi->colum; y++)
+			free(temp[y]);
 	}
+	ft_putstr("done\n");
 	close(fd);
 }
 
@@ -258,8 +324,23 @@ int				main(int argc, char **argv)
 
 //	m3d_init(envi);
 //	mat_identity(envi->matrix1);
-
+	int y = -1;
+	int x = -1;
+	t_coord *temp;
+	
+	temp = envi->coord;
 	printf("pendejada\n");
+	printf("pendejada z = |%f|\n", temp->z[2]);
+/*	while (++y < envi->row)
+	{
+		x = -1;
+		while (++x < envi->colum)
+		{
+//		temp = &(envi->coord[y][x]);
+		printf("pendejada z = |%f|\n", &(envi->coord[y][x]).z);
+		}
+	}
+*/
 //	mlx_mouse_hook(envi->win, my_key_function, envi);
 	printf("pendejada = |%f|\n", envi->phi);
 //	redraw(envi);

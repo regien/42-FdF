@@ -25,6 +25,7 @@ t_list		*bitch_me_a_list(t_list **list, char **pendejada)
 ///		HELPER LINKED LIST FUNCTION
 
 // NOT OPTIMAZED
+/*
 t_list		*create_node(char *str)
 {
 	t_node		*new;
@@ -45,3 +46,4 @@ void		add_list(t_list **lista, char *str)
 	else
 		*lista = create_node(str);
 }
+*/

@@ -357,7 +357,7 @@ void	draw_line_ult(int x0, int y0, int x1, int y1, t_total *envi)
 		}
 	}
 }
-
+/*
 void		set_node(int x, int y, int z, t_coord *set)
 {
 	set->x = x;
@@ -365,7 +365,7 @@ void		set_node(int x, int y, int z, t_coord *set)
 	set->z = z;
 	set->color = 0;
 }
-
+*/
 //this doesnt 
 /*
 void		xy_rotation(t_coord *set, t_total *envi)
@@ -393,6 +393,8 @@ void		xz_rotation(t_coord *set, t_total *envi)
 }
 */
 
+
+/*
 void		xy_rotation(t_coord *set, t_total *envi)
 {
 //	envi->theta = 0.50;
@@ -416,3 +418,4 @@ void		xz_rotation(t_coord *set, t_total *envi)
 	set->z = (set->x * -(sin(envi->psi))) + (set->z * cos(envi->psi));
 	set->y = set->y * 1;
 }
+*/

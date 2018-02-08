@@ -49,10 +49,10 @@ typedef struct		s_bresen
 
 typedef struct		s_coord
 {
-	float				x;
-	float				y;
-	float				z;
-	int				color;
+	float				*x;
+	float				*y;
+	float				*z;
+	int				*color;
 }					t_coord;
 
 
@@ -61,7 +61,7 @@ typedef struct		s_total
 	void		*mlx;
 	void		*win;
 	t_bresen	*setting;
-	t_coord		**coord;
+	t_coord		*coord;
 	t_coord		**dest;
 	// matrix count
 	int			row;
@@ -90,10 +90,10 @@ typedef struct		s_total
 
 typedef struct		s_node
 {
-	float		x;
-	float		y;
-	float		z;
-	int		color;
+	float		*x;
+	float		*y;
+	float		*z;
+	int		*color;
 }			t_node;
 
 
@@ -102,12 +102,6 @@ typedef struct		s_env
 	void		*win;
 	void		*mlx;
 }			t_env;
-
-typedef struct		s_matrx
-{
-	int		row;
-	int		column;
-}			t_matrx;
 
 
 /*
@@ -183,7 +177,11 @@ void	init_align(t_total *envi);
 void		parser(char *arg, t_total *envi);
 int			parser_file(char *str, t_total *envi);
 void		storage(char *arg, t_total *envi);
-void		set_coord(t_coord *coord, int z);
+//void		set_coord(t_coord *coord, int z);
+//t_coord		*set_coord(int z);
+void		set_coordz(t_total **envi, int i, char *value);
+void		set_shit(t_coord *coord, int z);
+t_coord		*init_coord(t_total *envi);
 int			mouse_hook(int keycode, t_total *envi);
 void		loophole(t_total *envi);
 
