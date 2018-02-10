@@ -6,7 +6,7 @@
 #    By: regien <gmalpart@student.42.us.org>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/12/25 00:45:02 by regien            #+#    #+#              #
-#    Updated: 2018/02/06 18:18:23 by gmalpart         ###   ########.fr        #
+#    Updated: 2018/02/08 11:46:55 by regien           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -74,7 +74,7 @@ linux:
 
 # this is for compiling fast without spamming your terminal / lINUX
 compli:
-	@$(CC) $(CFILES) $(LILIB) $(LFLAGS) -o $(NAME)
+	$(CC) -g $(CFILES) $(LILIB) $(LFLAGS) -o $(NAME)
 
 # fast compile for macosx version / MACOSX
 comp:
