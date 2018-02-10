@@ -253,28 +253,9 @@ t_coord		**init_coord(t_total *envi)
 
 void		set_coordz(t_coord *envi, int i, char *value)
 {
-//	t_coord	*envi;
-//	t_total *pendejada;
-//	float	*holx;
-//	float	*holy;
-//	float	*holz;
-//	int		*colorhol;
-
-//	pendejada = *envi;
-//	envi = envi->coord;
-//	holx = envi->x[];
-//	holx[i] = (float)0;
-//	envi->x[i] = 0;
 	envi->x = 0;
-//	holy = envi->y;
-//	holy[i] = (float)0;
-//	envi->y[i] = 0;
 	envi->y = 0;
-//	holz = envi->z;
-//	holz[i] = (float)atoi(value);
 	envi->z = (float)atoi(value);
-//	colorhol = envi->color;
-//	colorhol[i] = 0x012346;
 	envi->color = 0x012345;
 	// PARSE ISLAND IS SUPOSSE TO BE HERE
 }
@@ -323,9 +304,7 @@ void		storage(char *arg, t_total *envi)
 	static char **temp;
 	int		y;
 	int		x;
-///	t_total *envi;
 
-//	envi = *enviore;
 	if ((fd = open(arg, O_RDONLY)) < 0)
 			general_exit(-1, "invalid file\n");
 	printf("just checking, row = |%d| column = |%d|\n", envi->row, envi->colum);
