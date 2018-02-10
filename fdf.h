@@ -49,10 +49,10 @@ typedef struct		s_bresen
 
 typedef struct		s_coord
 {
-	float				x;
-	float				y;
-	float				z;
-	int				color;
+	float				*x;
+	float				*y;
+	float				*z;
+	int				*color;
 	struct s_coord			*next;
 }					t_coord;
 
@@ -180,7 +180,7 @@ int			parser_file(char *str, t_total *envi);
 void		storage(char *arg, t_total *envi);
 //void		set_coord(t_coord *coord, int z);
 //t_coord		*set_coord(int z);
-void		set_coordz(t_total *envi, int i, char *value);
+void		set_coordz(t_coord *envi, int i, char *value);
 void		set_shit(t_coord *coord, int z);
 t_coord		*init_coord(t_total *envi);
 int			mouse_hook(int keycode, t_total *envi);
@@ -189,8 +189,8 @@ void		loophole(t_total *envi);
 
 // linked list mine for this project
 
-void		coord_add_listback(t_coord *list, t_coord *new);
-void		adder(t_coord *list, char *str);
+void		coord_add_listback(t_coord **list, t_coord *new);
+void		adder(t_coord **list, char *str);
 t_coord		*create_node(char *str);
 
 #endif
