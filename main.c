@@ -329,14 +329,7 @@ void		storage(char *arg, t_total *envi)
 	if ((fd = open(arg, O_RDONLY)) < 0)
 			general_exit(-1, "invalid file\n");
 	printf("just checking, row = |%d| column = |%d|\n", envi->row, envi->colum);
-//	y = -1;
-//	coord = (t_coord**)ft_memalloc(sizeof(t_coord*));
-//	envi->coord = (t_coord*)ft_memalloc(sizeof(t_coord) * (envi->row * envi->colum));
-
 	envi->coord = init_coord(envi);
-
-//	while (++y < envi->row)
-//		envi->coord[y] = (t_coord*)ft_memalloc(sizeof(t_coord) * envi->colum);
 	x =-1;
 	while (get_next_line(fd, &line) > 0 && ++x < envi->row)
 	{
@@ -344,9 +337,6 @@ void		storage(char *arg, t_total *envi)
 		temp = ft_strsplit(line, ' ');
 		while (y < envi->colum)
 		{
-//			adder(&(envi->coord), temp[y]);
-//			agrega lista;
-
 			set_coordz(&(envi->coord[x][y]), x, (temp[y]));
 			y++;
 		}
@@ -394,8 +384,6 @@ int				main(int argc, char **argv)
 		fillit_print_usage(argv[0]);
 	parser(argv[1], envi);
 	envi->setting = ft_memalloc(sizeof(t_bresen));
-//	envi->coord = ft_memalloc(sizeof(t_coord) * 12);
-//	envi->dest = ft_memalloc(sizeof(t_coord) * 12);
 	envi->mlx = mlx_init();
 	envi->win = mlx_new_window(envi->mlx, WINW, WINH, "testing my shit");
 
@@ -407,36 +395,6 @@ int				main(int argc, char **argv)
 //	mat_identity(envi->matrix1);
 	int y = -1;
 	int x = -1;
-
-/*	t_coord *temp;
-	
-	temp = envi->coord;
-	while (temp->next != NULL)
-	{
-		y++;
-		temp = temp->next;
-	}
-
-	printf ("y = |%d|", y);
-//	temp = temp->next;ft_memalloc
-//	temp = ft_memalloc(sizeof(float) * 15);
-//	temp[0] = 34;
-	printf("pendejada\n");
-	printf("pendejada z = |%f|\n", envi->coord->next->next->z);
-*/
-
-
-/*	while (++y < envi->row)
-	{
-		x = -1;
-		while (++x < envi->colum)
-		{
-//		temp = &(envi->coord[y][x]);
-		printf("pendejada z = |%f|\n", &(envi->coord[y][x]).z);
-		}
-	}
-*/
-//	mlx_mouse_hook(envi->win, my_key_function, envi);
 	printf("pendejada = |%f|\n", envi->phi);
 	while (++x < envi->row)
 	{
