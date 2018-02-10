@@ -89,23 +89,27 @@ void	set_xy(t_coord **coord, t_total	*envi)
 	int			y;
 	int			y2;
 	t_coord		*coordx;
+	int		midx;
+	int		midy;
 
-	y = envi->colum;
 	gapx = 700 / (envi->colum - 1);
 	gapy = 600 / (envi->row - 1);
-	y2 = 0;
-	while (--y >= 0)
+	midy = 0 - (envi->row / 2);
+	y = -1;
+	while (++y < envi->row)
 	{
 		x = -1;
+		midx = 0 - (envi->colum / 2);
 		while (++x < envi->colum)
 			{
 				coordx = &(coord[y][x]);
-				coordx->x = ((envi->pushx) + (gapx * x));
-				coordx->y = ((envi->pushy) - (gapy * y2));
+				coordx->x = (gapx * midx);
+				coordx->y = (gapy * midy);
 				if(coordx->z == 0)
 					coordx->z = 1;
+				midx++;
 			}
-		y2++;
+		midy++;
 	}
 }
 
@@ -171,8 +175,94 @@ void		rotate_xy(t_coord **coord, t_total *envi)
 	}
 }
 
-void		align()
+float		getting_min(t_coord **coord, t_total *envi, char letra)
+{
+	t_coord	*hold;
+	int		x;
+	int		y;
+	float	minx;
+	float	miny;
 
+	minx = coord[0][0].x;
+	miny = coord[0][0].y;
+	y = -1;
+	while (++y < envi->row)
+	{
+		x = -1;
+		while (++x < envi->colum)
+		{
+			hold = &(coord[y][x]);
+			if (hold->x < minx)
+				minx = hold->x;
+			if (hold->y < miny)
+				miny = hold->y;
+		}
+	}
+	if (letra == 'x')
+		return (minx);
+	else
+		return (miny);
+}
+
+float		getting_max(t_coord **coord, t_total *envi, char letra)
+{
+	t_coord	*hold;
+	int		x;
+	int		y;
+	float	maxx;
+	float	maxy;
+
+	maxx = coord[0][0].x;
+	maxy = coord[0][0].y;
+	y = -1;
+	while (++y < envi->row)
+	{
+		x = -1;
+		while (++x < envi->colum)
+		{
+			hold = &(coord[y][x]);
+			if (hold->x > maxx)
+				maxx = hold->x;
+			if (hold->y > maxy)
+				maxy = hold->y;
+		}
+	}
+	if (letra == 'x')
+		return (maxx);
+	else
+		return (maxy);
+}
+
+void		align(t_coord **coord, t_total *envi)
+{
+	t_coord	*hold;
+	int		x;
+	int 	y;
+	float	minx;
+	float	miny;
+	float	maxx;
+	float	maxy;
+
+
+	minx = getting_min(coord, envi, 'x');
+	miny = getting_min(coord, envi, 'y');
+	maxx = getting_max(coord, envi, 'x');
+	maxy = getting_max(coord, envi, 'y');
+	y = -1;
+	while (++y < envi->row)
+	{
+		x = -1;
+		while (++x < envi->colum)
+		{
+			hold = &(coord[y][x]);
+//			hold->x += ((WINW - (maxx - minx)) / 2);
+//			hold->y += ((WINH - (maxy - miny)) / 2);
+			hold->x += (WINW / 2);
+			hold->y += (WINH / 2);
+			hold->z = hold->z * 1;
+		}
+	}
+}
 void		man_translation(t_coord **coord, t_total *envi)
 {
 	t_coord *hold;

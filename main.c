@@ -357,7 +357,8 @@ void		loophole(t_total *envi)
 	set_xy(envi->coord, envi);
 //	rotate_xy(envi->coord, envi);
 	rotate_xy(envi->coord, envi);
-	
+	align(envi->coord, envi);
+	man_translation(envi->coord, envi);
 	draw_row(envi->coord, envi);
 	draw_colum(envi->coord, envi);
 	mlx_put_image_to_window(envi->mlx, envi->win, envi->img, 0, 0);

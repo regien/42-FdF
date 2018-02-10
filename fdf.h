@@ -197,7 +197,11 @@ void		set_xy(t_coord **coord, t_total	*envi);
 void		draw_row(t_coord **cord, t_total *envi);
 void		draw_colum(t_coord **cord, t_total *envi);
 void		rotate_xy(t_coord **coord, t_total *envi);
+void		align(t_coord **coord, t_total *envi);
+void		man_translation(t_coord **coord, t_total *envi);
 
+float		getting_min(t_coord **coord, t_total *envi, char letra);
+float		getting_max(t_coord **coord, t_total *envi, char letra);
 
 // linked list mine for this project
 
