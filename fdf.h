@@ -49,11 +49,11 @@ typedef struct		s_bresen
 
 typedef struct		s_coord
 {
-	float				*x;
-	float				*y;
-	float				*z;
-	int				*color;
-	struct s_coord			*next;
+	float				x;
+	float				y;
+	float				z;
+	int				color;
+//	struct s_coord			*next;
 }					t_coord;
 
 
@@ -62,7 +62,7 @@ typedef struct		s_total
 	void		*mlx;
 	void		*win;
 	t_bresen	*setting;
-	t_coord		*coord;
+	t_coord		**coord;
 	t_coord		**dest;
 	// matrix count
 	int			row;
@@ -182,7 +182,8 @@ void		storage(char *arg, t_total *envi);
 //t_coord		*set_coord(int z);
 void		set_coordz(t_coord *envi, int i, char *value);
 void		set_shit(t_coord *coord, int z);
-t_coord		*init_coord(t_total *envi);
+//t_coord		*init_coord(t_total *envi);
+t_coord		**init_coord(t_total *envi);
 int			mouse_hook(int keycode, t_total *envi);
 void		loophole(t_total *envi);
 

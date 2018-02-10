@@ -210,62 +210,73 @@ void		set_shit(t_coord  *coord, int z)
 
 
 // me llego al pincho y lo cambie todo a linked list
+/*
 t_coord		*init_coord(t_total *envi)
 {
 	t_coord	*holder;
 	int i;
-	float *hol;
-	int		*holcolor;
-//	t_total *envi;
 
-//	envi = *enviore;
 	i = -1;
 	holder = (t_coord*)ft_memalloc(sizeof(t_coord));
-//	hol = holder->x;
 	holder->x = ft_memalloc(sizeof(float) * (envi->row * envi->colum));
 	while (++i < envi->row * envi->colum)
 		holder->x[i] = 0;
-//	hol = holder->y;
 	holder->y = ft_memalloc(sizeof(float) * (envi->row * envi->colum));
 	i = -1;
 	while (++i < envi->row * envi->colum)
 		holder->y[i] = 0;
-//	hol = holder->z;
 	holder->z = ft_memalloc(sizeof(float) * (envi->row * envi->colum));
 	i = -1;
 	while (++i < envi->row * envi->colum)
 		holder->z[i] = 0;
-//	holcolor = holder->color;
 	holder->color = ft_memalloc(sizeof(int) * (envi->row * envi->colum));
 	i = -1;
 	while (++i < envi->row * envi->colum)
 		holder->color[i] = 0;
 	return (holder);
 }
+*/
+
+t_coord		**init_coord(t_total *envi)
+{
+	t_coord **holder;
+	int x;
+	int y;
+
+	x = -1;
+	holder = ft_memalloc(sizeof(t_coord*) * envi->row);
+	while (++x < envi->row)
+		holder[x] = ft_memalloc(sizeof(t_coord) * envi->colum);
+	return (holder);
+}
+
 
 void		set_coordz(t_coord *envi, int i, char *value)
 {
 //	t_coord	*envi;
 //	t_total *pendejada;
-	float	*holx;
-	float	*holy;
-	float	*holz;
-	int		*colorhol;
+//	float	*holx;
+//	float	*holy;
+//	float	*holz;
+//	int		*colorhol;
 
 //	pendejada = *envi;
 //	envi = envi->coord;
 //	holx = envi->x[];
 //	holx[i] = (float)0;
-	envi->x[i] = 0;
+//	envi->x[i] = 0;
+	envi->x = 0;
 //	holy = envi->y;
 //	holy[i] = (float)0;
-	envi->y[i] = 0;
+//	envi->y[i] = 0;
+	envi->y = 0;
 //	holz = envi->z;
 //	holz[i] = (float)atoi(value);
-	envi->z[i] = (float)atoi(value);
+	envi->z = (float)atoi(value);
 //	colorhol = envi->color;
 //	colorhol[i] = 0x012346;
-	envi->color[i] = 0x012345;
+	envi->color = 0x012345;
+	// PARSE ISLAND IS SUPOSSE TO BE HERE
 }
 
 /*
@@ -327,20 +338,21 @@ void		storage(char *arg, t_total *envi)
 //	while (++y < envi->row)
 //		envi->coord[y] = (t_coord*)ft_memalloc(sizeof(t_coord) * envi->colum);
 	x =-1;
-	while (get_next_line(fd, &line) > 0)
+	while (get_next_line(fd, &line) > 0 && ++x < envi->row)
 	{
 		y = 0;
 		temp = ft_strsplit(line, ' ');
-		while (++x < envi->colum * envi->row && y < envi->colum)
+		while (y < envi->colum)
 		{
 //			adder(&(envi->coord), temp[y]);
 //			agrega lista;
 
-			set_coordz(envi->coord, x, (temp[y]));
+			set_coordz(&(envi->coord[x][y]), x, (temp[y]));
 			y++;
 		}
 		free(line);
-		for (y = 0 ; y < envi->colum; y++)
+		y = -1;
+		while (++y < envi->colum)
 			free(temp[y]);
 	}
 	ft_putstr("done\n");
@@ -426,8 +438,15 @@ int				main(int argc, char **argv)
 */
 //	mlx_mouse_hook(envi->win, my_key_function, envi);
 	printf("pendejada = |%f|\n", envi->phi);
-	while (++x < 25)
-		printf("pendejada = |%f|\n", envi->coord->z[x]);
+	while (++x < envi->row)
+	{
+		y = 0;
+		while (y < envi->colum)
+		{
+		printf("pendejadaz = |%f|\n", envi->coord[x][y].z);
+		y++;
+		}
+	}
 //	redraw(envi);
 	loophole(envi);
 }
