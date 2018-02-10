@@ -22,7 +22,7 @@
 # include <math.h>
 # include <stdio.h>
 
-# define WINW 800
+# define WINW 1200
 # define WINH 800
 # define MIN(X, Y)	((X) < (Y) ? (X) : (Y))
 # define MAX(X, Y)	((X) < (Y) ? (Y) : (X))
@@ -75,13 +75,20 @@ typedef struct		s_total
 	int			endian;
 	float		theta;
 	float		phi;
-	float		psi;
+	float		psi;	
 //	void		*general;
 
 	// kinda 3d world
 	float		sintable[256];
 	float		costable[256];
 	float		matrix1[4][4];
+//	ship x, y, and z
+	int			pushx;
+	int			pushy;
+//	translate x and y
+	int			trax;
+	int			tray;
+	int			traz;
 }					t_total;
 
 
@@ -186,6 +193,10 @@ void		set_shit(t_coord *coord, int z);
 t_coord		**init_coord(t_total *envi);
 int			mouse_hook(int keycode, t_total *envi);
 void		loophole(t_total *envi);
+void		set_xy(t_coord **coord, t_total	*envi);
+void		draw_row(t_coord **cord, t_total *envi);
+void		draw_colum(t_coord **cord, t_total *envi);
+void		rotate_xy(t_coord **coord, t_total *envi);
 
 
 // linked list mine for this project

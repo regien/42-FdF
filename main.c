@@ -39,7 +39,16 @@ int			my_key_function(int keycode, t_total *envi)
 		envi->psi += 00.01;
 	if (keycode == 12)
 		envi->psi -= 00.01;
-//	redraw(envi);
+// flechas
+	if (keycode == 124)
+		envi->trax += 1;
+	if (keycode == 123)
+		envi->trax -= 1;
+	if (keycode == 125)
+		envi->tray += 1;
+	if (keycode == 126)
+		envi->tray -= 1;
+	loophole(envi);
 	return (0);
 }
 
@@ -340,9 +349,17 @@ void		parser(char *arg, t_total *envi)
 
 void		loophole(t_total *envi)
 {
-	envi->theta = 0;
-	envi->phi = 0;
-	envi->psi = 0;
+	if (envi->img)
+		mlx_destroy_image(envi->mlx, envi->img);
+	envi->img = mlx_new_image(envi->mlx, WINW, WINH);
+	envi->pix = (int*)mlx_get_data_addr(envi->img, &(envi->bits), \
+	&(envi->s_line), &(envi->endian));
+	set_xy(envi->coord, envi);
+//	rotate_xy(envi->coord, envi);
+	rotate_xy(envi->coord, envi);
+	
+	draw_row(envi->coord, envi);
+	draw_colum(envi->coord, envi);
 	mlx_put_image_to_window(envi->mlx, envi->win, envi->img, 0, 0);
 	mlx_hook(envi->win, 2, 0, my_key_function, envi);
 	mlx_hook(envi->win, 4, 5, mouse_hook, envi);
@@ -365,25 +382,39 @@ int				main(int argc, char **argv)
 	envi->setting = ft_memalloc(sizeof(t_bresen));
 	envi->mlx = mlx_init();
 	envi->win = mlx_new_window(envi->mlx, WINW, WINH, "testing my shit");
-
-	envi->img = mlx_new_image(envi->mlx, WINW, WINH);
-	envi->pix = (int*)mlx_get_data_addr(envi->img, &(envi->bits), \
+	envi->pushx = 250;
+	envi->pushy = 700;
+	envi->tray = 0;
+	envi->trax = 0;
+	envi->traz = 0;
+//	envi->img = mlx_new_image(envi->mlx, WINW, WINH);
+//	envi->pix = (int*)mlx_get_data_addr(envi->img, &(envi->bits), \
 	&(envi->s_line), &(envi->endian));
+	envi->theta = 0;
+	envi->phi = 0;
+	envi->psi = 0;
+//	envi->theta = 0.20;
 
 //	m3d_init(envi);
 //	mat_identity(envi->matrix1);
+	set_xy(envi->coord, envi);
 	int y = -1;
 	int x = -1;
-	printf("pendejada = |%f|\n", envi->phi);
+	printf("pendejada = |%f|\n", envi->theta);
+//	rotate_xy(envi->coord, envi);
 	while (++x < envi->row)
 	{
 		y = 0;
 		while (y < envi->colum)
 		{
-		printf("pendejadaz = |%f|\n", envi->coord[x][y].z);
+		printf("pendejada[x] = |%f|\n", envi->coord[x][y].x);
+		printf("pendejada[y] = |%f|\n", envi->coord[x][y].y);
+		printf("pendejada[z] = |%f|\n\n\n", envi->coord[x][y].z);
 		y++;
 		}
 	}
+//	draw_row(envi->coord, envi);
+//	draw_colum(envi->coord, envi);
 //	redraw(envi);
 	loophole(envi);
 }
