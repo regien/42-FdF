@@ -155,9 +155,11 @@ void		draw_colum(t_coord **cord, t_total *envi)
 	}
 }
 
-void		rotate_xy(t_coord **coord, t_total *envi)
+// TRY ROTATION 1
+void		rotate_xy(t_coord **coord, t_coord **dest, t_total *envi)
 {
 	t_coord	*hold;
+	t_coord	*holdest;
 	int		x;
 	int		y;
 
@@ -168,12 +170,80 @@ void		rotate_xy(t_coord **coord, t_total *envi)
 		while (++x < envi->colum)
 		{
 			hold = &(coord[y][x]);
-			hold->x = (hold->x * cos(envi->theta)) + (hold->y * sin(envi->theta));
-			hold->y = (hold->x * -(sin(envi->theta))) + (hold->y * cos(envi->theta));
-			hold->z = hold->z * 1;
+			holdest = &(dest[y][x]);
+			holdest->x = (hold->x * cos(envi->theta)) + (hold->y * sin(envi->theta));
+			holdest->y = (hold->x * -(sin(envi->theta))) + (hold->y * cos(envi->theta));
+			holdest->z = hold->z * 1;
 		}
 	}
 }
+
+void		rotate_yz(t_coord **coord, t_coord **dest, t_total *envi)
+{
+	t_coord	*set;
+	t_coord	*setdest;
+	int		x;
+	int		y;
+
+	y = -1;
+	while (++y < envi->row)
+	{
+		x = -1;
+		while (++x < envi->colum)
+		{
+			set = &(coord[y][x]);
+			setdest = &(dest[y][x]);
+			setdest->y = (set->y * cos(envi->phi)) + (set->z * -(sin(envi->phi)));
+			setdest->z = (set->y * sin(envi->phi)) + (set->z * cos(envi->phi));
+			setdest->x = set->x * 1;
+		}
+	}
+}
+
+void		rotate_xz(t_coord **coord, t_coord **dest, t_total *envi)
+{
+	t_coord	*hold;
+	t_coord *holdest;
+	int		x;
+	int		y;
+
+	y = -1;
+	while (++y < envi->row)
+	{
+		x = -1;
+		while (++x < envi->colum)
+		{
+			hold = &(coord[y][x]);
+			holdest = &(dest[y][x]);
+			holdest->x = (hold->x * cos(envi->psi)) + (hold->z * sin(envi->psi));
+			holdest->z = (hold->x * -(sin(envi->psi))) + (hold->z * cos(envi->psi));
+			holdest->y = hold->y * 1;
+		}
+	}
+}
+
+void		perspective_tra(t_coord **coord, t_total *envi)
+{
+	t_coord	*dest;
+	int		x;
+	int		y;
+
+	y = -1;
+	while (++y < envi->row)
+	{
+		x = -1;
+		while (++x < envi->colum)
+		{
+			dest = &(coord[y][x]);
+ //           dest->x = (FOCAL * dest->x) / dest->z + (WINW / 2);
+ //           dest->x = (FOCAL * dest->x) / dest->z + (WINW / 2);
+            dest->y = (FOCAL * dest->y) / dest->z + 0;
+            dest->y = (FOCAL * dest->y) / dest->z + 0;
+		}
+	}
+
+}
+////////////////////////////////////////////////
 
 float		getting_min(t_coord **coord, t_total *envi, char letra)
 {

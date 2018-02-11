@@ -276,8 +276,8 @@ void	draw_point(int x, int y, int color, t_total *env)
 		return ;
 //	env->pix[x + (y * env->s_line / 4)] = color;
 	env->pix[i] = color;
-//	env->pix[i++] = color;
-//	env->pix[i++] = color;
+	env->pix[i + 1] = color;
+//	env->pix[i + 2] = color;
 }
 
 // COMPLEJIDAD 3x3 MATRIX para -- hay otra mas pendeja de 4

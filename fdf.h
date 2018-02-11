@@ -28,7 +28,7 @@
 # define MAX(X, Y)	((X) < (Y) ? (Y) : (X))
 # define SIN(x) envi->sintable[abs((int)x&255)]
 # define COS(x) envi->costable[abs((int)x&255)]
-# define FOCAL 200
+# define FOCAL 80
 //# include "minilibx_macos_elcapitan/mlx_int.h"
 
 // KINDA NEW START
@@ -196,9 +196,13 @@ void		loophole(t_total *envi);
 void		set_xy(t_coord **coord, t_total	*envi);
 void		draw_row(t_coord **cord, t_total *envi);
 void		draw_colum(t_coord **cord, t_total *envi);
-void		rotate_xy(t_coord **coord, t_total *envi);
+//void		rotate_xy(t_coord **coord, t_total *envi);
 void		align(t_coord **coord, t_total *envi);
 void		man_translation(t_coord **coord, t_total *envi);
+void		rotate_xy(t_coord **coord, t_coord **dest, t_total *envi);
+void		rotate_yz(t_coord **coord, t_coord **dest, t_total *envi);
+void		rotate_xz(t_coord **coord, t_coord **dest, t_total *envi);
+void		perspective_tra(t_coord **coord, t_total *envi);
 
 float		getting_min(t_coord **coord, t_total *envi, char letra);
 float		getting_max(t_coord **coord, t_total *envi, char letra);

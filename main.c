@@ -356,11 +356,16 @@ void		loophole(t_total *envi)
 	&(envi->s_line), &(envi->endian));
 	set_xy(envi->coord, envi);
 //	rotate_xy(envi->coord, envi);
-	rotate_xy(envi->coord, envi);
-	align(envi->coord, envi);
+	rotate_xy(envi->coord, envi->dest, envi);
+	rotate_yz(envi->dest, envi->dest, envi);
+//	rotate_xz(envi->dest, envi->dest, envi);
+
+// REAL CENTER
+	align(envi->dest, envi);
+
 	man_translation(envi->coord, envi);
-	draw_row(envi->coord, envi);
-	draw_colum(envi->coord, envi);
+	draw_row(envi->dest, envi);
+	draw_colum(envi->dest, envi);
 	mlx_put_image_to_window(envi->mlx, envi->win, envi->img, 0, 0);
 	mlx_hook(envi->win, 2, 0, my_key_function, envi);
 	mlx_hook(envi->win, 4, 5, mouse_hook, envi);
@@ -414,6 +419,10 @@ int				main(int argc, char **argv)
 		y++;
 		}
 	}
+
+/// INITIALIZING COORDINATES
+	envi->dest = init_coord(envi);
+
 //	draw_row(envi->coord, envi);
 //	draw_colum(envi->coord, envi);
 //	redraw(envi);
