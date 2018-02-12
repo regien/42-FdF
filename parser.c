@@ -225,6 +225,7 @@ void		rotate_xz(t_coord **coord, t_coord **dest, t_total *envi)
 void		perspective_tra(t_coord **coord, t_total *envi)
 {
 	t_coord	*dest;
+//	t_coord	*holalign;
 	int		x;
 	int		y;
 
@@ -235,10 +236,11 @@ void		perspective_tra(t_coord **coord, t_total *envi)
 		while (++x < envi->colum)
 		{
 			dest = &(coord[y][x]);
+//			holalign = &(destal[y][x]);
  //           dest->x = (FOCAL * dest->x) / dest->z + (WINW / 2);
  //           dest->x = (FOCAL * dest->x) / dest->z + (WINW / 2);
-            dest->y = (FOCAL * dest->y) / dest->z + 0;
-            dest->y = (FOCAL * dest->y) / dest->z + 0;
+            dest->x = (envi->focal * dest->x) / dest->z + 600;
+            dest->y = (envi->focal * dest->y) / dest->z + 400;
 		}
 	}
 

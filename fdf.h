@@ -28,7 +28,7 @@
 # define MAX(X, Y)	((X) < (Y) ? (Y) : (X))
 # define SIN(x) envi->sintable[abs((int)x&255)]
 # define COS(x) envi->costable[abs((int)x&255)]
-# define FOCAL 80
+# define FOCAL 200
 //# include "minilibx_macos_elcapitan/mlx_int.h"
 
 // KINDA NEW START
@@ -89,6 +89,8 @@ typedef struct		s_total
 	int			trax;
 	int			tray;
 	int			traz;
+	
+	float		focal;
 }					t_total;
 
 

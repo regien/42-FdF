@@ -48,6 +48,12 @@ int			my_key_function(int keycode, t_total *envi)
 		envi->tray += 1;
 	if (keycode == 126)
 		envi->tray -= 1;
+	
+// triying focal distance	
+	if (keycode == 5)
+		envi->focal -= 0.01;
+	if (keycode == 17)
+		envi->focal += 0.01;
 	loophole(envi);
 	return (0);
 }
@@ -356,14 +362,18 @@ void		loophole(t_total *envi)
 	&(envi->s_line), &(envi->endian));
 	set_xy(envi->coord, envi);
 //	rotate_xy(envi->coord, envi);
-	rotate_xy(envi->coord, envi->dest, envi);
-	rotate_yz(envi->dest, envi->dest, envi);
-//	rotate_xz(envi->dest, envi->dest, envi);
+//	rotate_xy(envi->coord, envi->dest, envi);
+
+	rotate_yz(envi->coord, envi->dest, envi);
+	rotate_xz(envi->dest, envi->dest, envi);
 
 // REAL CENTER
 	align(envi->dest, envi);
 
-	man_translation(envi->coord, envi);
+	man_translation(envi->dest, envi);
+
+//	perspective_tra(envi->dest, envi);
+
 	draw_row(envi->dest, envi);
 	draw_colum(envi->dest, envi);
 	mlx_put_image_to_window(envi->mlx, envi->win, envi->img, 0, 0);
@@ -388,8 +398,8 @@ int				main(int argc, char **argv)
 	envi->setting = ft_memalloc(sizeof(t_bresen));
 	envi->mlx = mlx_init();
 	envi->win = mlx_new_window(envi->mlx, WINW, WINH, "testing my shit");
-	envi->pushx = 250;
-	envi->pushy = 700;
+//	envi->pushx = 250;
+//	envi->pushy = 700;
 	envi->tray = 0;
 	envi->trax = 0;
 	envi->traz = 0;
@@ -399,6 +409,7 @@ int				main(int argc, char **argv)
 	envi->theta = 0;
 	envi->phi = 0;
 	envi->psi = 0;
+	envi->focal = -1;
 //	envi->theta = 0.20;
 
 //	m3d_init(envi);
