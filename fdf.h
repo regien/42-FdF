@@ -12,9 +12,21 @@
 
 #ifndef FDF_H
 # define FDF_H
+// OS 1 = linux / 0 = Mac
+# define OS 1
 # define ESCAPE -1
 # define KEY_C 8
-# define KEY_ESC 53
+# define KEY_ESC (OS == 1 ? 65307 : 53)
+# define KEY_W (OS == 1 ? 119 : 2)
+# define KEY_S (OS == 1 ? 115 : 0)
+# define KEY_A (OS == 1 ? 97 : 1)
+# define KEY_D (OS == 1? 100 : 13)
+# define KEY_E (OS == 1 ? 101 : 14)
+# define KEY_Q (OS == 1? 113 : 12)
+# define KEY_UP (OS == 1? 65362 : 124)
+# define KEY_DOWN (OS == 1? 65364 : 123)
+# define KEY_LEFT (OS == 1? 65361 : 126)
+# define KEY_RIGHT (OS == 1? 65363 : 125)
 # include "libft/includes/libft.h"
 //# include "minilibx/mlx.h"
 //# include "minilibx/mlx_int.h"
@@ -97,70 +109,36 @@ typedef struct		s_total
 
 // PENDEJADA ANTIGUA |||
 
-
-typedef struct		s_node
-{
-	float		*x;
-	float		*y;
-	float		*z;
-	int		*color;
-}			t_node;
-
-
-typedef struct		s_env
-{
-	void		*win;
-	void		*mlx;
-}			t_env;
-
-
 /*
 **	EVENTS FUNCTIONS
 */
 
-int			my_key_function(int keycode, t_total *envi);
 
 /*
 **	ERRORS HANDLINGS MESSAGES
 */
 
-void		fillit_print_usage(char *arg);
 void		fillit_print_error(int error_code);
-void		general_exit(int error_code, char *mensaje);
-void		destroy_exit(int error_code, char *mensaje, void *mlx, void *win);
 
 /*
- **	FUNCTIONS EXCLUSIVE
- ** This is basically me playing around with the minilibx library and see
- ** what can i do.
+**	FUNCTIONS EXCLUSIVE
+** This is basically me playing around with the minilibx library and see
+** what can i do.
 */
-
-void			straight_line(int length, int x, int y, void *mlx, void *win);
-void			straight_line_y(int length, int x, int y, void *mlx, void *win);
-void			b_line(int x0, int y0, int x1, int y1, t_env *envi);
-void			draw_rectang(int x0, int y0, int x1, int y1, t_env *env);
-void			draw_circle(int x, int y, int radius, t_env *env);
-void			draw_circle_fill(int x, int y, int radius, t_env *env);
-void	b_line_3d(int x0, int y0, int z0, int x1, int y1, int z1, t_env *envi);
-void	draw_line(int x0, int y0, int x1, int y1, t_env *envi);
-void	bre_line(int x0, int y0, int x1, int y1, t_env *envi);
-
-
-void	ho_line(int x0, int y0, int x1, int y1, t_env *envi);
-void	ve_line(int x0, int y0, int x1, int y1, t_env *envi);
-void	u_bresen(int x0, int y0, int x1, int y1, t_env *envi);
 
 // EXCLUSIVE VERSION 2.0
 
-void	setbresen(int x0, int y0, int x1, int y1, t_bresen *set);
-void	draw_line_ult(int x0, int y0, int x1, int y1, t_total *envi);
-void	draw_point(int x, int y, int color, t_total *env);
-int		**set_matrix(int scale);
-void		set_node(int x, int y, int z, t_coord *set);
+//void	setbresen(int x0, int y0, int x1, int y1, t_bresen *set);
+//void	draw_line_ult(int x0, int y0, int x1, int y1, t_total *envi);
+//void	draw_point(t_coord *coord, t_total *env);
+//void		set_node(int x, int y, int z, t_coord *set);
 
+
+/*
 void		xy_rotation(t_coord *set, t_total *envi);
 void		xz_rotation(t_coord *set, t_total *envi);
 void		yz_rotation(t_coord *set, t_total *envi);
+*/
 void			redraw(t_total *envi);
 void	m3d_init(t_total *envi);
 // scale - 1
@@ -184,16 +162,12 @@ void	init_align(t_total *envi);
 **	REFACTOR
 */
 
-void		parser(char *arg, t_total *envi);
-int			parser_file(char *str, t_total *envi);
-void		storage(char *arg, t_total *envi);
+
 //void		set_coord(t_coord *coord, int z);
 //t_coord		*set_coord(int z);
-void		set_coordz(t_coord *envi, int i, char *value);
 void		set_shit(t_coord *coord, int z);
 //t_coord		*init_coord(t_total *envi);
 t_coord		**init_coord(t_total *envi);
-int			mouse_hook(int keycode, t_total *envi);
 void		loophole(t_total *envi);
 void		set_xy(t_coord **coord, t_total	*envi);
 void		draw_row(t_coord **cord, t_total *envi);
@@ -214,5 +188,41 @@ float		getting_max(t_coord **coord, t_total *envi, char letra);
 void		coord_add_listback(t_coord **list, t_coord *new);
 void		adder(t_coord **list, char *str);
 t_coord		*create_node(char *str);
+
+/*
+**	main.c
+*/
+
+
+void		parser(char *arg, t_total *envi);
+void		storage(char *arg, t_total *envi);
+void		set_coordz(t_coord *envi, int i, char *value);
+t_coord		**init_coord(t_total *envi);
+int			parser_file(char *str, t_total *envi);
+int			parser_line(char *line);
+int			splitter(char *str, t_total *envi);
+int			count_splt(char **str);
+int			parser_argv(char *str);
+int			mouse_hook(int keycode, t_total *envi);
+// event functions
+int			my_key_function(int keycode, t_total *envi);
+
+/*
+**	drawing.c
+*/
+
+void	draw_point(int x, int y, int color, t_total *env);
+int		**set_matrix(int scale);
+void	setbresen(t_coord *co0, t_coord *co1, t_bresen *set);
+void	draw_line_ult(t_coord *co0, t_coord *co1, t_total *envi);
+
+/*
+**	errors_h.c
+*/
+
+void		fillit_print_usage(char *arg);
+void		general_exit(int error_code, char *mensaje);
+void		destroy_exit(int error_code, char *mensaje, void *mlx, void *win);
+
 
 #endif

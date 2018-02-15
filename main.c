@@ -27,26 +27,26 @@ int			my_key_function(int keycode, t_total *envi)
 		destroy_exit(ESCAPE, "gracias por usar esta pendejada\n", envi->mlx, envi->win);
 	if (keycode == KEY_C)
 		mlx_clear_window(envi->mlx, envi->win);
-	if (keycode == 2)
+	if (keycode == KEY_D)
 		envi->theta += 00.01;
-	if (keycode == 0)
+	if (keycode == KEY_A)
 		envi->theta -= 00.01;
-	if (keycode == 13)
+	if (keycode == KEY_W)
 		envi->phi += 00.01;
-	if (keycode == 1)
+	if (keycode == KEY_S)
 		envi->phi -= 00.01;
-	if (keycode == 14)
+	if (keycode == KEY_E)
 		envi->psi += 00.01;
-	if (keycode == 12)
+	if (keycode == KEY_Q)
 		envi->psi -= 00.01;
 // flechas
-	if (keycode == 124)
+	if (keycode == KEY_RIGHT)
 		envi->trax += 1;
-	if (keycode == 123)
+	if (keycode == KEY_LEFT)
 		envi->trax -= 1;
-	if (keycode == 125)
+	if (keycode == KEY_DOWN)
 		envi->tray += 1;
-	if (keycode == 126)
+	if (keycode == KEY_UP)
 		envi->tray -= 1;
 	
 // triying focal distance	
@@ -197,60 +197,6 @@ int			parser_file(char *str, t_total *envi)
 	close(fd);
 	return (1);
 }
-/*
-t_coord		*set_coord(int z)
-{
-	t_coord	*coord;
-
-	if (!(coord = ft_memalloc(sizeof(t_coord))))
-		exit(-1);
-	coord->x = 0;
-	coord->y = 0;
-	coord->z = (float)z;
-	coord->color = 0xFFFFFF;
-	return (coord);
-}
-
-void		set_shit(t_coord  *coord, int z)
-{
-
-	coord->x = 0;
-	coord->y = 0;
-//	coord->z = (float)z;
-	coord->z = z;
-	printf("z = |%f|", coord->z);
-	coord->color = 0xFFFFFF;
-}
-*/
-
-
-// me llego al pincho y lo cambie todo a linked list
-/*
-t_coord		*init_coord(t_total *envi)
-{
-	t_coord	*holder;
-	int i;
-
-	i = -1;
-	holder = (t_coord*)ft_memalloc(sizeof(t_coord));
-	holder->x = ft_memalloc(sizeof(float) * (envi->row * envi->colum));
-	while (++i < envi->row * envi->colum)
-		holder->x[i] = 0;
-	holder->y = ft_memalloc(sizeof(float) * (envi->row * envi->colum));
-	i = -1;
-	while (++i < envi->row * envi->colum)
-		holder->y[i] = 0;
-	holder->z = ft_memalloc(sizeof(float) * (envi->row * envi->colum));
-	i = -1;
-	while (++i < envi->row * envi->colum)
-		holder->z[i] = 0;
-	holder->color = ft_memalloc(sizeof(int) * (envi->row * envi->colum));
-	i = -1;
-	while (++i < envi->row * envi->colum)
-		holder->color[i] = 0;
-	return (holder);
-}
-*/
 
 t_coord		**init_coord(t_total *envi)
 {
@@ -274,43 +220,6 @@ void		set_coordz(t_coord *envi, int i, char *value)
 	envi->color = 0x012345;
 	// PARSE ISLAND IS SUPOSSE TO BE HERE
 }
-
-/*
-void		coord_add_listback(t_coord **list, t_coord *new)
-{
-	t_coord		*iter;
-
-	if (!new || !list)
-		return ;
-	iter = *list;
-	while (iter->next != NULL)
-		iter = iter->next;
-	iter->next = new;
-
-}
-
-void		adder(t_coord **list, char *str)
-{
-	if (*list)
-		coord_add_listback(list, create_node(str));
-	else
-		*list = create_node(str);
-}
-
-
-t_coord		*create_node(char *str)
-{
-	t_coord *new;
-	
-	new = ft_memalloc(sizeof(t_coord));
-	new->x = 0;
-	new->y = 0;
-	new->z = (float)ft_atoi(str);
-	new->color = 0;
-	new->next = NULL;
-	return (new);
-}
-*/
 
 void		storage(char *arg, t_total *envi)
 {

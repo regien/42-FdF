@@ -48,38 +48,6 @@ void		add_list(t_list **lista, char *str)
 }
 */
 
-
-/* LOL i modified this because i realize how to align i'm less retard
-void	set_xy(t_coord **coord, t_total	*envi)
-{
-	//700 *  600
-	float		gapx;
-	float		gapy;
-	int			x;
-	int			y;
-	int			y2;
-	t_coord		*coordx;
-
-	y = envi->colum;
-	gapx = 700 / (envi->colum - 1);
-	gapy = 600 / (envi->row - 1);
-	y2 = 0;
-	while (--y >= 0)
-	{
-		x = -1;
-		while (++x < envi->colum)
-			{
-				coordx = &(coord[y][x]);
-				coordx->x = ((envi->pushx) + (gapx * x));
-				coordx->y = ((envi->pushy) - (gapy * y2));
-				if(coordx->z == 0)
-					coordx->z = 1;
-			}
-		y2++;
-	}
-}
-*/
-
 void	set_xy(t_coord **coord, t_total	*envi)
 {
 	//700 *  600
@@ -128,8 +96,7 @@ void		draw_row(t_coord **cord, t_total *envi)
 		{
 			holder = &(cord[y][x]);
 			holdernext = &(cord[y][x + 1]);
-			draw_line_ult(holder->x, holder->y, holdernext->x, \
-			holdernext->y, envi);
+			draw_line_ult(holder, holdernext, envi);
 		}
 	}
 }
@@ -149,8 +116,7 @@ void		draw_colum(t_coord **cord, t_total *envi)
 		{
 			holder = &(cord[y][x]);
 			holdernext = &(cord[y + 1][x]);
-			draw_line_ult(holder->x, holder->y, holdernext->x, \
-			holdernext->y, envi);
+			draw_line_ult(holder, holdernext, envi);
 		}
 	}
 }
