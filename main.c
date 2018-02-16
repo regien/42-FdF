@@ -58,10 +58,10 @@ int			my_key_function(int keycode, t_total *envi)
 	if (keycode == 104)
 	{
 		int y = -1;
-		while (++y < envi->colum)
+		while (++y < envi->row)
 		{
 			int x = -1;
-			while (++x < envi->row)
+			while (++x < envi->colum)
 			{
 				printf("pendejada = |%f|\n", envi->projected[y][x].x);
 				printf("pendejada = |%f|\n", envi->projected[y][x].y);
@@ -287,7 +287,7 @@ void		loophole(t_total *envi)
 	init_align(envi);
 //	rotate_xy(envi->coord, envi);
 //	rotate_xy(envi->coord, envi->dest, envi);
-//	projection(envi->dest, envi);
+	projection(envi->dest, envi);
 //	init_projection(envi);
 
 // uncomment me
@@ -295,14 +295,14 @@ void		loophole(t_total *envi)
 //	rotate_xz(envi->dest, envi->dest, envi);
 
 // REAL CENTER
-		align(envi->dest, envi);
+//		align(envi->projected, envi);
 // manual translation
-	man_translation(envi->dest, envi);
+	man_translation(envi->projected, envi);
 
 //	perspective_tra(envi->dest, envi);
 
-	draw_row(envi->dest, envi);
-	draw_colum(envi->dest, envi);
+	draw_row(envi->projected, envi);
+	draw_colum(envi->projected, envi);
 	mlx_put_image_to_window(envi->mlx, envi->win, envi->img, 0, 0);
 	mlx_hook(envi->win, 2, 0, my_key_function, envi);
 	mlx_hook(envi->win, 4, 5, mouse_hook, envi);
@@ -338,10 +338,15 @@ int				main(int argc, char **argv)
 	envi->psi = 0;
 	envi->focal = -1;
 //	envi->theta = 0.20;
-
 //	m3d_init(envi);
 //	mat_identity(envi->matrix1);
 	set_xy(envi->coord, envi);
+	envi->z_min = 2147483647;
+	envi->z_max = -2147483648;
+	envi->z_min = getz_min_max(envi->coord, envi, 'u');
+	envi->z_max = getz_min_max(envi->coord, envi, 'a');
+	
+	
 	int y = -1;
 	int x = -1;
 	printf("pendejada = |%f|\n", envi->theta);

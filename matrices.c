@@ -229,16 +229,26 @@ void    set_promatri(float matrix[4][4], float angle, float near, float far)
     matrix[3][3] = 0;
 }
 
-#define CORTO(k) &(envi->projected)[y][x]->k
+//#define CORTO(k) &(envi->projected)[y][x]->k
+
 
 void    init_projection(t_total *envi)
 {
 	float	projection[4][4];
     float   wtocamera[4][4];
+    t_coord **temp;
 	int		x;
 	int		y;
 
-	set_promatri(projection, 90, 0.1, 100);
+    temp = init_coord(envi);
+	set_promatri(projection, 90, 0.01, 100);
+    y = -1;
+    while (++y < 4)
+    {
+        x = -1;
+        while (++x < 4)
+            printf("pendejada[%d][%d] = %f\n", y, x, projection[y][x]);
+    }
     setmatrix(wtocamera);
     wtocamera[3][1] = -10;
     wtocamera[3][2] = -20;
@@ -269,7 +279,6 @@ void    init_projection(t_total *envi)
 
 
 
-
 void	projection(t_coord **dest, t_total *envi)
 {
     int     x;
@@ -287,11 +296,13 @@ void	projection(t_coord **dest, t_total *envi)
             holder = &(envi->projected[y][x]);
         	if(!(hold->z))
         		hold->z = 0.001;
-        	holder->x = 0.6 * hold->x / hold->z + WINW / 2;
-        	holder->y = 0.6 * hold->y / hold->z + WINH / 2;
+        	holder->x = 7 * hold->x / (envi->z_max - hold->z) + WINW / 2;
+        	holder->y = 7 * hold->y / (envi->z_max - hold->z) + WINH / 2;
+            holder->z = envi->coord[y][x].z;
         }
     }
 }
+
 
 
 /// CHEC THIS PART

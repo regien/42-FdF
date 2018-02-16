@@ -207,6 +207,35 @@ float		getting_min(t_coord **coord, t_total *envi, char letra)
 		return (miny);
 }
 
+float		getz_min_max(t_coord **coord, t_total *envi, char letra)
+{
+	t_coord	*hold;
+	int		x;
+	int		y;
+	float	minz;
+	float	maxz;
+
+	minz = coord[0][0].z;
+	maxz = coord[0][0].z;
+	y = -1;
+	while (++y < envi->row)
+	{
+		x = -1;
+		while (++x < envi->colum)
+		{
+			hold = &(coord[y][x]);
+			if (hold->z < minz)
+				minz = hold->x;
+			if (hold->z > maxz)
+				maxz = hold->y;
+		}
+	}
+	if (letra == 'a')
+		return (maxz);
+	else
+		return (minz);
+}
+
 float		getting_max(t_coord **coord, t_total *envi, char letra)
 {
 	t_coord	*hold;

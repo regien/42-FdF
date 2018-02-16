@@ -96,14 +96,16 @@ typedef struct		s_total
 //	float		sintable[256];
 //	float		costable[256];
 	float		matrix[4][4];
-//	ship x, y, and z
+//	ship x, y, and z // check
 	int			pushx;
 	int			pushy;
-//	translate x and y
+//	translate x and y // check
 	int			trax;
 	int			tray;
 	int			traz;
-	
+
+	float		z_min;
+	float		z_max;
 	float		focal;
 }					t_total;
 
@@ -200,6 +202,7 @@ void		draw_row(t_coord **cord, t_total *envi);
 void		draw_colum(t_coord **cord, t_total *envi);
 void		set_xy(t_coord **coord, t_total	*envi);
 
+float		getz_min_max(t_coord **coord, t_total *envi, char letra);
 /*
 **	matrices.c
 */
