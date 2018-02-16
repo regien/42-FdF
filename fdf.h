@@ -38,9 +38,9 @@
 # define WINH 800
 # define MIN(X, Y)	((X) < (Y) ? (X) : (Y))
 # define MAX(X, Y)	((X) < (Y) ? (Y) : (X))
-# define SIN(x) envi->sintable[abs((int)x&255)]
-# define COS(x) envi->costable[abs((int)x&255)]
-# define FOCAL 200
+//# define SIN(x) envi->sintable[abs((int)x&255)]
+//# define COS(x) envi->costable[abs((int)x&255)]
+# define FOCAL 80
 //# include "minilibx_macos_elcapitan/mlx_int.h"
 
 // KINDA NEW START
@@ -75,7 +75,9 @@ typedef struct		s_total
 	void		*win;
 	t_bresen	*setting;
 	t_coord		**coord;
+//	posiblemente no sea necesario un dest
 	t_coord		**dest;
+	t_coord		**projected;
 	// matrix count
 	int			row;
 	int			colum;
@@ -91,9 +93,9 @@ typedef struct		s_total
 //	void		*general;
 
 	// kinda 3d world
-	float		sintable[256];
-	float		costable[256];
-	float		matrix1[4][4];
+//	float		sintable[256];
+//	float		costable[256];
+	float		matrix[4][4];
 //	ship x, y, and z
 	int			pushx;
 	int			pushy;
@@ -107,19 +109,6 @@ typedef struct		s_total
 
 
 
-// PENDEJADA ANTIGUA |||
-
-/*
-**	EVENTS FUNCTIONS
-*/
-
-
-/*
-**	ERRORS HANDLINGS MESSAGES
-*/
-
-void		fillit_print_error(int error_code);
-
 /*
 **	FUNCTIONS EXCLUSIVE
 ** This is basically me playing around with the minilibx library and see
@@ -128,34 +117,17 @@ void		fillit_print_error(int error_code);
 
 // EXCLUSIVE VERSION 2.0
 
-//void	setbresen(int x0, int y0, int x1, int y1, t_bresen *set);
-//void	draw_line_ult(int x0, int y0, int x1, int y1, t_total *envi);
-//void	draw_point(t_coord *coord, t_total *env);
-//void		set_node(int x, int y, int z, t_coord *set);
-
-
 /*
 void		xy_rotation(t_coord *set, t_total *envi);
 void		xz_rotation(t_coord *set, t_total *envi);
 void		yz_rotation(t_coord *set, t_total *envi);
 */
-void			redraw(t_total *envi);
-void	m3d_init(t_total *envi);
+
+//void			redraw(t_total *envi);
+//void	m3d_init(t_total *envi);
+
 // scale - 1
-void	mat_identity(float mat[4][4]);
-void	mat_multi(float mat1[4][4], float mat2[4][4], float dest[4][4]);
-void	vec_multmatrix(t_coord *coord, float mat[4][4], t_coord *dest);
-void	mat_copy(float source[4][4], float dest[4][4]);
-
-
-void	tr_scale(float matrix[4][4], float sx, float sy, float sz);
-void	tr_translate(float matrix[4][4], float tx, float ty, float tz);
-void	setmatrix(float matrix[4][4]);
 //void	tr_rotate(float matrix[4][4], int ax, int ay, int az, t_total *envi);
-void	tr_rotate(float matrix[4][4], t_total *envi);
-void	projection(t_coord *dest);
-void	init_global(t_total *envi);
-void	init_align(t_total *envi);
 
 
 /*
@@ -167,21 +139,7 @@ void	init_align(t_total *envi);
 //t_coord		*set_coord(int z);
 void		set_shit(t_coord *coord, int z);
 //t_coord		*init_coord(t_total *envi);
-t_coord		**init_coord(t_total *envi);
-void		loophole(t_total *envi);
-void		set_xy(t_coord **coord, t_total	*envi);
-void		draw_row(t_coord **cord, t_total *envi);
-void		draw_colum(t_coord **cord, t_total *envi);
 //void		rotate_xy(t_coord **coord, t_total *envi);
-void		align(t_coord **coord, t_total *envi);
-void		man_translation(t_coord **coord, t_total *envi);
-void		rotate_xy(t_coord **coord, t_coord **dest, t_total *envi);
-void		rotate_yz(t_coord **coord, t_coord **dest, t_total *envi);
-void		rotate_xz(t_coord **coord, t_coord **dest, t_total *envi);
-void		perspective_tra(t_coord **coord, t_total *envi);
-
-float		getting_min(t_coord **coord, t_total *envi, char letra);
-float		getting_max(t_coord **coord, t_total *envi, char letra);
 
 // linked list mine for this project
 
@@ -201,9 +159,11 @@ t_coord		**init_coord(t_total *envi);
 int			parser_file(char *str, t_total *envi);
 int			parser_line(char *line);
 int			splitter(char *str, t_total *envi);
+void		loophole(t_total *envi);
 int			count_splt(char **str);
 int			parser_argv(char *str);
 int			mouse_hook(int keycode, t_total *envi);
+t_coord		**init_coord(t_total *envi);
 // event functions
 int			my_key_function(int keycode, t_total *envi);
 
@@ -224,5 +184,42 @@ void		fillit_print_usage(char *arg);
 void		general_exit(int error_code, char *mensaje);
 void		destroy_exit(int error_code, char *mensaje, void *mlx, void *win);
 
+/*
+**	parser.c
+*/
 
+void		man_translation(t_coord **coord, t_total *envi);
+void		align(t_coord **coord, t_total *envi);
+float		getting_min(t_coord **coord, t_total *envi, char letra);
+float		getting_max(t_coord **coord, t_total *envi, char letra);
+void		perspective_tra(t_coord **coord, t_total *envi);
+void		rotate_xy(t_coord **coord, t_coord **dest, t_total *envi);
+void		rotate_yz(t_coord **coord, t_coord **dest, t_total *envi);
+void		rotate_xz(t_coord **coord, t_coord **dest, t_total *envi);
+void		draw_row(t_coord **cord, t_total *envi);
+void		draw_colum(t_coord **cord, t_total *envi);
+void		set_xy(t_coord **coord, t_total	*envi);
+
+/*
+**	matrices.c
+*/
+
+
+void	tr_rotate(float matrix[4][4], t_total *envi);
+//void	projection(t_coord *dest);
+void	projection(t_coord **dest, t_total *envi);
+void	init_global(t_total *envi);
+void	init_align(t_total *envi);
+void	mat_identity(float mat[4][4]);
+void	mat_multi(float mat1[4][4], float mat2[4][4], float dest[4][4]);
+void	vec_multmatrix(t_coord *coord, float mat[4][4], t_coord *dest);
+void	mat_copy(float source[4][4], float dest[4][4]);
+
+
+void	tr_scale(float matrix[4][4], float sx, float sy, float sz);
+void	tr_translate(float matrix[4][4], float tx, float ty, float tz);
+void	setmatrix(float matrix[4][4]);
+
+void    set_promatri(float matrix[4][4], float angle, float near, float far);
+void    init_projection(t_total *envi);
 #endif

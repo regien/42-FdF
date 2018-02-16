@@ -30,7 +30,8 @@ MFLAGS = -framework OpenGL -framework AppKit
 CFILES =	errors_h.c \
 			drawing.c \
 			main.c \
-			parser.c
+			parser.c \
+			matrices.c
 
 LILIB =		$(LIB)libft.a \
 			$(MLX)libmlx_Linux.a

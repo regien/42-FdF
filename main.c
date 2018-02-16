@@ -54,6 +54,21 @@ int			my_key_function(int keycode, t_total *envi)
 		envi->focal -= 0.01;
 	if (keycode == 17)
 		envi->focal += 0.01;
+	// H
+	if (keycode == 104)
+	{
+		int y = -1;
+		while (++y < envi->colum)
+		{
+			int x = -1;
+			while (++x < envi->row)
+			{
+				printf("pendejada = |%f|\n", envi->projected[y][x].x);
+				printf("pendejada = |%f|\n", envi->projected[y][x].y);
+				printf("pendejada = |%f|\n\n", envi->projected[y][x].z);
+			}
+		}
+	}
 	loophole(envi);
 	return (0);
 }
@@ -149,7 +164,6 @@ int			parser_line(char *line)
 	}
 	return (1);
 }
-
 
 // this is for parsing colors
 /*
@@ -270,15 +284,19 @@ void		loophole(t_total *envi)
 	envi->pix = (int*)mlx_get_data_addr(envi->img, &(envi->bits), \
 	&(envi->s_line), &(envi->endian));
 	set_xy(envi->coord, envi);
+	init_align(envi);
 //	rotate_xy(envi->coord, envi);
 //	rotate_xy(envi->coord, envi->dest, envi);
+//	projection(envi->dest, envi);
+//	init_projection(envi);
 
-	rotate_yz(envi->coord, envi->dest, envi);
-	rotate_xz(envi->dest, envi->dest, envi);
+// uncomment me
+//	rotate_yz(envi->coord, envi->dest, envi);
+//	rotate_xz(envi->dest, envi->dest, envi);
 
 // REAL CENTER
-	align(envi->dest, envi);
-
+		align(envi->dest, envi);
+// manual translation
 	man_translation(envi->dest, envi);
 
 //	perspective_tra(envi->dest, envi);
@@ -342,6 +360,7 @@ int				main(int argc, char **argv)
 
 /// INITIALIZING COORDINATES
 	envi->dest = init_coord(envi);
+	envi->projected = init_coord(envi);
 
 //	draw_row(envi->coord, envi);
 //	draw_colum(envi->coord, envi);
