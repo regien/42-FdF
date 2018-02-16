@@ -285,21 +285,10 @@ void		loophole(t_total *envi)
 	&(envi->s_line), &(envi->endian));
 	set_xy(envi->coord, envi);
 	init_align(envi);
-//	rotate_xy(envi->coord, envi);
-//	rotate_xy(envi->coord, envi->dest, envi);
-	projection(envi->dest, envi);
-//	init_projection(envi);
-
-// uncomment me
-//	rotate_yz(envi->coord, envi->dest, envi);
-//	rotate_xz(envi->dest, envi->dest, envi);
-
 // REAL CENTER
 		align(envi->dest, envi);
 // manual translation
 	man_translation(envi->dest, envi);
-
-//	perspective_tra(envi->dest, envi);
 
 	draw_row(envi->dest, envi);
 	draw_colum(envi->dest, envi);
