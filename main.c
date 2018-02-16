@@ -50,10 +50,10 @@ int			my_key_function(int keycode, t_total *envi)
 		envi->tray -= 1;
 	
 // triying focal distance	
-	if (keycode == 5)
-		envi->focal -= 0.01;
-	if (keycode == 17)
-		envi->focal += 0.01;
+	if (keycode == KEY_T)
+		envi->focal -= 0.1;
+	if (keycode == KEY_G)
+		envi->focal += 0.1;
 	// H
 	if (keycode == 104)
 	{
@@ -295,14 +295,14 @@ void		loophole(t_total *envi)
 //	rotate_xz(envi->dest, envi->dest, envi);
 
 // REAL CENTER
-//		align(envi->projected, envi);
+		align(envi->dest, envi);
 // manual translation
-	man_translation(envi->projected, envi);
+	man_translation(envi->dest, envi);
 
 //	perspective_tra(envi->dest, envi);
 
-	draw_row(envi->projected, envi);
-	draw_colum(envi->projected, envi);
+	draw_row(envi->dest, envi);
+	draw_colum(envi->dest, envi);
 	mlx_put_image_to_window(envi->mlx, envi->win, envi->img, 0, 0);
 	mlx_hook(envi->win, 2, 0, my_key_function, envi);
 	mlx_hook(envi->win, 4, 5, mouse_hook, envi);
@@ -336,7 +336,7 @@ int				main(int argc, char **argv)
 	envi->theta = 0;
 	envi->phi = 0;
 	envi->psi = 0;
-	envi->focal = -1;
+//	envi->focal = -1;
 //	envi->theta = 0.20;
 //	m3d_init(envi);
 //	mat_identity(envi->matrix1);

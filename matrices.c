@@ -296,8 +296,8 @@ void	projection(t_coord **dest, t_total *envi)
             holder = &(envi->projected[y][x]);
         	if(!(hold->z))
         		hold->z = 0.001;
-        	holder->x = 7 * hold->x / (envi->z_max - hold->z) + WINW / 2;
-        	holder->y = 7 * hold->y / (envi->z_max - hold->z) + WINH / 2;
+        	holder->x = envi->focal * hold->x / (envi->z_max - hold->z) + WINW / 2;
+        	holder->y = envi->focal * hold->y / (envi->z_max - hold->z) + WINH / 2;
             holder->z = envi->coord[y][x].z;
         }
     }

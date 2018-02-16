@@ -27,6 +27,9 @@
 # define KEY_DOWN (OS == 1? 65364 : 123)
 # define KEY_LEFT (OS == 1? 65361 : 126)
 # define KEY_RIGHT (OS == 1? 65363 : 125)
+# define KEY_T (OS == 1 ? 116 : 5)
+# define KEY_G (OS == 1 ? 103 : 17)
+
 # include "libft/includes/libft.h"
 //# include "minilibx/mlx.h"
 //# include "minilibx/mlx_int.h"
