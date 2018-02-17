@@ -16,11 +16,37 @@
 
 // VERSION 2.40
 
+void	init_colors(t_total *envi)
+{
+	int		i;
+	float	r[3];
+	float	g[3];
+	float	b[3];
 
-void	draw_point(int x, int y, int color, t_total *env)
+	i = -1;
+	envi->colors = ft_memalloc(sizeof(int) * 100);
+	r[0] = (float)(COLOR1 >> 16 & 0xFF);
+	r[1] = (float)(COLOR2 >> 16 & 0xFF);
+	g[0] = (float)(COLOR1 >> 8 & 0xFF);
+	g[1] = (float)(COLOR2 >> 8 & 0xFF);
+	b[0] = (float)(COLOR1 & 0xFF);
+	b[1] = (float)(COLOR2 & 0xFF);
+	while (++i < 100)
+	{
+		r[2] = (float)(r[0] * 1) / 100 + (float)(r[1] * (100 - 1)) / 100;
+		g[2] = (float)(g[0] * 1) / 100 + (float)(g[1] * (100 - 1)) / 100;
+		b[2] = (float)(b[0] * 1) / 100 + (float)(b[1] * (100 - 1)) / 100;
+		envi->colors[i] = (int)r[2] << 16 | (int)g[2] << 8 | (int)b[2];
+	}
+}
+
+
+void	draw_point(int x, int y, int z, t_total *env)
 //void	draw_point(t_coord *coord, t_total *env)
 {
 	int i;
+	unsigned int color;
+	float which;
 
 	if (x > WINW || y > WINH || x < 0 \
 	|| y < 0)
@@ -28,9 +54,15 @@ void	draw_point(int x, int y, int color, t_total *env)
 	i = (x) + (y * env->s_line / 4);
 	if (i > WINH * WINW)
 		return ;
+//	which = ((z - env->z_min) / (env->z_max - env->z_min)) * 100;
+//	printf("which = %f\n", which);
+	which = 1;
+	color = env->colors[abs((int)which - 1)];
+//	color = env->colors[20];
 //	env->pix[x + (y * env->s_line / 4)] = color;
 	env->pix[i] = color;
-	env->pix[i + 1] = color;
+	env->pix[++i] = color >> 8;
+	env->pix[++i] = color >> 16;
 //	env->pix[i + 2] = color;
 }
 
@@ -60,7 +92,6 @@ int		**set_matrix(int scale)
 	return (set);	
 }
 
-//void	setbresen(int x0, int y0, int x1, int y1, t_bresen *set)
 void	setbresen(t_coord *co0, t_coord *co1, t_bresen *set)
 {
 	set->w = co1->x - co0->x;
@@ -87,7 +118,6 @@ void	setbresen(t_coord *co0, t_coord *co1, t_bresen *set)
 	}
 }
 
-//void	draw_line_ult(int x0, int y0, int x1, int y1, t_total *envi)
 void	draw_line_ult(t_coord *co0, t_coord *co1, t_total *envi)
 {
 	t_bresen		*set;
@@ -102,7 +132,7 @@ void	draw_line_ult(t_coord *co0, t_coord *co1, t_total *envi)
 	set->numerator = set->longest >> 1;
 	while (++(set->i) <= set->longest)
 	{
-		draw_point(x0, y0, 0x145400, envi);
+		draw_point(x0, y0, co0->z, envi);
 		set->numerator = set->numerator + set->shortest;
 		if (!(set->numerator < set->longest))
 		{

@@ -50,10 +50,10 @@ int			my_key_function(int keycode, t_total *envi)
 		envi->tray -= 1;
 	
 // triying focal distance	
-	if (keycode == KEY_T)
-		envi->focal -= 0.1;
-	if (keycode == KEY_G)
-		envi->focal += 0.1;
+//	if (keycode == KEY_T)
+//		envi->focal -= 0.1;
+//	if (keycode == KEY_G)
+//	envi->focal += 0.1;
 	// H
 	if (keycode == 104)
 	{
@@ -283,8 +283,10 @@ void		loophole(t_total *envi)
 	envi->img = mlx_new_image(envi->mlx, WINW, WINH);
 	envi->pix = (int*)mlx_get_data_addr(envi->img, &(envi->bits), \
 	&(envi->s_line), &(envi->endian));
-	set_xy(envi->coord, envi);
+//	set_xy(envi->coord, envi);
 	init_align(envi);
+	envi->z_min = getz_min_max(envi->dest, envi, 'u');
+	envi->z_max = getz_min_max(envi->dest, envi, 'a');
 // REAL CENTER
 		align(envi->dest, envi);
 // manual translation
@@ -334,7 +336,7 @@ int				main(int argc, char **argv)
 	envi->z_max = -2147483648;
 	envi->z_min = getz_min_max(envi->coord, envi, 'u');
 	envi->z_max = getz_min_max(envi->coord, envi, 'a');
-	
+	init_colors(envi);
 	
 	int y = -1;
 	int x = -1;

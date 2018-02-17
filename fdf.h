@@ -29,6 +29,11 @@
 # define KEY_RIGHT (OS == 1? 65363 : 125)
 # define KEY_T (OS == 1 ? 116 : 5)
 # define KEY_G (OS == 1 ? 103 : 17)
+# define COLOR1 0xa7f442
+# define COLOR2 0xc542f4
+
+//# define COLOR1 0xff0000
+//# define COLOR2 0x00FFff
 
 # include "libft/includes/libft.h"
 //# include "minilibx/mlx.h"
@@ -109,7 +114,8 @@ typedef struct		s_total
 
 	float		z_min;
 	float		z_max;
-	float		focal;
+//	float		focal;
+	int			*colors;
 }					t_total;
 
 
@@ -140,17 +146,6 @@ void		yz_rotation(t_coord *set, t_total *envi);
 */
 
 
-//void		set_coord(t_coord *coord, int z);
-//t_coord		*set_coord(int z);
-void		set_shit(t_coord *coord, int z);
-//t_coord		*init_coord(t_total *envi);
-//void		rotate_xy(t_coord **coord, t_total *envi);
-
-// linked list mine for this project
-
-void		coord_add_listback(t_coord **list, t_coord *new);
-void		adder(t_coord **list, char *str);
-t_coord		*create_node(char *str);
 
 /*
 **	main.c
@@ -176,7 +171,8 @@ int			my_key_function(int keycode, t_total *envi);
 **	drawing.c
 */
 
-void	draw_point(int x, int y, int color, t_total *env);
+void	init_colors(t_total *envi);
+void	draw_point(int x, int y, int z, t_total *env);
 int		**set_matrix(int scale);
 void	setbresen(t_coord *co0, t_coord *co1, t_bresen *set);
 void	draw_line_ult(t_coord *co0, t_coord *co1, t_total *envi);
@@ -197,7 +193,7 @@ void		man_translation(t_coord **coord, t_total *envi);
 void		align(t_coord **coord, t_total *envi);
 float		getting_min(t_coord **coord, t_total *envi, char letra);
 float		getting_max(t_coord **coord, t_total *envi, char letra);
-void		perspective_tra(t_coord **coord, t_total *envi);
+//void		perspective_tra(t_coord **coord, t_total *envi);
 void		rotate_xy(t_coord **coord, t_coord **dest, t_total *envi);
 void		rotate_yz(t_coord **coord, t_coord **dest, t_total *envi);
 void		rotate_xz(t_coord **coord, t_coord **dest, t_total *envi);
@@ -212,7 +208,7 @@ float		getz_min_max(t_coord **coord, t_total *envi, char letra);
 
 
 void	tr_rotate(float matrix[4][4], t_total *envi);
-//void	projection(t_coord *dest);
+// check projection
 void	projection(t_coord **dest, t_total *envi);
 void	init_global(t_total *envi);
 void	init_align(t_total *envi);
@@ -228,4 +224,7 @@ void	setmatrix(float matrix[4][4]);
 
 void    set_promatri(float matrix[4][4], float angle, float near, float far);
 void    init_projection(t_total *envi);
+void     setxmat(float xmat[4][4], t_total *envi);
+void    setymat(float ymat[4][4], t_total *envi);
+void    setzmat(float zmat[4][4], t_total *envi);
 #endif

@@ -153,7 +153,7 @@ void		rotate_xz(t_coord **coord, t_coord **dest, t_total *envi)
 	}
 }
 
-void		perspective_tra(t_coord **coord, t_total *envi)
+/*void		perspective_tra(t_coord **coord, t_total *envi)
 {
 	t_coord	*dest;
 //	t_coord	*holalign;
@@ -174,8 +174,8 @@ void		perspective_tra(t_coord **coord, t_total *envi)
             dest->y = (envi->focal * dest->y) / dest->z + 400;
 		}
 	}
-
 }
+*/
 ////////////////////////////////////////////////
 
 float		getting_min(t_coord **coord, t_total *envi, char letra)
