@@ -28,17 +28,17 @@ int			my_key_function(int keycode, t_total *envi)
 	if (keycode == KEY_C)
 		mlx_clear_window(envi->mlx, envi->win);
 	if (keycode == KEY_D)
-		envi->theta += 00.01;
+		envi->theta += 00.05;
 	if (keycode == KEY_A)
-		envi->theta -= 00.01;
+		envi->theta -= 00.05;
 	if (keycode == KEY_W)
-		envi->phi += 00.01;
+		envi->phi += 00.05;
 	if (keycode == KEY_S)
-		envi->phi -= 00.01;
+		envi->phi -= 00.05;
 	if (keycode == KEY_E)
-		envi->psi += 00.01;
+		envi->psi += 00.05;
 	if (keycode == KEY_Q)
-		envi->psi -= 00.01;
+		envi->psi -= 00.05;
 // flechas
 	if (keycode == KEY_RIGHT)
 		envi->trax += 1;
@@ -297,6 +297,7 @@ void		loophole(t_total *envi)
 	mlx_put_image_to_window(envi->mlx, envi->win, envi->img, 0, 0);
 	mlx_hook(envi->win, 2, 0, my_key_function, envi);
 	mlx_hook(envi->win, 4, 5, mouse_hook, envi);
+//	mlx_loop_hook(envi->mlx, my_key_function, envi);
 	mlx_loop(envi->mlx);
 }
 

@@ -13,9 +13,10 @@
 #ifndef FDF_H
 # define FDF_H
 // OS 1 = linux / 0 = Mac
-# define OS 1
+# define OS 0
 # define ESCAPE -1
 # define KEY_C 8
+/*
 # define KEY_ESC (OS == 1 ? 65307 : 53)
 # define KEY_W (OS == 1 ? 119 : 2)
 # define KEY_S (OS == 1 ? 115 : 0)
@@ -23,12 +24,26 @@
 # define KEY_D (OS == 1? 100 : 13)
 # define KEY_E (OS == 1 ? 101 : 14)
 # define KEY_Q (OS == 1? 113 : 12)
-# define KEY_UP (OS == 1? 65362 : 124)
-# define KEY_DOWN (OS == 1? 65364 : 123)
-# define KEY_LEFT (OS == 1? 65361 : 126)
-# define KEY_RIGHT (OS == 1? 65363 : 125)
+# define KEY_UP (OS == 1? 65362 : 126)
+# define KEY_DOWN (OS == 1? 65364 : 125)
+# define KEY_LEFT (OS == 1? 65361 : 123)
+# define KEY_RIGHT (OS == 1? 65363 : 124)
 # define KEY_T (OS == 1 ? 116 : 5)
 # define KEY_G (OS == 1 ? 103 : 17)
+*/
+# define KEY_ESC 53
+# define KEY_W 2
+# define KEY_S 0
+# define KEY_A 1
+# define KEY_D 13
+# define KEY_E 14
+# define KEY_Q 12
+# define KEY_UP 126
+# define KEY_DOWN 125
+# define KEY_LEFT 123
+# define KEY_RIGHT 124
+# define KEY_T 5
+# define KEY_G 17
 # define COLOR1 0xa7f442
 # define COLOR2 0xc542f4
 
@@ -53,6 +68,23 @@
 
 // KINDA NEW START
 // VA DENTRO DE UNA ESTRUCURA MAS GRANDE
+/*
+typedef enum	e_keys
+{
+	KEY_A = 0,
+	KEY_S = 1,
+	KEY_D = 2,
+	KEY_Z = 6,
+	KEY_W = 13,
+//	KEY_SP = 49,
+	KEY_ESC = 53,
+	KEY_LEFT = 123,
+	KEY_RIGHT = 124,
+	KEY_DOWN = 125,
+	KEY_UP = 126
+}				t_keys;
+*/
+
 typedef struct		s_bresen
 {
 	int w;
@@ -100,9 +132,6 @@ typedef struct		s_total
 	float		psi;	
 //	void		*general;
 
-	// kinda 3d world
-//	float		sintable[256];
-//	float		costable[256];
 	float		matrix[4][4];
 //	ship x, y, and z // check
 	int			pushx;
