@@ -39,10 +39,22 @@ void		general_exit(int error_code, char *mensaje)
 
 // not destroying windows correctly
 // FIX IT - this is causing segfault
+
+/*
 void		destroy_exit(int error_code, char *mensaje, void *mlx, void *win)
 {
 	mlx_destroy_window(mlx, win);
 	if (error_code < 0)
 		ft_putstr(mensaje);
 	exit(error_code);
+}
+*/
+
+int		destroy_exit(int error_code, char *mensaje, void *mlx, void *win)
+{
+	mlx_destroy_window(mlx, win);
+	if (error_code < 0)
+		ft_putstr(mensaje);
+	exit(error_code);
+	return (0);
 }

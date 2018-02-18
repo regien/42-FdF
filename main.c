@@ -20,67 +20,6 @@
 // cambiar escapes de fillit
 // MENSAJES PERSONALIZADOS - CODIGO DE ERROR
 //
-int			my_key_function(int keycode, t_total *envi)
-{
-	printf("key event %d\n", keycode);
-	if (keycode == KEY_ESC)
-		destroy_exit(ESCAPE, "gracias por usar esta pendejada\n", envi->mlx, envi->win);
-	if (keycode == KEY_C)
-		mlx_clear_window(envi->mlx, envi->win);
-	if (keycode == KEY_D)
-		envi->theta += 00.05;
-	if (keycode == KEY_A)
-		envi->theta -= 00.05;
-	if (keycode == KEY_W)
-		envi->phi += 00.05;
-	if (keycode == KEY_S)
-		envi->phi -= 00.05;
-	if (keycode == KEY_E)
-		envi->psi += 00.05;
-	if (keycode == KEY_Q)
-		envi->psi -= 00.05;
-// flechas
-	if (keycode == KEY_RIGHT)
-		envi->trax += 1;
-	if (keycode == KEY_LEFT)
-		envi->trax -= 1;
-	if (keycode == KEY_DOWN)
-		envi->tray += 1;
-	if (keycode == KEY_UP)
-		envi->tray -= 1;
-	
-// triying focal distance	
-//	if (keycode == KEY_T)
-//		envi->focal -= 0.1;
-//	if (keycode == KEY_G)
-//	envi->focal += 0.1;
-	// H
-	if (keycode == 104)
-	{
-		int y = -1;
-		while (++y < envi->row)
-		{
-			int x = -1;
-			while (++x < envi->colum)
-			{
-				printf("pendejada = |%f|\n", envi->projected[y][x].x);
-				printf("pendejada = |%f|\n", envi->projected[y][x].y);
-				printf("pendejada = |%f|\n\n", envi->projected[y][x].z);
-			}
-		}
-	}
-	loophole(envi);
-	return (0);
-}
-
-int			mouse_hook(int keycode, t_total *envi)
-{
-	printf("key event %d\n", keycode);
-	if (keycode == 1)
-		;
-//		envi->phi -= 00.01;
-	return (0);
-}
 
 // for now only works with parsing the name, now we are opening the file
 // and build a valid matrix and start creating the structure
@@ -276,7 +215,130 @@ void		parser(char *arg, t_total *envi)
 		storage(arg, envi);
 }
 
-void		loophole(t_total *envi)
+int			key_pressed(int keycode, t_total *envi)
+{
+	if (keycode == KEY_ESC)
+		destroy_exit(ESCAPE, "gracias por usar esta pendejada\n", envi->mlx, envi->win);
+	if (keycode == KEY_W)
+		envi->pressed->w = 1;
+	else if (keycode == KEY_S)
+		envi->pressed->s = 1;
+	else if (keycode == KEY_S)
+		envi->pressed->s = 1;
+	else if (keycode == KEY_A)
+		envi->pressed->a = 1;
+	else if (keycode == KEY_D)
+		envi->pressed->d = 1;
+	else if (keycode == KEY_E)
+		envi->pressed->e = 1;
+	else if (keycode == KEY_Q)
+		envi->pressed->q = 1;
+	else if (keycode == KEY_RIGHT)
+		envi->pressed->right = 1;
+	else if (keycode == KEY_LEFT)
+		envi->pressed->left = 1;
+	else if (keycode == KEY_UP)
+		envi->pressed->up = 1;
+	else if (keycode == KEY_DOWN)
+		envi->pressed->down = 1;
+	return (0);
+}
+
+int			key_release(int keycode, t_total *envi)
+{
+//	if (keycode == KEY_ESC)
+//		destroy_exit(ESCAPE, "gracias por usar esta pendejada\n", envi->mlx, envi->win);
+	if (keycode == KEY_W)
+		envi->pressed->w = 0;
+	else if (keycode == KEY_S)
+		envi->pressed->s = 0;
+	else if (keycode == KEY_A)
+		envi->pressed->a = 0;
+	else if (keycode == KEY_D)
+		envi->pressed->d = 0;
+	else if (keycode == KEY_E)
+		envi->pressed->e = 0;
+	else if (keycode == KEY_Q)
+		envi->pressed->q = 0;
+	else if (keycode == KEY_RIGHT)
+		envi->pressed->right = 0;
+	else if (keycode == KEY_LEFT)
+		envi->pressed->left = 0;
+	else if (keycode == KEY_UP)
+		envi->pressed->up = 0;
+	else if (keycode == KEY_DOWN)
+		envi->pressed->down = 0;
+	return (0);
+}
+
+int			my_key_function(t_total *envi)
+{
+//	printf("key event %d\n", keycode);
+//	if (keycode == KEY_ESC)
+//		destroy_exit(ESCAPE, "gracias por usar esta pendejada\n", envi->mlx, envi->win);
+
+//	if (keycode == KEY_C)
+//		mlx_clear_window(envi->mlx, envi->win);
+
+//	if (keycode == KEY_D)
+	if (envi->pressed->d)
+		envi->theta += 00.05;
+	if (envi->pressed->a)
+		envi->theta -= 00.05;
+	if (envi->pressed->w)
+		envi->phi += 00.05;
+	if (envi->pressed->s)
+		envi->phi -= 00.05;
+	if (envi->pressed->e)
+		envi->psi += 00.05;
+	if (envi->pressed->q)
+		envi->psi -= 00.05;
+// flechas
+	if (envi->pressed->right)
+		envi->trax += 1;
+	if (envi->pressed->left)
+		envi->trax -= 1;
+	if (envi->pressed->down)
+		envi->tray += 1;
+	if (envi->pressed->up)
+		envi->tray -= 1;
+		/*
+	if (keycode == 104)
+	{
+		int y = -1;
+		while (++y < envi->row)
+		{
+			int x = -1;
+			while (++x < envi->colum)
+			{
+				printf("pendejada = |%f|\n", envi->projected[y][x].x);
+				printf("pendejada = |%f|\n", envi->projected[y][x].y);
+				printf("pendejada = |%f|\n\n", envi->projected[y][x].z);
+			}
+		}
+	}
+	*/
+	draw_everything(envi);
+	return (0);
+}
+
+int			expose_hook(t_total *envi)
+{
+	draw_everything(envi);
+	return (0);
+}
+
+int			mouse_hook(int keycode, t_total *envi)
+{
+	printf("key event %d\n", keycode);
+//	if (keycode == 1)
+//		;
+//		envi->phi -= 00.01;
+	return (0);
+}
+
+
+void		draw_everything(t_total *envi)
 {
 	if (envi->img)
 		mlx_destroy_image(envi->mlx, envi->img);
@@ -295,9 +357,18 @@ void		loophole(t_total *envi)
 	draw_row(envi->dest, envi);
 	draw_colum(envi->dest, envi);
 	mlx_put_image_to_window(envi->mlx, envi->win, envi->img, 0, 0);
-	mlx_hook(envi->win, 2, 0, my_key_function, envi);
+}
+
+
+void		loophole(t_total *envi)
+{
+	envi->pressed = ft_memalloc(sizeof(t_keys));
+	mlx_expose_hook(envi->win, expose_hook, envi);
+	mlx_hook(envi->win, 2, 0, key_pressed, envi);
+	mlx_hook(envi->win, 3, 0, key_release, envi);
+	mlx_hook(envi->win, 17, 0, destroy_exit, envi);
 	mlx_hook(envi->win, 4, 5, mouse_hook, envi);
-//	mlx_loop_hook(envi->mlx, my_key_function, envi);
+	mlx_loop_hook(envi->mlx, my_key_function, envi);
 	mlx_loop(envi->mlx);
 }
 
@@ -315,6 +386,7 @@ int				main(int argc, char **argv)
 		fillit_print_usage(argv[0]);
 	parser(argv[1], envi);
 	envi->setting = ft_memalloc(sizeof(t_bresen));
+//	printf("testing = = = |%d|", envi->pressed->d);
 	envi->mlx = mlx_init();
 	envi->win = mlx_new_window(envi->mlx, WINW, WINH, "testing my shit");
 //	envi->pushx = 250;

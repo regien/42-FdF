@@ -63,7 +63,7 @@
 # define MAX(X, Y)	((X) < (Y) ? (Y) : (X))
 //# define SIN(x) envi->sintable[abs((int)x&255)]
 //# define COS(x) envi->costable[abs((int)x&255)]
-# define FOCAL 80
+//# define FOCAL 80
 //# include "minilibx_macos_elcapitan/mlx_int.h"
 
 // KINDA NEW START
@@ -84,6 +84,24 @@ typedef enum	e_keys
 	KEY_UP = 126
 }				t_keys;
 */
+
+
+//typedef 
+// PONERLA DENTRO DE TOTAL
+typedef struct		s_keys
+{
+	int				q:1;
+	int				e:1;
+	int				w:1;
+	int				s:1;
+	int				a:1;
+	int				d:1;
+	int				left:1;
+	int				down:1;
+	int				right:1;
+	int				up:1;
+}					t_keys;
+
 
 typedef struct		s_bresen
 {
@@ -145,6 +163,7 @@ typedef struct		s_total
 	float		z_max;
 //	float		focal;
 	int			*colors;
+	t_keys		*pressed;
 }					t_total;
 
 
@@ -194,7 +213,12 @@ int			parser_argv(char *str);
 int			mouse_hook(int keycode, t_total *envi);
 t_coord		**init_coord(t_total *envi);
 // event functions
-int			my_key_function(int keycode, t_total *envi);
+//int			my_key_function(int keycode, t_total *envi);
+int			my_key_function(t_total *envi);
+int			key_pressed(int keycode, t_total *envi);
+int			key_release(int keycode, t_total *envi);
+int			expose_hook(t_total *envi);
+void		draw_everything(t_total *envi);
 
 /*
 **	drawing.c
@@ -212,7 +236,8 @@ void	draw_line_ult(t_coord *co0, t_coord *co1, t_total *envi);
 
 void		fillit_print_usage(char *arg);
 void		general_exit(int error_code, char *mensaje);
-void		destroy_exit(int error_code, char *mensaje, void *mlx, void *win);
+//void		destroy_exit(int error_code, char *mensaje, void *mlx, void *win);
+int		destroy_exit(int error_code, char *mensaje, void *mlx, void *win);
 
 /*
 **	parser.c
