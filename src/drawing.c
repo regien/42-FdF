@@ -34,11 +34,13 @@ void	init_colors(t_total *envi)
 	b[1] = (float)(COLOR2 & 0xFF);
 	while (++i < 100)
 	{
-		r[2] = (float)(r[0] * 1) / 100 + (float)(r[1] * (100 - 1)) / 100;
-		g[2] = (float)(g[0] * 1) / 100 + (float)(g[1] * (100 - 1)) / 100;
-		b[2] = (float)(b[0] * 1) / 100 + (float)(b[1] * (100 - 1)) / 100;
+		r[2] = (float)(r[0] * i) / 100 + (float)(r[1] * (100 - i)) / 100;
+		g[2] = (float)(g[0] * i) / 100 + (float)(g[1] * (100 - i)) / 100;
+		b[2] = (float)(b[0] * i) / 100 + (float)(b[1] * (100 - i)) / 100;
 		envi->colors[i] = (int)r[2] << 16 | (int)g[2] << 8 | (int)b[2];
 	}
+	printf("print color = |%d|\n", envi->colors[50]);
+	printf("print color = |%d|\n", envi->colors[70]);
 }
 
 void	draw_point(int x, int y, int z, t_total *env)
@@ -53,8 +55,8 @@ void	draw_point(int x, int y, int z, t_total *env)
 	i = (x) + (y * env->s_line / 4);
 	if (i > WINH * WINW)
 		return ;
-	which = 1;
-	color = env->colors[abs((int)which - 1)];
+	which = env->which;
+	color = env->colors[(int)which];
 	env->pix[i] = color;
 	env->pix[++i] = color >> 8;
 	env->pix[++i] = color >> 16;

@@ -34,6 +34,10 @@ int			mouse_hook(int keycode, int x, int y, t_total *envi)
 		envi->scaley = envi->scaley / 1.2;
 		envi->scalez = envi->scalez / 1.2;
 	}
+	if (keycode == 2)
+		init_fdf(envi);
+	if (keycode == 1)
+		shuffle_colors(envi);
 	draw_everything(envi);
 	return (0);
 }

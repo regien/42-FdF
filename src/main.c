@@ -44,7 +44,7 @@ void		loophole(t_total *envi)
 	mlx_expose_hook(envi->win, expose_hook, envi);
 //	mlx_mouse_hook(envi->win, key_extras,envi);
 	mlx_hook(envi->win, 2, 0, key_pressed, envi);
-//	mlx_hook(envi->win, 6, 0, key_extras, envi);
+//	mlx_hook(envi->win, 10, 0, key_extras, envi);
 	mlx_hook(envi->win, 3, 0, key_release, envi);
 	mlx_hook(envi->win, 17, 0, destroy_exit, envi);
 	mlx_hook(envi->win, 4, 5, mouse_hook, envi);

@@ -25,14 +25,21 @@ t_coord		**init_coord(t_total *envi)
 	return (holder);
 }
 
-
 void		set_coordz(t_coord *envi, int i, char *value)
 {
+	static char **temp;
+
+	temp = NULL;
 	envi->x = 0;
 	envi->y = 0;
-	envi->z = (float)atoi(value);
+	if (!(ft_strstr(value, ",")))
+		envi->z = (float)atoi(value);
+	else
+	{
+		temp = ft_strsplit(value, ',');
+		envi->z = ft_atoi(temp[0]);
+	}
 	envi->color = 0x012345;
-	// PARSE ISLAND IS SUPOSSE TO BE HERE
 }
 
 void		storage(char *arg, t_total *envi)
@@ -75,4 +82,3 @@ void		parser(char *arg, t_total *envi)
 	else
 		storage(arg, envi);
 }
-

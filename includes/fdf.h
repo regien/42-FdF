@@ -43,13 +43,14 @@
 # define KEY_DOWN 125
 # define KEY_LEFT 123
 # define KEY_RIGHT 124
-//# define KEY_T 5
 # define KEY_G 17
 # define COLOR1 0xa7f442
 # define COLOR2 0xc542f4
 
-//# define COLOR1 0xff0000
-//# define COLOR2 0x00FFff
+//# define COLOR1 0x123456
+//# define COLOR2 0xc45f4a
+//# define COLOR1 0x000000
+//# define COLOR2 0xFFFFff
 
 # include "libft.h"
 //# include "minilibx/mlx.h"
@@ -141,6 +142,8 @@ typedef struct		s_total
 	float		scalex;
 	float		scaley;
 	float		scalez;
+
+	float		which;
 }					t_total;
 
 /*
@@ -149,7 +152,6 @@ typedef struct		s_total
 
 
 //int			mouse_hook(int keycode, t_total *envi);
-int			mouse_hook(int keycode, int x, int y, t_total *envi);
 t_coord		**init_coord(t_total *envi);
 // event functions
 //int			my_key_function(int keycode, t_total *envi);
@@ -250,7 +252,14 @@ int			key_pressed(int keycode, t_total *envi);
 int			key_release(int keycode, t_total *envi);
 int			expose_hook(t_total *envi);
 int			my_key_function(t_total *envi);
-int			key_extras(int keycode, t_total *envi);
+int			mouse_hook(int keycode, int x, int y, t_total *envi);
+
+/*
+** EXTRA FEATURES - extrahooks.c
+*/
+
+//int			key_extras(int keycode, t_total *envi);
+void		shuffle_colors(t_total *envi);
 
 /*
 ** RENDER

@@ -11,12 +11,11 @@
 /* ************************************************************************** */
 
 #include "fdf.h"
+#include <time.h>
 
-int			key_extras(int keycode, t_total *envi)
+
+void		shuffle_colors(t_total *envi)
 {
-	// zoom in
-	if (keycode == KEY_R)
-		init_fdf(envi);
-	draw_everything(envi);
-	return (0);
+	srand(time(NULL));
+	envi->which = ((rand() % 100) + 1);
 }

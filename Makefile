@@ -6,12 +6,13 @@
 #    By: regien <gmalpart@student.42.us.org>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/12/25 00:45:02 by regien            #+#    #+#              #
-#    Updated: 2018/03/05 00:12:08 by gmalpart         ###   ########.fr        #
+#    Updated: 2018/03/05 01:57:46 by gmalpart         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 MAKE = make -C
 NAME = fdf_test
+NAMEFINAL = fdf
 LIB = libft/
 MLX = minilibx/
 OSXMLX = minilibx_macos_sierra/
@@ -75,19 +76,19 @@ all: $(NAME)
 $(NAME):
 	@$(LIBM)
 	@$(OSXMLXM)
-	@$(CC) $(CFILES) $(OSXLIB) $(MFLAGS) -o $(NAME)
+	@$(CC) $(HEADERS) $(CSTFILES) $(OSXLIB) $(MFLAGS) -o $(NAMEFINAL)
 
 # not compiling with flags yet becuase of linux errors
 # linux erros != mac errors
 linux:
 	@$(LIBM)
 	@$(MLXM)
-	@$(CC) $(CFILES) $(LILIB) $(LFLAGS) -o $(NAME)
+	@$(CC) $(HEADERS) $(CSTFILES) $(LILIB) $(LFLAGS) -o $(NAMEFINAL)
 #gcc main.c minilibx/libmlx_Linux.a -L/usr/include/../lib -lXext -lX11 -lm
 
 # this is for compiling fast without spamming your terminal / lINUX
 compli:
-	$(CC) -g $(CFILES) $(LILIB) $(LFLAGS) -o $(NAME)
+	$(CC) -g $(HEADERS) $(CSTFILES) $(LILIB) $(LFLAGS) -o $(NAME)
 
 # fast compile for macosx version / MACOSX
 comp:

@@ -44,16 +44,14 @@ int			count_splt(char **str)
 	return (i);
 }
 
-// NO ENDING | suppose to have a list as an argument to storage the linked list
 int		splitter(char *str, t_total *envi)
 {
 	static char	**temp;
 	int					i;
 
 	i = -1;
-	printf("matrix = %i\n", count_splt(ft_strsplit(str, ' ')));
+//	printf("matrix = %i\n", count_splt(ft_strsplit(str, ' ')));
 	temp = ft_strsplit(str, ' ');
-	// tamaño calculado
 	if (envi->colum != 0)
 	{
 		if (envi->colum != count_splt(temp))
@@ -64,13 +62,9 @@ int		splitter(char *str, t_total *envi)
 	i = -1;
 	while (++i < envi->colum)
 		free(temp[i]);
-	// calcular de que tamano es el doble pointer
-	//	while (++i < envi->row)
-	//		add_list(list, temp[i]);
 	return (1);
 }
 
-// take care of is_valid_hex || NOT HERE, IN THE SPLIT
 int			parser_line(char *line)
 {
 	int i;
