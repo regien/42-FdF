@@ -213,7 +213,8 @@ void	init_align(t_total *envi)
 	int		y;
 	
 	mat_identity(global);
-	tr_scale(global, 1, 1, 5);
+	tr_scale(global, 1, 1, 6);
+	tr_scale(global, envi->scalex, envi->scaley, envi->scalez);
 	tr_rotate(global, envi);
 	//					scale	width		scale height
 //	tr_scale(global, (WINW * 1) / 5, (WINH * 1) / 1, 1);

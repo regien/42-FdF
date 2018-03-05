@@ -215,6 +215,25 @@ void		parser(char *arg, t_total *envi)
 		storage(arg, envi);
 }
 
+int			key_extras(int keycode, t_total *envi)
+{
+	// zoom in
+	if (keycode == 5)
+	{
+		envi->scalex = envi->scalex + 1;
+		envi->scaley = envi->scaley + 1;
+		envi->scalez = envi->scalez + 1;
+	}
+	if (keycode == 4)
+	{
+		envi->scalex = envi->scalex - 1;
+		envi->scaley = envi->scaley - 1;
+		envi->scalez = envi->scalez - 1;
+	}
+	draw_everything(envi);
+	return (0);
+}
+
 int			key_pressed(int keycode, t_total *envi)
 {
 	if (keycode == KEY_ESC)
@@ -328,12 +347,31 @@ int			expose_hook(t_total *envi)
 	return (0);
 }
 
-int			mouse_hook(int keycode, t_total *envi)
+int			mouse_hook(int keycode, int x, int y, t_total *envi)
 {
+//	(void)x;
+//	(void)y;
+
+	printf("x event : %d\n", x);
+	printf("x event : %d\n", x);
 	printf("key event %d\n", keycode);
 //	if (keycode == 1)
 //		;
 //		envi->phi -= 00.01;
+
+	if (keycode == 5)
+	{
+		envi->scalex = envi->scalex + 1;
+		envi->scaley = envi->scaley + 1;
+		envi->scalez = envi->scalez + 1;
+	}
+	if (keycode == 4)
+	{
+		envi->scalex = envi->scalex - 1;
+		envi->scaley = envi->scaley - 1;
+		envi->scalez = envi->scalez - 1;
+	}
+	draw_everything(envi);
 	return (0);
 }
 
@@ -364,13 +402,37 @@ void		loophole(t_total *envi)
 {
 	envi->pressed = ft_memalloc(sizeof(t_keys));
 	mlx_expose_hook(envi->win, expose_hook, envi);
+//	mlx_mouse_hook(envi->win, key_extras,envi);
 	mlx_hook(envi->win, 2, 0, key_pressed, envi);
 	mlx_hook(envi->win, 3, 0, key_release, envi);
 	mlx_hook(envi->win, 17, 0, destroy_exit, envi);
 	mlx_hook(envi->win, 4, 5, mouse_hook, envi);
 	mlx_loop_hook(envi->mlx, my_key_function, envi);
+//	mlx_loop_hook(envi->mlx, mouse_hook, envi);
 	mlx_loop(envi->mlx);
 }
+
+void		init_fdf(t_total *envi)
+{
+
+	envi->tray = 0;
+	envi->trax = 0;
+	envi->traz = 0;
+	envi->theta = 0;
+	envi->phi = 0;
+	envi->psi = 0;
+
+	envi->scalex = 1;
+	envi->scaley = 1;
+	envi->scalez = 1;
+	envi->z_min = 2147483647;
+	envi->z_max = -2147483648;
+	envi->z_min = getz_min_max(envi->coord, envi, 'u');
+	envi->z_max = getz_min_max(envi->coord, envi, 'a');
+	init_colors(envi);
+	set_xy(envi->coord, envi);
+}
+
 
 int				main(int argc, char **argv)
 {
@@ -389,32 +451,16 @@ int				main(int argc, char **argv)
 //	printf("testing = = = |%d|", envi->pressed->d);
 	envi->mlx = mlx_init();
 	envi->win = mlx_new_window(envi->mlx, WINW, WINH, "testing my shit");
-//	envi->pushx = 250;
-//	envi->pushy = 700;
-	envi->tray = 0;
-	envi->trax = 0;
-	envi->traz = 0;
-//	envi->img = mlx_new_image(envi->mlx, WINW, WINH);
-//	envi->pix = (int*)mlx_get_data_addr(envi->img, &(envi->bits), \
-	&(envi->s_line), &(envi->endian));
-	envi->theta = 0;
-	envi->phi = 0;
-	envi->psi = 0;
+	
+
 //	envi->focal = -1;
 //	envi->theta = 0.20;
 //	m3d_init(envi);
 //	mat_identity(envi->matrix1);
-	set_xy(envi->coord, envi);
-	envi->z_min = 2147483647;
-	envi->z_max = -2147483648;
-	envi->z_min = getz_min_max(envi->coord, envi, 'u');
-	envi->z_max = getz_min_max(envi->coord, envi, 'a');
-	init_colors(envi);
-	
-	int y = -1;
-	int x = -1;
-	printf("pendejada = |%f|\n", envi->theta);
+	init_fdf(envi);
 //	rotate_xy(envi->coord, envi);
+
+// TESTING ONLY
 	while (++x < envi->row)
 	{
 		y = 0;
@@ -431,8 +477,5 @@ int				main(int argc, char **argv)
 	envi->dest = init_coord(envi);
 	envi->projected = init_coord(envi);
 
-//	draw_row(envi->coord, envi);
-//	draw_colum(envi->coord, envi);
-//	redraw(envi);
 	loophole(envi);
 }
