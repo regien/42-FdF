@@ -6,12 +6,11 @@
 /*   By: gmalpart <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/04 23:40:06 by gmalpart          #+#    #+#             */
-/*   Updated: 2018/03/05 00:15:35 by gmalpart         ###   ########.fr       */
+/*   Updated: 2018/03/05 06:33:30 by gmalpart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
-
 
 int			parser_argv(char *str)
 {
@@ -44,10 +43,10 @@ int			count_splt(char **str)
 	return (i);
 }
 
-int		splitter(char *str, t_total *envi)
+int			splitter(char *str, t_total *envi)
 {
 	static char	**temp;
-	int					i;
+	int			i;
 
 	i = -1;
 	temp = ft_strsplit(str, ' ');
@@ -84,11 +83,9 @@ int			parser_line(char *line)
 
 int			parser_file(char *str, t_total *envi)
 {
-	int		fd;
+	int			fd;
 	static char	*line;
-	//	t_total		*envi;
 
-	//	envi = *envire;
 	envi->row = 0;
 	envi->colum = 0;
 	if ((fd = open(str, O_RDONLY)) < 0)

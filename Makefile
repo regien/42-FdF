@@ -6,7 +6,7 @@
 #    By: regien <gmalpart@student.42.us.org>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/12/25 00:45:02 by regien            #+#    #+#              #
-#    Updated: 2018/03/05 05:59:19 by gmalpart         ###   ########.fr        #
+#    Updated: 2018/03/05 06:38:16 by gmalpart         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -103,7 +103,7 @@ clean:
 
 fclean:
 	@$(LIBF)
-	@/bin/rm -f $(OBJECTS) $(NAME)
+	@/bin/rm -f $(OBJECTS) $(NAMEFINAL)
 
 re: fclean all
 
