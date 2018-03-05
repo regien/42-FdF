@@ -6,7 +6,7 @@
 /*   By: regien <gmalpart@student.42.us.org>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/03 18:05:33 by regien            #+#    #+#             */
-/*   Updated: 2018/03/04 23:39:21 by gmalpart         ###   ########.fr       */
+/*   Updated: 2018/03/05 01:30:42 by gmalpart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,19 +16,19 @@
 ** Print General usage.
 */
 
-void		fillit_print_usage(char *arg)
+void	fillit_print_usage(char *arg)
 {
-		ft_putstr("usage ");
-		ft_putstr(arg);
-		ft_putstr(" valid_file.fdf\n");
-		exit(-1);
+	ft_putstr("usage ");
+	ft_putstr(arg);
+	ft_putstr(" valid_file.fdf\n");
+	exit(-1);
 }
 
 /*
 ** General Exit.
 */
 
-void		general_exit(int error_code, char *mensaje)
+void	general_exit(int error_code, char *mensaje)
 {
 	if (error_code < 0)
 		ft_putstr(mensaje);
@@ -36,6 +36,7 @@ void		general_exit(int error_code, char *mensaje)
 }
 
 // IMPLIMENTING FREE EVE HERE
+
 int		destroy_exit(int error_code, char *mensaje, void *mlx, void *win)
 {
 	mlx_destroy_window(mlx, win);

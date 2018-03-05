@@ -6,7 +6,7 @@
 /*   By: gmalpart <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/06 18:15:18 by gmalpart          #+#    #+#             */
-/*   Updated: 2018/03/04 23:29:48 by gmalpart         ###   ########.fr       */
+/*   Updated: 2018/03/05 00:32:24 by gmalpart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,17 +45,13 @@ void		align(t_coord **coord, t_total *envi)
 {
 	t_coord	*hold;
 	int		x;
-	int 	y;
-	float	minx;
-	float	miny;
-	float	maxx;
-	float	maxy;
+	int		y;
+	float	calc[4];
 
-
-	minx = getting_min(coord, envi, 'x');
-	miny = getting_min(coord, envi, 'y');
-	maxx = getting_max(coord, envi, 'x');
-	maxy = getting_max(coord, envi, 'y');
+	calc[0] = getting_min(coord, envi, 'x');
+	calc[1] = getting_min(coord, envi, 'y');
+	calc[2] = getting_max(coord, envi, 'x');
+	calc[3] = getting_max(coord, envi, 'y');
 	y = -1;
 	while (++y < envi->row)
 	{
@@ -69,12 +65,13 @@ void		align(t_coord **coord, t_total *envi)
 		}
 	}
 }
+
 void		man_translation(t_coord **coord, t_total *envi)
 {
 	t_coord *hold;
-	int y;
-	int x;
-	
+	int		y;
+	int		x;
+
 	y = -1;
 	while (++y < envi->row)
 	{

@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: gmalpart <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/03/04 21:53:58 by gmalpart          #+#    #+#             */
-/*   Updated: 2018/03/04 21:58:29 by gmalpart         ###   ########.fr       */
+/*   Created: 2018/03/05 00:40:29 by gmalpart          #+#    #+#             */
+/*   Updated: 2018/03/05 00:41:03 by gmalpart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@ int			mouse_hook(int keycode, int x, int y, t_total *envi)
 {
 	(void)x;
 	(void)y;
-
 	if (keycode == 5)
 	{
 		envi->scalex = envi->scalex * 1.1;
@@ -68,7 +67,7 @@ int			my_key_function(t_total *envi)
 int			key_pressed(int keycode, t_total *envi)
 {
 	if (keycode == KEY_ESC)
-		destroy_exit(ESCAPE, "gracias por usar esta pendejada\n", envi->mlx, envi->win);
+		destroy_exit(ESCAPE, "ty :D\n", envi->mlx, envi->win);
 	if (keycode == KEY_W)
 		envi->pressed->w = 1;
 	else if (keycode == KEY_S)

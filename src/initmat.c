@@ -6,7 +6,7 @@
 /*   By: gmalpart <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/04 23:35:50 by gmalpart          #+#    #+#             */
-/*   Updated: 2018/03/04 23:36:41 by gmalpart         ###   ########.fr       */
+/*   Updated: 2018/03/05 00:13:49 by gmalpart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,27 +14,27 @@
 
 void	mat_identity(float mat[4][4])
 {
-	mat[0][0]=1;
-	mat[0][1]=0;
-	mat[0][2]=0;
-	mat[0][3]=0;
-    mat[1][0]=0;
-	mat[1][1]=1;
-	mat[1][2]=0;
-	mat[1][3]=0;
-	mat[2][0]=0;
-	mat[2][1]=0;
-	mat[2][2]=1;
-	mat[2][3]=0;
-	mat[3][0]=0;
-	mat[3][1]=0;
-	mat[3][2]=0;
-	mat[3][3]=1;
+	mat[0][0] = 1;
+	mat[0][1] = 0;
+	mat[0][2] = 0;
+	mat[0][3] = 0;
+	mat[1][0] = 0;
+	mat[1][1] = 1;
+	mat[1][2] = 0;
+	mat[1][3] = 0;
+	mat[2][0] = 0;
+	mat[2][1] = 0;
+	mat[2][2] = 1;
+	mat[2][3] = 0;
+	mat[3][0] = 0;
+	mat[3][1] = 0;
+	mat[3][2] = 0;
+	mat[3][3] = 1;
 }
 
 void	tr_translate(float matrix[4][4], float tx, float ty, float tz)
 {
-	float tmat[4][4];
+	float	tmat[4][4];
 	float	mat1[4][4];
 
 	tmat[0][0] = 1;

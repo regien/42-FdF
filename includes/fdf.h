@@ -62,10 +62,6 @@
 # define WINH 800
 # define MIN(X, Y)	((X) < (Y) ? (X) : (Y))
 # define MAX(X, Y)	((X) < (Y) ? (Y) : (X))
-//# define SIN(x) envi->sintable[abs((int)x&255)]
-//# define COS(x) envi->costable[abs((int)x&255)]
-//# define FOCAL 80
-//# include "minilibx_macos_elcapitan/mlx_int.h"
 
 typedef struct		s_keys
 {
@@ -113,7 +109,6 @@ typedef struct		s_total
 	t_coord		**coord;
 //	posiblemente no sea necesario un dest
 	t_coord		**dest;
-	t_coord		**projected;
 	// matrix count
 	int			row;
 	int			colum;
@@ -153,11 +148,6 @@ typedef struct		s_total
 */
 
 
-void		parser(char *arg, t_total *envi);
-void		storage(char *arg, t_total *envi);
-void		set_coordz(t_coord *envi, int i, char *value);
-t_coord		**init_coord(t_total *envi);
-void		loophole(t_total *envi);
 //int			mouse_hook(int keycode, t_total *envi);
 int			mouse_hook(int keycode, int x, int y, t_total *envi);
 t_coord		**init_coord(t_total *envi);
@@ -204,6 +194,16 @@ int			parser_line(char *line);
 int			parser_file(char *str, t_total *envi);
 
 /*
+** EXTRAPARSER
+*/
+
+t_coord		**init_coord(t_total *envi);
+void		loophole(t_total *envi);
+void		storage(char *arg, t_total *envi);
+void		set_coordz(t_coord *envi, int i, char *value);
+void		parser(char *arg, t_total *envi);
+
+/*
 **	matrices.c
 */
 
@@ -221,7 +221,7 @@ void	mat_copy(float source[4][4], float dest[4][4]);
 
 void	init_align(t_total *envi);
 void    set_promatri(float matrix[4][4], float angle, float near, float far);
-void    init_projection(t_total *envi);
+//void    init_projection(t_total *envi);
 
 /*
 ** INITMAT

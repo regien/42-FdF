@@ -6,15 +6,16 @@
 /*   By: gmalpart <gmalpart@student.42.us.org>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/09 22:49:11 by gmalpart          #+#    #+#             */
-/*   Updated: 2018/02/07 05:32:03 by gmalpart         ###   ########.fr       */
+/*   Updated: 2018/03/05 01:41:01 by gmalpart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 #include <stdio.h>
 
-
-// VERSION 2.40
+/*
+** VERSION 2.40
+*/
 
 void	init_colors(t_total *envi)
 {
@@ -40,41 +41,31 @@ void	init_colors(t_total *envi)
 	}
 }
 
-
 void	draw_point(int x, int y, int z, t_total *env)
-//void	draw_point(t_coord *coord, t_total *env)
 {
-	int i;
-	unsigned int color;
-	float which;
+	int				i;
+	unsigned int	color;
+	float			which;
 
 	if (x > WINW || y > WINH || x < 0 \
-	|| y < 0)
+			|| y < 0)
 		return ;
 	i = (x) + (y * env->s_line / 4);
 	if (i > WINH * WINW)
 		return ;
-//	which = ((z - env->z_min) / (env->z_max - env->z_min)) * 100;
-//	printf("which = %f\n", which);
 	which = 1;
 	color = env->colors[abs((int)which - 1)];
-//	color = env->colors[20];
-//	env->pix[x + (y * env->s_line / 4)] = color;
 	env->pix[i] = color;
 	env->pix[++i] = color >> 8;
 	env->pix[++i] = color >> 16;
-//	env->pix[i + 2] = color;
 }
-
-// COMPLEJIDAD 3x3 MATRIX para -- hay otra mas pendeja de 4
-// INCOMPLETO
 
 int		**set_matrix(int scale)
 {
 	int		**set;
 	int		i;
 	int		e;
-	
+
 	i = -1;
 	set = ft_memalloc(sizeof(int*) * 3);
 	while (++i < 4)
@@ -89,7 +80,7 @@ int		**set_matrix(int scale)
 	set[0][0] = scale;
 	set[1][1] = scale;
 	set[2][2] = scale;
-	return (set);	
+	return (set);
 }
 
 void	setbresen(t_coord *co0, t_coord *co1, t_bresen *set)
@@ -118,32 +109,32 @@ void	setbresen(t_coord *co0, t_coord *co1, t_bresen *set)
 	}
 }
 
+#define EVST envi->setting
+
 void	draw_line_ult(t_coord *co0, t_coord *co1, t_total *envi)
 {
-	t_bresen		*set;
 	int				x0;
 	int				y0;
 
 	x0 = co0->x;
 	y0 = co0->y;
-	set = envi->setting;
-	setbresen(co0, co1, set);
-	set->i = -1;
-	set->numerator = set->longest >> 1;
-	while (++(set->i) <= set->longest)
+	setbresen(co0, co1, envi->setting);
+	envi->setting->i = -1;
+	envi->setting->numerator = envi->setting->longest >> 1;
+	while (++(envi->setting->i) <= envi->setting->longest)
 	{
 		draw_point(x0, y0, co0->z, envi);
-		set->numerator = set->numerator + set->shortest;
-		if (!(set->numerator < set->longest))
+		EVST->numerator = EVST->numerator + EVST->shortest;
+		if (!(envi->setting->numerator < envi->setting->longest))
 		{
-			set->numerator = set->numerator - set->longest;
-			x0 = x0 + set->dx1;
-			y0 = y0 + set->dy1;
+			EVST->numerator = EVST->numerator - EVST->longest;
+			x0 = x0 + envi->setting->dx1;
+			y0 = y0 + envi->setting->dy1;
 		}
 		else
 		{
-			x0 = x0 + set->dx2;
-			y0 = y0 + set->dy2;
+			x0 = x0 + envi->setting->dx2;
+			y0 = y0 + envi->setting->dy2;
 		}
 	}
 }
