@@ -6,7 +6,7 @@
 /*   By: regien <gmalpart@student.42.us.org>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/31 19:13:40 by regien            #+#    #+#             */
-/*   Updated: 2018/02/07 05:33:00 by gmalpart         ###   ########.fr       */
+/*   Updated: 2018/03/04 23:40:54 by gmalpart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,132 +24,6 @@
 // for now only works with parsing the name, now we are opening the file
 // and build a valid matrix and start creating the structure
 // FIRST PART PARSER
-int			parser_argv(char *str)
-{
-	int		i;
-	int		dots;
-
-	dots = 0;
-	i = -1;
-	while (str[++i])
-	{
-		if (ft_strlen(str) == 4)
-			return (0);
-		if (str[i] == '.')
-			dots++;
-		if (str[i] == ' ' || str[i] == '\n' || str[i] == '\t' || dots >= 2)
-			return (0);
-	}
-	if ((ft_strequ((ft_strstr(str, ".fdf")), ".fdf")) == 0)
-		return (0);
-	return (1);
-}
-
-int			count_splt(char **str)
-{
-		int	i;
-
-		i = 0;
-		while (str[i] != NULL)
-			i++;
-		return (i);
-}
-
-// NO ENDING | suppose to have a list as an argument to storage the linked list
-int		splitter(char *str, t_total *envi)
-{
-	static char	**temp;
-	int					i;
-
-	i = -1;
-	printf("matrix = %i\n", count_splt(ft_strsplit(str, ' ')));
-	temp = ft_strsplit(str, ' ');
-	// tamaño calculado
-	if (envi->colum != 0)
-	{
-		if (envi->colum != count_splt(temp))
-			general_exit(-1, "invalid map\n");
-	}
-	else
-		envi->colum = count_splt(temp);
-	i = -1;
-	while (++i < envi->colum)
-		free(temp[i]);
-	// calcular de que tamano es el doble pointer
-//	while (++i < envi->row)
-//		add_list(list, temp[i]);
-	return (1);
-}
-
-// take care of is_valid_hex || NOT HERE, IN THE SPLIT
-int			parser_line(char *line)
-{
-	int i;
-
-	i = -1;
-	while (line[++i])
-	{
-		if (i == 0 && line[i] == ' ')
-			return (0);
-		if (line[i] == '\t')
-			return (0);
-// no todo los mapas deben ser tan exactos
-//		if (line[i] == ' ')
-//			if (line[i + 1] == ' ' || line[i + 1] == '\0')
-//				return (0);
-		if ((line[i] >= 'g' && line[i] <= 'z') || \
-		(line[i] >= 'G' && line[i] <= 'Z'))
-			return (0);
-	}
-	return (1);
-}
-
-// this is for parsing colors
-/*
-int			parser_island(char *island)
-{
-	int		i;
-
-	i = -1;
-	while(island[++i])
-	{
-		if (island[i] == ',')
-			if (island[i + 1] == '0')
-				if (island[i + 2] == 'x')
-					
-	}
-}
-*/
-
-int			parser_file(char *str, t_total *envi)
-{
-	int		fd;
-	static char	*line;
-//	t_total		*envi;
-	
-//	envi = *envire;
-	envi->row = 0;
-	envi->colum = 0;
-	if ((fd = open(str, O_RDONLY)) < 0)
-			general_exit(-1, "invalid file\n");
-	// change to if so only reads once / testing only
-	printf("PENDEJADA\n");
-	while ((get_next_line(fd, &line) > 0))
-	{
-		(envi->row)++;
-		printf("matrix->row = %d\n", envi->row);
-		if (parser_line(line) == 0 || splitter(line, envi) == 0)
-		{
-		//	printf("falla, falla en el parser dentro\n");
-			return (0);
-			// returning just for testing only
-			// funcion para agregar a lista y setear matrix number
-		}
-		free(line);
-	}
-	close(fd);
-	return (1);
-}
 
 t_coord		**init_coord(t_total *envi)
 {
@@ -215,167 +89,6 @@ void		parser(char *arg, t_total *envi)
 		storage(arg, envi);
 }
 
-int			key_extras(int keycode, t_total *envi)
-{
-	// zoom in
-	if (keycode == 5)
-	{
-		envi->scalex = envi->scalex + 1;
-		envi->scaley = envi->scaley + 1;
-		envi->scalez = envi->scalez + 1;
-	}
-	if (keycode == 4)
-	{
-		envi->scalex = envi->scalex - 1;
-		envi->scaley = envi->scaley - 1;
-		envi->scalez = envi->scalez - 1;
-	}
-	draw_everything(envi);
-	return (0);
-}
-
-int			key_pressed(int keycode, t_total *envi)
-{
-	if (keycode == KEY_ESC)
-		destroy_exit(ESCAPE, "gracias por usar esta pendejada\n", envi->mlx, envi->win);
-	if (keycode == KEY_W)
-		envi->pressed->w = 1;
-	else if (keycode == KEY_S)
-		envi->pressed->s = 1;
-	else if (keycode == KEY_S)
-		envi->pressed->s = 1;
-	else if (keycode == KEY_A)
-		envi->pressed->a = 1;
-	else if (keycode == KEY_D)
-		envi->pressed->d = 1;
-	else if (keycode == KEY_E)
-		envi->pressed->e = 1;
-	else if (keycode == KEY_Q)
-		envi->pressed->q = 1;
-	else if (keycode == KEY_RIGHT)
-		envi->pressed->right = 1;
-	else if (keycode == KEY_LEFT)
-		envi->pressed->left = 1;
-	else if (keycode == KEY_UP)
-		envi->pressed->up = 1;
-	else if (keycode == KEY_DOWN)
-		envi->pressed->down = 1;
-	return (0);
-}
-
-int			key_release(int keycode, t_total *envi)
-{
-//	if (keycode == KEY_ESC)
-//		destroy_exit(ESCAPE, "gracias por usar esta pendejada\n", envi->mlx, envi->win);
-	if (keycode == KEY_W)
-		envi->pressed->w = 0;
-	else if (keycode == KEY_S)
-		envi->pressed->s = 0;
-	else if (keycode == KEY_A)
-		envi->pressed->a = 0;
-	else if (keycode == KEY_D)
-		envi->pressed->d = 0;
-	else if (keycode == KEY_E)
-		envi->pressed->e = 0;
-	else if (keycode == KEY_Q)
-		envi->pressed->q = 0;
-	else if (keycode == KEY_RIGHT)
-		envi->pressed->right = 0;
-	else if (keycode == KEY_LEFT)
-		envi->pressed->left = 0;
-	else if (keycode == KEY_UP)
-		envi->pressed->up = 0;
-	else if (keycode == KEY_DOWN)
-		envi->pressed->down = 0;
-	return (0);
-}
-
-int			my_key_function(t_total *envi)
-{
-//	printf("key event %d\n", keycode);
-//	if (keycode == KEY_ESC)
-//		destroy_exit(ESCAPE, "gracias por usar esta pendejada\n", envi->mlx, envi->win);
-
-//	if (keycode == KEY_C)
-//		mlx_clear_window(envi->mlx, envi->win);
-
-//	if (keycode == KEY_D)
-	if (envi->pressed->d)
-		envi->theta += 00.05;
-	if (envi->pressed->a)
-		envi->theta -= 00.05;
-	if (envi->pressed->w)
-		envi->phi += 00.05;
-	if (envi->pressed->s)
-		envi->phi -= 00.05;
-	if (envi->pressed->e)
-		envi->psi += 00.05;
-	if (envi->pressed->q)
-		envi->psi -= 00.05;
-// flechas
-	if (envi->pressed->right)
-		envi->trax += 1;
-	if (envi->pressed->left)
-		envi->trax -= 1;
-	if (envi->pressed->down)
-		envi->tray += 1;
-	if (envi->pressed->up)
-		envi->tray -= 1;
-		/*
-	if (keycode == 104)
-	{
-		int y = -1;
-		while (++y < envi->row)
-		{
-			int x = -1;
-			while (++x < envi->colum)
-			{
-				printf("pendejada = |%f|\n", envi->projected[y][x].x);
-				printf("pendejada = |%f|\n", envi->projected[y][x].y);
-				printf("pendejada = |%f|\n\n", envi->projected[y][x].z);
-			}
-		}
-	}
-	*/
-	draw_everything(envi);
-	return (0);
-}
-
-int			expose_hook(t_total *envi)
-{
-	draw_everything(envi);
-	return (0);
-}
-
-int			mouse_hook(int keycode, int x, int y, t_total *envi)
-{
-//	(void)x;
-//	(void)y;
-
-	printf("x event : %d\n", x);
-	printf("x event : %d\n", x);
-	printf("key event %d\n", keycode);
-//	if (keycode == 1)
-//		;
-//		envi->phi -= 00.01;
-
-	if (keycode == 5)
-	{
-		envi->scalex = envi->scalex + 1;
-		envi->scaley = envi->scaley + 1;
-		envi->scalez = envi->scalez + 1;
-	}
-	if (keycode == 4)
-	{
-		envi->scalex = envi->scalex - 1;
-		envi->scaley = envi->scaley - 1;
-		envi->scalez = envi->scalez - 1;
-	}
-	draw_everything(envi);
-	return (0);
-}
-
-
 void		draw_everything(t_total *envi)
 {
 	if (envi->img)
@@ -383,20 +96,15 @@ void		draw_everything(t_total *envi)
 	envi->img = mlx_new_image(envi->mlx, WINW, WINH);
 	envi->pix = (int*)mlx_get_data_addr(envi->img, &(envi->bits), \
 	&(envi->s_line), &(envi->endian));
-//	set_xy(envi->coord, envi);
 	init_align(envi);
 	envi->z_min = getz_min_max(envi->dest, envi, 'u');
 	envi->z_max = getz_min_max(envi->dest, envi, 'a');
-// REAL CENTER
-		align(envi->dest, envi);
-// manual translation
+	align(envi->dest, envi);
 	man_translation(envi->dest, envi);
-
 	draw_row(envi->dest, envi);
 	draw_colum(envi->dest, envi);
 	mlx_put_image_to_window(envi->mlx, envi->win, envi->img, 0, 0);
 }
-
 
 void		loophole(t_total *envi)
 {
@@ -404,6 +112,7 @@ void		loophole(t_total *envi)
 	mlx_expose_hook(envi->win, expose_hook, envi);
 //	mlx_mouse_hook(envi->win, key_extras,envi);
 	mlx_hook(envi->win, 2, 0, key_pressed, envi);
+//	mlx_hook(envi->win, 6, 0, key_extras, envi);
 	mlx_hook(envi->win, 3, 0, key_release, envi);
 	mlx_hook(envi->win, 17, 0, destroy_exit, envi);
 	mlx_hook(envi->win, 4, 5, mouse_hook, envi);
@@ -414,14 +123,12 @@ void		loophole(t_total *envi)
 
 void		init_fdf(t_total *envi)
 {
-
 	envi->tray = 0;
 	envi->trax = 0;
 	envi->traz = 0;
 	envi->theta = 0;
 	envi->phi = 0;
 	envi->psi = 0;
-
 	envi->scalex = 1;
 	envi->scaley = 1;
 	envi->scalez = 1;
@@ -436,10 +143,6 @@ void		init_fdf(t_total *envi)
 
 int				main(int argc, char **argv)
 {
-	void		*mlx;
-	void		*win;
-	void		*img;
-
 	t_total		*envi;
 
 	envi = ft_memalloc(sizeof(t_total));
@@ -450,15 +153,13 @@ int				main(int argc, char **argv)
 	envi->setting = ft_memalloc(sizeof(t_bresen));
 //	printf("testing = = = |%d|", envi->pressed->d);
 	envi->mlx = mlx_init();
-	envi->win = mlx_new_window(envi->mlx, WINW, WINH, "testing my shit");
+	envi->win = mlx_new_window(envi->mlx, WINW, WINH, "42 - FDF _ MEXVersion");
 	
-
-//	envi->focal = -1;
-//	envi->theta = 0.20;
-//	m3d_init(envi);
-//	mat_identity(envi->matrix1);
 	init_fdf(envi);
-//	rotate_xy(envi->coord, envi);
+
+	int y = -1;
+	int x = -1;
+	printf("pendejada = |%f|\n", envi->theta);
 
 // TESTING ONLY
 	while (++x < envi->row)

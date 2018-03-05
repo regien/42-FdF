@@ -6,7 +6,7 @@
 #    By: regien <gmalpart@student.42.us.org>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/12/25 00:45:02 by regien            #+#    #+#              #
-#    Updated: 2018/02/08 11:46:55 by regien           ###   ########.fr        #
+#    Updated: 2018/03/04 23:37:56 by gmalpart         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,7 +31,13 @@ CFILES =	errors_h.c \
 			drawing.c \
 			main.c \
 			parser.c \
-			matrices.c
+			matrices.c \
+			hooks.c \
+			extrahooks.c  \
+			mathmat.c \
+			projections.c \
+			render.c \
+			initmat.c
 
 LILIB =		$(LIB)libft.a \
 			$(MLX)libmlx_Linux.a
