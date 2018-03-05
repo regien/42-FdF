@@ -6,7 +6,7 @@
 /*   By: gmalpart <gmalpart@student.42.us.org>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/09 22:49:11 by gmalpart          #+#    #+#             */
-/*   Updated: 2018/03/05 01:41:01 by gmalpart         ###   ########.fr       */
+/*   Updated: 2018/03/05 06:04:01 by gmalpart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,6 @@ void	init_colors(t_total *envi)
 		b[2] = (float)(b[0] * i) / 100 + (float)(b[1] * (100 - i)) / 100;
 		envi->colors[i] = (int)r[2] << 16 | (int)g[2] << 8 | (int)b[2];
 	}
-	printf("print color = |%d|\n", envi->colors[50]);
-	printf("print color = |%d|\n", envi->colors[70]);
 }
 
 void	draw_point(int x, int y, int z, t_total *env)
@@ -49,6 +47,7 @@ void	draw_point(int x, int y, int z, t_total *env)
 	unsigned int	color;
 	float			which;
 
+	(void)z;
 	if (x > WINW || y > WINH || x < 0 \
 			|| y < 0)
 		return ;
@@ -64,9 +63,9 @@ void	draw_point(int x, int y, int z, t_total *env)
 
 int		**set_matrix(int scale)
 {
-	int		**set;
-	int		i;
-	int		e;
+	static int		**set;
+	int				i;
+	int				e;
 
 	i = -1;
 	set = ft_memalloc(sizeof(int*) * 3);

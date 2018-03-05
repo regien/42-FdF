@@ -6,7 +6,7 @@
 /*   By: gmalpart <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/05 00:06:57 by gmalpart          #+#    #+#             */
-/*   Updated: 2018/03/05 00:09:10 by gmalpart         ###   ########.fr       */
+/*   Updated: 2018/03/05 06:21:03 by gmalpart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,11 @@
 
 t_coord		**init_coord(t_total *envi)
 {
-	t_coord **holder;
-	int x;
-	int y;
+	t_coord	**holder;
+	int		x;
+	int		y;
 
+	(void)y;
 	x = -1;
 	holder = ft_memalloc(sizeof(t_coord*) * envi->row);
 	while (++x < envi->row)
@@ -29,6 +30,7 @@ void		set_coordz(t_coord *envi, int i, char *value)
 {
 	static char **temp;
 
+	(void)i;
 	temp = NULL;
 	envi->x = 0;
 	envi->y = 0;
@@ -44,17 +46,16 @@ void		set_coordz(t_coord *envi, int i, char *value)
 
 void		storage(char *arg, t_total *envi)
 {
-	int		fd;
+	int			fd;
 	static char	*line;
-	static char **temp;
-	int		y;
-	int		x;
+	static char	**temp;
+	int			y;
+	int			x;
 
 	if ((fd = open(arg, O_RDONLY)) < 0)
-			general_exit(-1, "invalid file\n");
-	printf("just checking, row = |%d| column = |%d|\n", envi->row, envi->colum);
+		general_exit(-1, "invalid file\n");
 	envi->coord = init_coord(envi);
-	x =-1;
+	x = -1;
 	while (get_next_line(fd, &line) > 0 && ++x < envi->row)
 	{
 		y = 0;
@@ -69,14 +70,11 @@ void		storage(char *arg, t_total *envi)
 		while (++y < envi->colum)
 			free(temp[y]);
 	}
-	ft_putstr("done\n");
 	close(fd);
 }
 
 void		parser(char *arg, t_total *envi)
 {
-	t_coord *temp;
-
 	if (parser_argv(arg) == 0 || parser_file(arg, envi) == 0)
 		general_exit(-1, "invalid file\n");
 	else

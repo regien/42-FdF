@@ -37,11 +37,16 @@ void	general_exit(int error_code, char *mensaje)
 
 // IMPLIMENTING FREE EVE HERE
 
-int		destroy_exit(int error_code, char *mensaje, void *mlx, void *win)
+int		destroy_exit(int error_code, char *mensaje, t_total *envi)
 {
-	mlx_destroy_window(mlx, win);
+	mlx_destroy_window(envi->mlx, envi->win);
 	if (error_code < 0)
 		ft_putstr(mensaje);
+	free_everything(envi);
+	while (1)
+	{
+		;
+	}
 	exit(error_code);
 	return (0);
 }

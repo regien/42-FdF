@@ -50,7 +50,6 @@ int		splitter(char *str, t_total *envi)
 	int					i;
 
 	i = -1;
-//	printf("matrix = %i\n", count_splt(ft_strsplit(str, ' ')));
 	temp = ft_strsplit(str, ' ');
 	if (envi->colum != 0)
 	{
@@ -94,18 +93,12 @@ int			parser_file(char *str, t_total *envi)
 	envi->colum = 0;
 	if ((fd = open(str, O_RDONLY)) < 0)
 		general_exit(-1, "invalid file\n");
-	// change to if so only reads once / testing only
-	printf("PENDEJADA\n");
 	while ((get_next_line(fd, &line) > 0))
 	{
 		(envi->row)++;
-		printf("matrix->row = %d\n", envi->row);
 		if (parser_line(line) == 0 || splitter(line, envi) == 0)
 		{
-			//	printf("falla, falla en el parser dentro\n");
 			return (0);
-			// returning just for testing only
-			// funcion para agregar a lista y setear matrix number
 		}
 		free(line);
 	}

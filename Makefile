@@ -6,7 +6,7 @@
 #    By: regien <gmalpart@student.42.us.org>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/12/25 00:45:02 by regien            #+#    #+#              #
-#    Updated: 2018/03/05 01:57:46 by gmalpart         ###   ########.fr        #
+#    Updated: 2018/03/05 05:59:19 by gmalpart         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@ NAMEFINAL = fdf
 LIB = libft/
 MLX = minilibx/
 OSXMLX = minilibx_macos_sierra/
-CFlAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror
 CC = gcc
 
 # linux flags - position of the includes mayvary
@@ -76,7 +76,7 @@ all: $(NAME)
 $(NAME):
 	@$(LIBM)
 	@$(OSXMLXM)
-	@$(CC) $(HEADERS) $(CSTFILES) $(OSXLIB) $(MFLAGS) -o $(NAMEFINAL)
+	@$(CC) $(CFLAGS) $(HEADERS) $(CSTFILES) $(OSXLIB) $(MFLAGS) -o $(NAMEFINAL)
 
 # not compiling with flags yet becuase of linux errors
 # linux erros != mac errors
@@ -92,7 +92,7 @@ compli:
 
 # fast compile for macosx version / MACOSX
 comp:
-	$(CC) -g $(HEADERS) $(CSTFILES) $(OSXLIB) -Iminilibx_macos_sierra $(MFLAGS) -o $(NAME)
+	$(CC) -g $(CFLAGS) $(HEADERS) $(CSTFILES) $(OSXLIB) -Iminilibx_macos_sierra $(MFLAGS) -o $(NAME)
 
 norm:
 	norminette $(CSTFILES) Makefile includes/fdf.h

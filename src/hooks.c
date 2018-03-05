@@ -6,7 +6,7 @@
 /*   By: gmalpart <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/05 00:40:29 by gmalpart          #+#    #+#             */
-/*   Updated: 2018/03/05 00:41:03 by gmalpart         ###   ########.fr       */
+/*   Updated: 2018/03/05 06:17:57 by gmalpart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ int			my_key_function(t_total *envi)
 int			key_pressed(int keycode, t_total *envi)
 {
 	if (keycode == KEY_ESC)
-		destroy_exit(ESCAPE, "ty :D\n", envi->mlx, envi->win);
+		destroy_exit(ESCAPE, "ty :D\n", envi);
 	if (keycode == KEY_W)
 		envi->pressed->w = 1;
 	else if (keycode == KEY_S)

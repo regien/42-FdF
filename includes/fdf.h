@@ -6,31 +6,15 @@
 /*   By: regien <gmalpart@student.42.us.org>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/31 19:13:42 by regien            #+#    #+#             */
-/*   Updated: 2018/03/04 23:58:58 by gmalpart         ###   ########.fr       */
+/*   Updated: 2018/03/05 06:21:35 by gmalpart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FDF_H
 # define FDF_H
-// OS 1 = linux / 0 = Mac
 # define OS 0
 # define ESCAPE -1
 # define KEY_C 8
-/*
-# define KEY_ESC (OS == 1 ? 65307 : 53)
-# define KEY_W (OS == 1 ? 119 : 2)
-# define KEY_S (OS == 1 ? 115 : 0)
-# define KEY_A (OS == 1 ? 97 : 1)
-# define KEY_D (OS == 1? 100 : 13)
-# define KEY_E (OS == 1 ? 101 : 14)
-# define KEY_Q (OS == 1? 113 : 12)
-# define KEY_UP (OS == 1? 65362 : 126)
-# define KEY_DOWN (OS == 1? 65364 : 125)
-# define KEY_LEFT (OS == 1? 65361 : 123)
-# define KEY_RIGHT (OS == 1? 65363 : 124)
-# define KEY_T (OS == 1 ? 116 : 5)
-# define KEY_G (OS == 1 ? 103 : 17)
-*/
 # define KEY_ESC 53
 # define KEY_W 2
 # define KEY_S 0
@@ -46,15 +30,7 @@
 # define KEY_G 17
 # define COLOR1 0xa7f442
 # define COLOR2 0xc542f4
-
-//# define COLOR1 0x123456
-//# define COLOR2 0xc45f4a
-//# define COLOR1 0x000000
-//# define COLOR2 0xFFFFff
-
 # include "libft.h"
-//# include "minilibx/mlx.h"
-//# include "minilibx/mlx_int.h"
 # include "mlx.h"
 # include <math.h>
 # include <stdio.h>
@@ -175,7 +151,8 @@ void	draw_line_ult(t_coord *co0, t_coord *co1, t_total *envi);
 
 void		fillit_print_usage(char *arg);
 void		general_exit(int error_code, char *mensaje);
-int			destroy_exit(int error_code, char *mensaje, void *mlx, void *win);
+//int			destroy_exit(int error_code, char *mensaje, void *mlx, void *win);
+int		destroy_exit(int error_code, char *mensaje, t_total *envi);
 
 /*
 **	PARSER
@@ -260,6 +237,7 @@ int			mouse_hook(int keycode, int x, int y, t_total *envi);
 
 //int			key_extras(int keycode, t_total *envi);
 void		shuffle_colors(t_total *envi);
+void		free_everything(t_total *envi);
 
 /*
 ** RENDER
