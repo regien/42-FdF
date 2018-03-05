@@ -6,7 +6,7 @@
 /*   By: regien <gmalpart@student.42.us.org>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/31 19:13:42 by regien            #+#    #+#             */
-/*   Updated: 2018/01/12 12:16:21 by gmalpart         ###   ########.fr       */
+/*   Updated: 2018/03/04 23:58:58 by gmalpart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,10 +51,10 @@
 //# define COLOR1 0xff0000
 //# define COLOR2 0x00FFff
 
-# include "libft/includes/libft.h"
+# include "libft.h"
 //# include "minilibx/mlx.h"
 //# include "minilibx/mlx_int.h"
-# include "minilibx_macos_sierra/mlx.h"
+# include "mlx.h"
 # include <math.h>
 # include <stdio.h>
 
@@ -148,37 +148,8 @@ typedef struct		s_total
 	float		scalez;
 }					t_total;
 
-
-
 /*
-**	FUNCTIONS EXCLUSIVE
-** This is basically me playing around with the minilibx library and see
-** what can i do.
-*/
-
-// EXCLUSIVE VERSION 2.0
-
-/*
-void		xy_rotation(t_coord *set, t_total *envi);
-void		xz_rotation(t_coord *set, t_total *envi);
-void		yz_rotation(t_coord *set, t_total *envi);
-*/
-
-//void			redraw(t_total *envi);
-//void	m3d_init(t_total *envi);
-
-// scale - 1
-//void	tr_rotate(float matrix[4][4], int ax, int ay, int az, t_total *envi);
-
-
-/*
-**	REFACTOR
-*/
-
-
-
-/*
-**	main.c
+**	MAIN
 */
 
 
@@ -212,8 +183,7 @@ void	draw_line_ult(t_coord *co0, t_coord *co1, t_total *envi);
 
 void		fillit_print_usage(char *arg);
 void		general_exit(int error_code, char *mensaje);
-//void		destroy_exit(int error_code, char *mensaje, void *mlx, void *win);
-int		destroy_exit(int error_code, char *mensaje, void *mlx, void *win);
+int			destroy_exit(int error_code, char *mensaje, void *mlx, void *win);
 
 /*
 **	PARSER

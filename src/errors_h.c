@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include "fdf.h"
-#include "minilibx_macos_elcapitan/mlx.h"
 
 /*
 ** Print General usage.

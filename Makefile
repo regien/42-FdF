@@ -6,7 +6,7 @@
 #    By: regien <gmalpart@student.42.us.org>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/12/25 00:45:02 by regien            #+#    #+#              #
-#    Updated: 2018/03/04 23:37:56 by gmalpart         ###   ########.fr        #
+#    Updated: 2018/03/04 23:59:27 by gmalpart         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -37,7 +37,12 @@ CFILES =	errors_h.c \
 			mathmat.c \
 			projections.c \
 			render.c \
-			initmat.c
+			initmat.c \
+			moparser.c
+
+HEADERS = -I includes -I libft/includes -I minilibx_macos_elcapitan
+
+CSTFILES = $(addprefix src/, $(CFILES))
 
 LILIB =		$(LIB)libft.a \
 			$(MLX)libmlx_Linux.a
@@ -85,7 +90,7 @@ compli:
 
 # fast compile for macosx version / MACOSX
 comp:
-	$(CC) -g $(CFILES) $(OSXLIB) -Iminilibx_macos_sierra $(MFLAGS) -o $(NAME)
+	$(CC) -g $(HEADERS) $(CSTFILES) $(OSXLIB) -Iminilibx_macos_sierra $(MFLAGS) -o $(NAME)
 
 clean:
 	@$(LIBC)
