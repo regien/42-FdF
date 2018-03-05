@@ -6,7 +6,7 @@
 /*   By: regien <gmalpart@student.42.us.org>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/31 19:13:42 by regien            #+#    #+#             */
-/*   Updated: 2018/03/05 06:21:35 by gmalpart         ###   ########.fr       */
+/*   Updated: 2018/03/05 06:23:33 by gmalpart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,25 +56,24 @@ typedef struct		s_keys
 
 typedef struct		s_bresen
 {
-	int w;
-	int	h;
-	int	dx1;
-	int dy1;
-	int dx2;
-	int dy2;
-	int longest;
-	int shortest;
-	int	numerator;
-	int	i;
+	int				w;
+	int				h;
+	int				dx1;
+	int				dy1;
+	int				dx2;
+	int				dy2;
+	int				longest;
+	int				shortest;
+	int				numerator;
+	int				i;
 }				t_bresen;
 
 typedef struct		s_coord
 {
-	float				x;
-	float				y;
-	float				z;
+	float			x;
+	float			y;
+	float			z;
 	int				color;
-//	struct s_coord			*next;
 }					t_coord;
 
 
@@ -151,7 +150,6 @@ void	draw_line_ult(t_coord *co0, t_coord *co1, t_total *envi);
 
 void		fillit_print_usage(char *arg);
 void		general_exit(int error_code, char *mensaje);
-//int			destroy_exit(int error_code, char *mensaje, void *mlx, void *win);
 int		destroy_exit(int error_code, char *mensaje, t_total *envi);
 
 /*
