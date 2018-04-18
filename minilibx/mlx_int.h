@@ -23,7 +23,7 @@
 ** <bsd/string.h> ubuntu only
 */
 
-#include	<bsd/string.h>
+//#include	<bsd/string.h>
 #include        <unistd.h>
 #include        <fcntl.h>
 #include        <sys/mman.h>
