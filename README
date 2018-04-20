@@ -9,3 +9,4 @@ flags to compile with linux:
 	gcc main.c minilibx/libmlx_Linux.a -L/usr/include/../lib -lXext -lX11 -lm -o fdf_test
 
 Valgrind fix in progress 06/03
+Valgrind is fucked in high sierra
